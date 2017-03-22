@@ -1,0 +1,80 @@
+https//treehouse-techdegree-projects.s3.amazonaws.com/iOS/Project4-AmusementParkPart1/AmusementParkMockups.zip
+
+
+
+class Shape {}
+class Circle : Shape {}
+class Rectangle : Shape {}
+
+func area (shape: Shape) -> Double {
+  if shape is Circle { ... }
+  else if shape is Rectangle { ... }
+}
+
+
+
+
+protocol Entrant { // or should it be a class, so “areaAccess[Amusements] = true” and “ridesAccess = true” can be set? 
+	areaAccess[Areas]
+	rideAccess:Bool
+	discount[DiscountTypes:Int]
+}
+
+enum EmployeeAreas {
+	case Kitchen
+	case RideControl
+	case Maintenance
+	case Office
+}
+
+enum DiscountTypes {
+	case food
+	case merchandise
+}
+
+Protocol Guest: Entrant { // or should this be a subclass of Entrant class?
+
+}
+
+
+class ClassicGuest Guest { 
+
+}
+
+
+class VIPguest Guest {
+	
+	skipLines:Bool = true
+	super.init()
+}
+
+Protocol Employee Entrant
+
+protocol HourlyEmployee Employee  // is this useful?  Or just leave this out?
+
+class FoodServices HourlyEmployee
+
+class RideServices HourlyEmployee
+
+class Maintenance HourlyEmployee
+
+class Manager Employee
+
+
+enums…
+
+enum EmployeeTypes?  AreaAccess?  RideAccess?  Discount?
+
+w/ associated values - can we have a dictionary associated value? NO 
+then we can’t handle multi-value access/discount using associated values.
+
+
+
+func CanAccess(person: Entrant, thing: ParkThings) {
+
+if thing is kitchen:
+
+	if person is VIP
+
+	 	return true
+

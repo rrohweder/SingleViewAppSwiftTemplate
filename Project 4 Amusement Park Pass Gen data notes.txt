@@ -1,0 +1,11 @@
+
+each thing decides who it lets in
+
+switch (MajorPersonType) {
+	case Guest:
+		switch (GuestType) {
+			case VIP: return true
+			case Regular: return false
+			default: // tend to use default rather than every  (describe why in a comment)
+
+
