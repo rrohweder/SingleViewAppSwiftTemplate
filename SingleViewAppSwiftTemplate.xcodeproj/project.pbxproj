@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		100AC36A1E7E116300FDD1E6 /* Gates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100AC3691E7E116300FDD1E6 /* Gates.swift */; };
+		100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100AC3691E7E116300FDD1E6 /* Gate.swift */; };
+		105E7BAB1E87ED59004A90A8 /* Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105E7BAA1E87ED59004A90A8 /* Pass.swift */; };
 		109D937F1E7B75DB0053DAED /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D937E1E7B75DA0053DAED /* Guest.swift */; };
-		109D93811E7B75EE0053DAED /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Worker.swift */; };
+		109D93811E7B75EE0053DAED /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Employee.swift */; };
 		10DB302C1E8331D300B7F779 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 10DB302B1E8331D300B7F779 /* README.rtf */; };
 		3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */; };
 		3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */; };
@@ -21,6 +22,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		101D23C81E8C76DE00B42605 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3A8AADBD1DF9B85E00A2B931 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3A8AADC41DF9B85E00A2B931;
+			remoteInfo = SingleViewAppSwiftTemplate;
+		};
 		3A8AADDA1DF9B85E00A2B931 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3A8AADBD1DF9B85E00A2B931 /* Project object */;
@@ -38,9 +46,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		100AC3691E7E116300FDD1E6 /* Gates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gates.swift; sourceTree = "<group>"; };
+		100AC3691E7E116300FDD1E6 /* Gate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
+		101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		105E7BAA1E87ED59004A90A8 /* Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pass.swift; path = ../Pass.swift; sourceTree = "<group>"; };
 		109D937E1E7B75DA0053DAED /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
-		109D93801E7B75EE0053DAED /* Worker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
+		109D93801E7B75EE0053DAED /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		10DB302B1E8331D300B7F779 /* README.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		3A8AADC51DF9B85E00A2B931 /* SingleViewAppSwiftTemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingleViewAppSwiftTemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,7 +60,7 @@
 		3A8AADD21DF9B85E00A2B931 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3A8AADD41DF9B85E00A2B931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A8AADD91DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3A8AADDD1DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewAppSwiftTemplateTests.swift; sourceTree = "<group>"; };
+		3A8AADDD1DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SingleViewAppSwiftTemplateTests.swift; path = SingleViewAppSwiftTemplateTests/SingleViewAppSwiftTemplateTests.swift; sourceTree = SOURCE_ROOT; };
 		3A8AADDF1DF9B85E00A2B931 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3A8AADE41DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3A8AADE81DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewAppSwiftTemplateUITests.swift; sourceTree = "<group>"; };
@@ -58,6 +68,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		101D23C01E8C76DE00B42605 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A8AADC21DF9B85E00A2B931 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -99,6 +116,7 @@
 				3A8AADC51DF9B85E00A2B931 /* SingleViewAppSwiftTemplate.app */,
 				3A8AADD91DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests.xctest */,
 				3A8AADE41DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests.xctest */,
+				101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -106,15 +124,16 @@
 		3A8AADC71DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */,
 				3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */,
+				109D937E1E7B75DA0053DAED /* Guest.swift */,
+				109D93801E7B75EE0053DAED /* Employee.swift */,
+				100AC3691E7E116300FDD1E6 /* Gate.swift */,
+				105E7BAA1E87ED59004A90A8 /* Pass.swift */,
+				3A8AADD11DF9B85E00A2B931 /* LaunchScreen.storyboard */,
 				3A8AADCC1DF9B85E00A2B931 /* Main.storyboard */,
 				3A8AADCF1DF9B85E00A2B931 /* Assets.xcassets */,
-				3A8AADD11DF9B85E00A2B931 /* LaunchScreen.storyboard */,
 				3A8AADD41DF9B85E00A2B931 /* Info.plist */,
-				109D937E1E7B75DA0053DAED /* Guest.swift */,
-				109D93801E7B75EE0053DAED /* Worker.swift */,
-				100AC3691E7E116300FDD1E6 /* Gates.swift */,
+				3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */,
 			);
 			path = SingleViewAppSwiftTemplate;
 			sourceTree = "<group>";
@@ -140,6 +159,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		101D23C21E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 101D23CA1E8C76DE00B42605 /* Build configuration list for PBXNativeTarget "SingleViewAppSwiftTemplateUnitTests" */;
+			buildPhases = (
+				101D23BF1E8C76DE00B42605 /* Sources */,
+				101D23C01E8C76DE00B42605 /* Frameworks */,
+				101D23C11E8C76DE00B42605 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				101D23C91E8C76DE00B42605 /* PBXTargetDependency */,
+			);
+			name = SingleViewAppSwiftTemplateUnitTests;
+			productName = SingleViewAppSwiftTemplateUnitTests;
+			productReference = 101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		3A8AADC41DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3A8AADED1DF9B85E00A2B931 /* Build configuration list for PBXNativeTarget "SingleViewAppSwiftTemplate" */;
@@ -199,10 +236,16 @@
 		3A8AADBD1DF9B85E00A2B931 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0810;
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Treehouse;
 				TargetAttributes = {
+					101D23C21E8C76DE00B42605 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = Q6J8M4U5GF;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3A8AADC41DF9B85E00A2B931;
+					};
 					3A8AADC41DF9B85E00A2B931 = {
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = Q6J8M4U5GF;
@@ -236,11 +279,19 @@
 				3A8AADC41DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */,
 				3A8AADD81DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests */,
 				3A8AADE31DF9B85E00A2B931 /* SingleViewAppSwiftTemplateUITests */,
+				101D23C21E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		101D23C11E8C76DE00B42605 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A8AADC31DF9B85E00A2B931 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -269,15 +320,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		101D23BF1E8C76DE00B42605 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3A8AADC11DF9B85E00A2B931 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */,
-				109D93811E7B75EE0053DAED /* Worker.swift in Sources */,
+				109D93811E7B75EE0053DAED /* Employee.swift in Sources */,
 				109D937F1E7B75DB0053DAED /* Guest.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
-				100AC36A1E7E116300FDD1E6 /* Gates.swift in Sources */,
+				105E7BAB1E87ED59004A90A8 /* Pass.swift in Sources */,
+				100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +359,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		101D23C91E8C76DE00B42605 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3A8AADC41DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */;
+			targetProxy = 101D23C81E8C76DE00B42605 /* PBXContainerItemProxy */;
+		};
 		3A8AADDB1DF9B85E00A2B931 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3A8AADC41DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */;
@@ -332,6 +396,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		101D23CB1E8C76DE00B42605 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q6J8M4U5GF;
+				INFOPLIST_FILE = SingleViewAppSwiftTemplateUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.RogerRohweder.SingleViewAppSwiftTemplateUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SingleViewAppSwiftTemplate.app/SingleViewAppSwiftTemplate";
+			};
+			name = Debug;
+		};
+		101D23CC1E8C76DE00B42605 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q6J8M4U5GF;
+				INFOPLIST_FILE = SingleViewAppSwiftTemplateUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.RogerRohweder.SingleViewAppSwiftTemplateUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SingleViewAppSwiftTemplate.app/SingleViewAppSwiftTemplate";
+			};
+			name = Release;
+		};
 		3A8AADEB1DF9B85E00A2B931 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -429,6 +523,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q6J8M4U5GF;
 				INFOPLIST_FILE = SingleViewAppSwiftTemplate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teamtreehouse.SingleViewAppSwiftTemplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -442,6 +537,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = Q6J8M4U5GF;
 				INFOPLIST_FILE = SingleViewAppSwiftTemplate/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.teamtreehouse.SingleViewAppSwiftTemplate;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -506,6 +602,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		101D23CA1E8C76DE00B42605 /* Build configuration list for PBXNativeTarget "SingleViewAppSwiftTemplateUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				101D23CB1E8C76DE00B42605 /* Debug */,
+				101D23CC1E8C76DE00B42605 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		3A8AADC01DF9B85E00A2B931 /* Build configuration list for PBXProject "SingleViewAppSwiftTemplate" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

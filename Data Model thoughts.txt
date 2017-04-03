@@ -11,9 +11,6 @@ func area (shape: Shape) -> Double {
   else if shape is Rectangle { ... }
 }
 
-
-
-
 protocol Entrant { // or should it be a class, so “areaAccess[Amusements] = true” and “ridesAccess = true” can be set? 
 	areaAccess[Areas]
 	rideAccess:Bool

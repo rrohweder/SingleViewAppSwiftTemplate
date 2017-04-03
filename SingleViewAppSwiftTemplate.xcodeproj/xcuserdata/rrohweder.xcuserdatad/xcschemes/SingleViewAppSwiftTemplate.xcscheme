@@ -48,6 +48,16 @@
                ReferencedContainer = "container:SingleViewAppSwiftTemplate.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "101D23C21E8C76DE00B42605"
+               BuildableName = "SingleViewAppSwiftTemplateUnitTests.xctest"
+               BlueprintName = "SingleViewAppSwiftTemplateUnitTests"
+               ReferencedContainer = "container:SingleViewAppSwiftTemplate.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
