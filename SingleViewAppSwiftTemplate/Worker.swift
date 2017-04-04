@@ -1,5 +1,5 @@
 //
-//  Employee.swift
+//  Worker.swift
 //  SingleViewAppSwiftTemplate
 //
 //  Created by Roger Rohweder on 3/16/17.
@@ -8,22 +8,22 @@
 
 import Foundation
 
-enum EmployeeType {
+enum WorkerType {
     case HourlyFoodServices
     case HourlyRideServices
     case HourlyMaintenance
     case Manager
 }
 
-enum EmployeeErrorType: Error {
-    case unknownEmployeeType
+enum WorkerErrorType: Error {
+    case unknownWorkerType
     case missingRequiredData
     case invalidSSN
     
 }
 
-class Employee: Entrant {
-    let employeeType: EmployeeType
+class Worker: Entrant {
+    let workerType: WorkerType
     let firstName: String
     let lastName: String
     let streetAddress: String
@@ -33,9 +33,9 @@ class Employee: Entrant {
     let socialSecurityNumber: String
     let dateofBirth: Date
 
-    init(employeeType: EmployeeType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateofBirth: Date)
+    init(workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateofBirth: Date)
     {
-        self.employeeType = employeeType
+        self.workerType = workerType
         self.firstName = firstName
         self.lastName = lastName
         self.streetAddress = streetAddress
@@ -64,17 +64,17 @@ class Employee: Entrant {
 }
 
 
-class Hourly: Employee {
-    // properties are the same as Manager, handled in Employee
+class Hourly: Worker {
+    // properties are the same as Manager, handled in Worker
 }
 
-class Manager: Employee {
-    // properties are the same as Hourly, handled in Employee
+class Manager: Worker {
+    // properties are the same as Hourly, handled in Worker
 }
 
 /* for Part II:
 class Contract {
-    // properties are the same as Hourly and Manager, handled in Employee
+    // properties are the same as Hourly and Manager, handled in Worker
 }
 */
 

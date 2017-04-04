@@ -51,32 +51,42 @@ class Gate {
     ]
     
     let guestRolesDiscount:[ProductType:[GuestType:Int]] = [
-    .Food:[.VIP:10],
-    .Merchandise:[.VIP:20]
+    .Food:
+        [.Classic:0,.VIP:10],
+    .Merchandise:
+        [.Classic:0,.VIP:20]
     ]
     
     let guestRolesSkipPrivilege:[GateType:[GuestType]] = [
         .Amusement:[.VIP]
     ]
     
-    let workerRolesAccess:[GateType: [EmployeeType]] = [
-        .Amusement:[.HourlyFoodServices, .HourlyRideServices, .HourlyMaintenance, .Manager
-        ]
+    let workerRolesAccess:[GateType: [WorkerType]] = [
+        .Amusement:[.HourlyFoodServices, .HourlyRideServices, .HourlyMaintenance, .Manager],
+        .Kitchen:[.HourlyFoodServices, .HourlyMaintenance, .Manager],
+        .RideControl:[.HourlyRideServices,.HourlyMaintenance,.Manager],
+        .Maintenance:[.HourlyMaintenance, .Manager],
+        .Office:[.Manager]
     ]
     
     // sticking with "it's the location that knows the benefit", Food (vendor) and
     // Merchandice (vendor) are first decision, then the role.
     
-    let workerRolesDiscount:[ProductType:[EmployeeType:Int]] = [
-        .Food:[.HourlyFoodServices:15,
+    let workerRolesDiscount:[ProductType:[WorkerType:Int]] = [
+        .Food:[
+            .HourlyFoodServices:15,
             .HourlyRideServices:15,
             .HourlyMaintenance:15,
-            .Manager:15],
-        .Merchandise:[.HourlyFoodServices:25, .HourlyRideServices:25, .HourlyMaintenance:25, .Manager:25]
+            .Manager:25],
+        .Merchandise:[
+            .HourlyFoodServices:25,
+            .HourlyRideServices:25,
+            .HourlyMaintenance:25,
+            .Manager:25]
     ]
     
     // not needed with intial input data
-    let workerRolesSkipPrivilege:[GateType:[EmployeeType]] = [
+    let workerRolesSkipPrivilege:[GateType:[WorkerType]] = [
         .Amusement:[]
     ]
     
@@ -84,58 +94,125 @@ class Gate {
         self.gateType = gateType
     }
     
-   // should the function be "func swipe(requestor: Entrant, gate: GateType, &accessAnswer:Bool, &discountAmount: int, &skipLine: Bool) -> Bool
-    // and then call generatePass()
+    // should the function be "func swipe(requestor: Entrant, gate: GateType,
+    // &accessAnswer:Bool, &discountAmount: int, &skipLine: Bool) -> Bool
+    // and then call generatePass() ?
     
-    func AccessPermitted(requestor: Entrant, gate: GateType) -> Bool {
+    func AccessPermitted(requestor: Entrant, gateType: GateType) -> Bool {
+        var permitted = false
         
-        if (requestor is Guest) {
-            let guestRequestor = requestor as! Guest
+        switch (gateType) {
+            case .Amusement:
+                if (requestor is Guest) {
+                    let guestRequestor = requestor as! Guest
+                    permitted = (guestRolesAccess[.Amusement]?.contains(guestRequestor.guestType))!
+                    print("\(guestRequestor.guestType), access = \(permitted)")
+                } else if requestor is Worker {
+                    let workerRequestor = requestor as! Worker
+                    permitted = (workerRolesAccess[.Amusement]?.contains(workerRequestor.workerType))!
+                    print("\(workerRequestor.workerType), access = \(permitted)")
+                }
+                return permitted
+
+            case .Kitchen:
+                if (requestor is Guest) {
+                    let guestRequestor = requestor as! Guest
+                    permitted = (guestRolesAccess[.Kitchen]?.contains(guestRequestor.guestType))!
+                    print("\(guestRequestor.guestType), access = \(permitted)")
+                } else if requestor is Worker {
+                    let workerRequestor = requestor as! Worker
+                    permitted = (workerRolesAccess[.Kitchen]?.contains(workerRequestor.workerType))!
+                    print("\(workerRequestor.workerType), access = \(permitted)")
+                }
+                return permitted
             
-            switch guestRequestor.guestType {
-                case GuestType.Classic: print("Classic")
-                case GuestType.VIP: print("VIP")
-                case GuestType.FreeChild: print("Free Child")
-            }
-            
-        } else if requestor is Employee {
-            let employeeRequestor = requestor as! Employee
-            switch employeeRequestor.employeeType {
-                case EmployeeType.HourlyFoodServices:
-                    print("Hourly, Food Services")
-                case EmployeeType.HourlyRideServices: print("Hourly, Ride Services")
-                case EmployeeType.HourlyMaintenance: print("Hourly, Maintenance")
-                case EmployeeType.Manager: print("Manager")
-            }
+            case .Maintenance:
+                if (requestor is Guest) {
+                    let guestRequestor = requestor as! Guest
+                    permitted = (guestRolesAccess[.Maintenance]?.contains(guestRequestor.guestType))!
+                    print("\(guestRequestor.guestType), access = \(permitted)")
+                } else if requestor is Worker {
+                    let workerRequestor = requestor as! Worker
+                    permitted = (workerRolesAccess[.Maintenance]?.contains(workerRequestor.workerType))!
+                    print("\(workerRequestor.workerType), access = \(permitted)")
+                }
+                return permitted
+            case .Office: print("\(gateType), access=\(permitted)")
+                if (requestor is Guest) {
+                    let guestRequestor = requestor as! Guest
+                    permitted = (guestRolesAccess[.Office]?.contains(guestRequestor.guestType))!
+                    print("\(guestRequestor.guestType), access = \(permitted)")
+                } else if requestor is Worker {
+                    let workerRequestor = requestor as! Worker
+                    permitted = (workerRolesAccess[.Office]?.contains(workerRequestor.workerType))!
+                    print("\(workerRequestor.workerType), access = \(permitted)")
+                }
+                return permitted
+            case .RideControl: print("\(gateType), access=\(permitted)")
+                if (requestor is Guest) {
+                    let guestRequestor = requestor as! Guest
+                    permitted = (guestRolesAccess[.RideControl]?.contains(guestRequestor.guestType))!
+                    print("\(guestRequestor.guestType), access = \(permitted)")
+                } else if requestor is Worker {
+                    let workerRequestor = requestor as! Worker
+                    permitted = (workerRolesAccess[.RideControl]?.contains(workerRequestor.workerType))!
+                    print("\(workerRequestor.workerType), access = \(permitted)")
+                }
+                return permitted
         }
-        return true
     }
     
-    func discountAvailable(requestor: Entrant, product: ProductType) -> Double {
+    func discountAvailable(requestor: Entrant, product: ProductType) -> Int {
 
         switch (product) {
             case .Food:
                 if (requestor is Guest) {
                     let guestRequestor = requestor as! Guest
-                    let discount = guestRolesDiscount[requestor.guestType]
                     switch guestRequestor.guestType {
-                        case GuestType.Classic: print("Classic, discount=\(discount)")
-                        case GuestType.VIP: print("VIP")
-                        case GuestType.FreeChild: print("Free Child")
+                        case GuestType.Classic:
+                            if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
+                                print("\(guestRequestor.guestType) discount= \(discount)")
+                                return discount
+                            }
+                        case GuestType.VIP:
+                            if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
+                                print("\(guestRequestor.guestType) discount= \(discount)")
+                                return discount
+                            }
+                        case GuestType.FreeChild:
+                            if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
+                                print("\(guestRequestor.guestType) discount= \(discount)")
+                                return discount
+                            }
                     }
-                
-                    } else if requestor is Employee {
-                    let employeeRequestor = requestor as! Employee
-                    switch employeeRequestor.employeeType {
-                        case EmployeeType.HourlyFoodServices: print("Hourly, Food Services")
-                        case EmployeeType.HourlyRideServices: print("Hourly, Ride Services")
-                        case EmployeeType.HourlyMaintenance: print("Hourly, Maintenance")
-                        case EmployeeType.Manager: print("Manager")
-                    }
-        }
-        }
+                } else if requestor is Worker {
+                    let workerRequestor = requestor as! Worker
 
-        return 0.0
+                    if let discount = workerRolesDiscount[.Food]?[workerRequestor.workerType] {
+                        print("\(workerRequestor.workerType) discount= \(discount)")
+                        return discount
+                    }
+                }
+            
+        case .Merchandise:
+            if (requestor is Guest) {
+                let guestRequestor = requestor as! Guest
+                
+                if let discount = guestRolesDiscount[.Merchandise]?[guestRequestor.guestType] {
+                    print("\(guestRequestor.guestType) discount= \(discount)")
+                    return discount
+                }
+                
+            } else if requestor is Worker {
+                let workerRequestor = requestor as! Worker
+
+                if let discount = workerRolesDiscount[.Merchandise]?[workerRequestor.workerType] {
+                    print("\(workerRequestor.workerType) discount= \(discount)")
+                    return discount
+                }
+            }
+        }
+        return 0
     }
 
 
