@@ -8,9 +8,6 @@
 
 import Foundation
 
-// look at 
-// https://medium.com/swift-programming/how-to-do-proper-lazy-loading-in-swift-b8bc57dbc7b9#.3pqq7p354
-
 enum GuestType {
     case Classic
     case VIP
@@ -23,20 +20,21 @@ enum GuestErrorType: Error {
 }
 
 class Guest: Entrant {
-    // don't need this now - can tell by class
-    let guestType:GuestType
+    let guestID: Int
+    var guestType: GuestType
     
-    init(guestType: GuestType) {
+    init(guestID: Int, guestType: GuestType) {
+        self.guestID = guestID
         self.guestType = guestType
     }
 }
 
 class ClassicGuest: Guest {
-    
+    // needed?
 }
 
 class VIPGuest: Guest {
-    
+    // Needed?
 }
 
 

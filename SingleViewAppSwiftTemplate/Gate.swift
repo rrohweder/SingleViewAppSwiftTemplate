@@ -44,7 +44,7 @@ enum GateError: Error {
 
 class Gate {
     
-    let gateType: GateType
+    var gateType: GateType
     
     let guestRolesAccess:[GateType: [GuestType]] = [
     .Amusement:[.Classic,.VIP,.FreeChild],
@@ -52,9 +52,9 @@ class Gate {
     
     let guestRolesDiscount:[ProductType:[GuestType:Int]] = [
     .Food:
-        [.Classic:0,.VIP:10],
+        [.VIP:10],
     .Merchandise:
-        [.Classic:0,.VIP:20]
+        [.VIP:20]
     ]
     
     let guestRolesSkipPrivilege:[GateType:[GuestType]] = [
@@ -100,66 +100,83 @@ class Gate {
     
     func AccessPermitted(requestor: Entrant, gateType: GateType) -> Bool {
         var permitted = false
-        
         switch (gateType) {
             case .Amusement:
                 if (requestor is Guest) {
                     let guestRequestor = requestor as! Guest
-                    permitted = (guestRolesAccess[.Amusement]?.contains(guestRequestor.guestType))!
-                    print("\(guestRequestor.guestType), access = \(permitted)")
+                    if let isPermitted = (guestRolesAccess[.Amusement]?.contains(guestRequestor.guestType)) {
+                        print("\(guestRequestor.guestType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 } else if requestor is Worker {
                     let workerRequestor = requestor as! Worker
-                    permitted = (workerRolesAccess[.Amusement]?.contains(workerRequestor.workerType))!
-                    print("\(workerRequestor.workerType), access = \(permitted)")
+                    if let isPermitted = (workerRolesAccess[.Amusement]?.contains(workerRequestor.workerType)) {
+                        print("\(workerRequestor.workerType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 }
-                return permitted
 
             case .Kitchen:
                 if (requestor is Guest) {
                     let guestRequestor = requestor as! Guest
-                    permitted = (guestRolesAccess[.Kitchen]?.contains(guestRequestor.guestType))!
-                    print("\(guestRequestor.guestType), access = \(permitted)")
+                    if let isPermitted = (guestRolesAccess[.Kitchen]?.contains(guestRequestor.guestType)) {
+                        print("\(guestRequestor.guestType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 } else if requestor is Worker {
                     let workerRequestor = requestor as! Worker
-                    permitted = (workerRolesAccess[.Kitchen]?.contains(workerRequestor.workerType))!
-                    print("\(workerRequestor.workerType), access = \(permitted)")
+                    if let isPermitted = (workerRolesAccess[.Kitchen]?.contains(workerRequestor.workerType)) {
+                        print("\(workerRequestor.workerType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 }
-                return permitted
             
             case .Maintenance:
                 if (requestor is Guest) {
                     let guestRequestor = requestor as! Guest
-                    permitted = (guestRolesAccess[.Maintenance]?.contains(guestRequestor.guestType))!
-                    print("\(guestRequestor.guestType), access = \(permitted)")
+                    if let isPermitted = (guestRolesAccess[.Maintenance]?.contains(guestRequestor.guestType)) {
+                        print("\(guestRequestor.guestType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 } else if requestor is Worker {
                     let workerRequestor = requestor as! Worker
-                    permitted = (workerRolesAccess[.Maintenance]?.contains(workerRequestor.workerType))!
-                    print("\(workerRequestor.workerType), access = \(permitted)")
+                    if let isPermitted = (workerRolesAccess[.Maintenance]?.contains(workerRequestor.workerType)) {
+                        print("\(workerRequestor.workerType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 }
-                return permitted
-            case .Office: print("\(gateType), access=\(permitted)")
+            
+            case .Office:
                 if (requestor is Guest) {
                     let guestRequestor = requestor as! Guest
-                    permitted = (guestRolesAccess[.Office]?.contains(guestRequestor.guestType))!
-                    print("\(guestRequestor.guestType), access = \(permitted)")
+                    if let isPermitted = (guestRolesAccess[.Office]?.contains(guestRequestor.guestType)) {
+                        print("\(guestRequestor.guestType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 } else if requestor is Worker {
                     let workerRequestor = requestor as! Worker
-                    permitted = (workerRolesAccess[.Office]?.contains(workerRequestor.workerType))!
-                    print("\(workerRequestor.workerType), access = \(permitted)")
+                    if let isPermitted = (workerRolesAccess[.Office]?.contains(workerRequestor.workerType)) {
+                        print("\(workerRequestor.workerType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 }
-                return permitted
+            
             case .RideControl: print("\(gateType), access=\(permitted)")
                 if (requestor is Guest) {
                     let guestRequestor = requestor as! Guest
-                    permitted = (guestRolesAccess[.RideControl]?.contains(guestRequestor.guestType))!
-                    print("\(guestRequestor.guestType), access = \(permitted)")
+                    if let isPermitted = (guestRolesAccess[.RideControl]?.contains(guestRequestor.guestType)) {
+                        print("\(guestRequestor.guestType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 } else if requestor is Worker {
                     let workerRequestor = requestor as! Worker
-                    permitted = (workerRolesAccess[.RideControl]?.contains(workerRequestor.workerType))!
-                    print("\(workerRequestor.workerType), access = \(permitted)")
+                    if let isPermitted = (workerRolesAccess[.RideControl]?.contains(workerRequestor.workerType)) {
+                        print("\(workerRequestor.workerType), access = \(permitted)")
+                        permitted = isPermitted
+                    }
                 }
-                return permitted
         }
+        return permitted
     }
     
     func discountAvailable(requestor: Entrant, product: ProductType) -> Int {
@@ -215,8 +232,16 @@ class Gate {
         return 0
     }
 
-
-
+    func guestCanSkipLine(requestor: Entrant, gateType: GateType) -> Bool {
+        var permitted = false
+        if (requestor is Guest) {
+            let guestRequestor = requestor as! Guest
+            permitted = (guestRolesSkipPrivilege[gateType]!.contains(guestRequestor.guestType))
+            print("\(guestRequestor.guestType), skip permitted? = \(permitted)")
+        }
+        return permitted
+    }
+    
     // I must admit - why not just do this?
     //  entrantsAllowed = accessDictionary[gate]
     //    accessAnswer = entrantsAllowed.contains(requestor_type)
