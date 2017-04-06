@@ -23,7 +23,7 @@ enum WorkerErrorType: Error {
 }
 
 class Worker: Entrant {
-    let workerID: Int
+    let entrantID: Int
     var workerType: WorkerType
     var firstName: String
     var lastName: String
@@ -34,10 +34,10 @@ class Worker: Entrant {
     let socialSecurityNumber: String
     let dateofBirth: Date
 
-    init(workerID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateofBirth: Date)
+    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateofBirth: Date)
     {
         // FIXME: test for required values, return nil if not complete. Alert?
-        self.workerID = workerID
+        self.entrantID = entrantID
         self.workerType = workerType
         self.firstName = firstName
         self.lastName = lastName
@@ -49,63 +49,25 @@ class Worker: Entrant {
         self.dateofBirth = dateofBirth
     }
     
-    func validSSN() -> Bool {
-        if socialSecurityNumber.characters.count == 9 {
-            return true
-        } else {
-            return false
-        }
-    }
-
-    func validZipCode() -> Bool {
-        if (zipCode.characters.count == 5 || zipCode.characters.count == 9) {
-            return true
-        } else {
-            return false
-        }
-    }
 }
 
+// Arguments used to create an object (such a Worker) should be checked before calling the object init
+// These functions can be used by the caller to do that:
 
 class Hourly: Worker {
-    // properties are the same as Manager, handled in Worker
+    // properties needed for this exercise are handled in the Worker superclass.
+    // one could picture how the swipe into an area might be used to 
+    // record hours worked in an area, for instance, in which case
+    // there could be other properties specific to this WorkerType.
 }
 
 class Manager: Worker {
-    // properties are the same as Hourly, handled in Worker
+    // properties needed for this exercise are handled in the Worker superclass
+    // one could picture how the swipe into an area might be used to record
+    // hours in an area (to support a Manager Area Coverage Report), for instance, 
+    // in which case there could be other properties specific to this WorkerType.
 }
 
-/* for Part II:
-class Contract {
-    // properties are the same as Hourly and Manager, handled in Worker
-}
-*/
-
-
-/*
-    canIgetin(joe.workerType, kitchen)
-    
- could have the class contain
- 
- var guestType
- 
- or could do this.
- 
- class Shape {
-    class func className() -> String {
-        return "Shape"
-    }
- }
- 
- class Square: Shape {
-    override class func className() -> String {
-        return "Square"
-    }
- }
-
-*/
- 
- 
  
  
     

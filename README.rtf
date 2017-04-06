@@ -10,12 +10,11 @@ Notes from 4/4/2017\
 \
 It seems like this exercise is to show that we can properly create and use class, inheritance, protocol, composition, enum and struct - but it really feels like a stretch to create a class for Classic Guest entrants. In a role based model, the classic guess object won't hold the 'where can I get in? do I get a discount? can I skip the line?' answers.  And since there is no 'name, address, etc. data for them, what is the need for  class ClassicGuest?\
 \
-Is-A and creating classes for each guest and worker type.  Not sure where I will use a struct yet.\
+Question: Making properties of the Entrant subclasses variable instead of constant allows one to create an object in the test setup, and then modify values to test various situations.  BUT, in the live app it might make more sense for the property to be a constant. I suppose one would just need to 'work harder' (create an object each time they wanted to test a data variant) to test that those variants are properly handled.\
+\
 \
 MISSING:\
-- tests are not exhaustive\
-- no protocols\
-- no error handling\
-- setup / teardown for tests?\
-- need gateID, and then make sure all 3 IDs are handled everywhere.\
+- do I have a struct?\
+- error handling? should make Worker and Guest optional, so they can return nil when data is not valid. (I read that the caller is responsible for providing\
+good data in the init call...)\
 }

@@ -44,6 +44,7 @@ enum GateError: Error {
 
 class Gate {
     
+    var gateID: Int
     var gateType: GateType
     
     let guestRolesAccess:[GateType: [GuestType]] = [
@@ -90,7 +91,8 @@ class Gate {
         .Amusement:[]
     ]
     
-    init(gateType: GateType) {
+    init(gateID: Int, gateType: GateType) {
+        self.gateID = gateID
         self.gateType = gateType
     }
     
@@ -232,7 +234,7 @@ class Gate {
         return 0
     }
 
-    func guestCanSkipLine(requestor: Entrant, gateType: GateType) -> Bool {
+    func canSkipLine(requestor: Entrant, gateType: GateType) -> Bool {
         var permitted = false
         if (requestor is Guest) {
             let guestRequestor = requestor as! Guest

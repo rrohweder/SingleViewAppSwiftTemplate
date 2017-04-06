@@ -18,22 +18,27 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        gate = Gate(gateType: GateType.Amusement)
+        // create one of each needed object:
+        
+        gate = Gate(gateID: 1, gateType: GateType.Amusement)
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: "1953-12-18")!
-        anyWorker = Worker(workerID: 1000, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateofBirth: date)
+        anyWorker = Worker(entrantID: 1000, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateofBirth: date)
         
-        anyGuest = Guest(guestID: 1, guestType: .Classic)
+        anyGuest = Guest(entrantID: 1, guestType: .Classic)
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        // swift will handle dealloc of objects.
         super.tearDown()
     }
     
+// FIXME: I am not sure I want to include this...
+/*
     func testWorkerInit() {
+        
         // First just make sure the initializer creates the object with the correct
         // data assigned to the correct properties
 
@@ -41,7 +46,7 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: "1953-12-18")!
         
-        let oneEmp = Worker(workerID: 1001, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateofBirth: date)
+        let oneEmp = Worker(entrantID: 1001, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateofBirth: date)
 
         XCTAssert(
             oneEmp.workerType == .HourlyFoodServices &&
@@ -54,21 +59,9 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
             oneEmp.socialSecurityNumber == "329-50-6903" &&
             oneEmp.dateofBirth == date
         )
-
         
-// FIXME: don't MAKE the object and then test it, test it in the init, and fail (return nil)
-        
-        XCTAssert(oneEmp.workerType == .HourlyFoodServices)
-        XCTAssert(oneEmp.firstName == "Roger")
-        XCTAssert(oneEmp.lastName == "Rohweder")
-        XCTAssert(oneEmp.streetAddress == "1205 Goldenview Ct")
-        XCTAssert(oneEmp.city == "Durham")
-        XCTAssert(oneEmp.state == "NC")
-        XCTAssert(oneEmp.zipCode == "27713")
-        XCTAssert(oneEmp.socialSecurityNumber == "329-50-6903")
-        XCTAssert(oneEmp.dateofBirth > dateFormatter.date(from: "1900-01-01")!)
     }
-// down to here
+*/
     
     func testWorkerAccess () {
         
@@ -99,8 +92,6 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Office) == true)
         XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
     }
-
-    // FIXME: expand the cases in guest access tests.
 
     func testGuestAccess () {
 
@@ -183,14 +174,26 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     
     func testGuestSkipPrivilege() {
         anyGuest.guestType = .Classic
-        XCTAssert(gate.guestCanSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
+        XCTAssert(gate.canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
         
         anyGuest.guestType = .VIP
-        XCTAssert(gate.guestCanSkipLine(requestor: anyGuest, gateType: .Amusement) == true)
+        XCTAssert(gate.canSkipLine(requestor: anyGuest, gateType: .Amusement) == true)
         
         anyGuest.guestType = .FreeChild
-        XCTAssert(gate.guestCanSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
+        XCTAssert(gate.canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
 
+        anyWorker.workerType = .HourlyFoodServices
+        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        
+        anyWorker.workerType = .HourlyRideServices
+        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        
+        anyWorker.workerType = .HourlyMaintenance
+        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        
+        anyWorker.workerType = .Manager
+        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        
     }
     
     

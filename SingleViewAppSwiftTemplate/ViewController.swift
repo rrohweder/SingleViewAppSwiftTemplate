@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol Entrant {
-    
-}
-
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
