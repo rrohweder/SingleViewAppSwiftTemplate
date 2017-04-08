@@ -8,6 +8,7 @@
 
 import Foundation
 
+
 /*
     Trying to implement a form of Role-Based Access Control (RBAC).
     This class will handle the types of 'gates' (points where access is checked),
@@ -46,6 +47,14 @@ class Gate {
     
     var gateID: Int
     var gateType: GateType
+    var gateName: String
+
+    init(gateID: Int, gateType: GateType, gateName: String) {
+        self.gateID = gateID
+        self.gateType = gateType
+        self.gateName = gateName
+    }
+
     
     let guestRolesAccess:[GateType: [GuestType]] = [
     .Amusement:[.Classic,.VIP,.FreeChild],
@@ -90,15 +99,6 @@ class Gate {
     let workerRolesSkipPrivilege:[GateType:[WorkerType]] = [
         .Amusement:[]
     ]
-    
-    init(gateID: Int, gateType: GateType) {
-        self.gateID = gateID
-        self.gateType = gateType
-    }
-    
-    // should the function be "func swipe(requestor: Entrant, gate: GateType,
-    // &accessAnswer:Bool, &discountAmount: int, &skipLine: Bool) -> Bool
-    // and then call generatePass() ?
     
     func AccessPermitted(requestor: Entrant, gateType: GateType) -> Bool {
         var permitted = false

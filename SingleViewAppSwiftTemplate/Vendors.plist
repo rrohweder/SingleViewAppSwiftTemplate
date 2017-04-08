@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>ID</key>
+		<integer>1</integer>
+		<key>New item</key>
+		<string></string>
+		<key>Name</key>
+		<string>Nathan&apos;s Hot Dogs</string>
+		<key>Type</key>
+		<string>Food</string>
+		<key>Lattitude</key>
+		<integer>0</integer>
+		<key>Longitude</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>2</integer>
+		<key>Name</key>
+		<string>Sarah&apos;s T-Shirts</string>
+		<key>Type</key>
+		<string>Merchandise</string>
+		<key>Lattitude</key>
+		<integer>0</integer>
+		<key>Longitude</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>3</integer>
+		<key>Name</key>
+		<string>Kevin&apos;s Kotton Kandy</string>
+		<key>Type</key>
+		<string>Food</string>
+		<key>Lattitude</key>
+		<integer>0</integer>
+		<key>Longitude</key>
+		<integer>0</integer>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>4</integer>
+		<key>Name</key>
+		<string>Unger&apos;s Umbrellas</string>
+		<key>Type</key>
+		<string>Merchandise</string>
+		<key>Lattitude</key>
+		<integer>0</integer>
+		<key>Longitude</key>
+		<integer>0</integer>
+	</dict>
+</array>
+</plist>

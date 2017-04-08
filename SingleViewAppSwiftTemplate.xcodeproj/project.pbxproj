@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100AC3691E7E116300FDD1E6 /* Gate.swift */; };
 		1038725F1E967D8800693DFC /* Entrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1038725E1E967D8800693DFC /* Entrant.swift */; };
+		1047B24D1E99159800B316D9 /* Vendors.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1047B24C1E99159800B316D9 /* Vendors.plist */; };
+		1047B24F1E991CC300B316D9 /* LoadGates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1047B24E1E991CC300B316D9 /* LoadGates.swift */; };
+		1047B2511E9922C400B316D9 /* Rides.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1047B2501E9922C400B316D9 /* Rides.plist */; };
+		1047B2531E992C1500B316D9 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1047B2521E992C1500B316D9 /* Vendor.swift */; };
+		1047B2551E992E9B00B316D9 /* Ride.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1047B2541E992E9B00B316D9 /* Ride.swift */; };
 		109D937F1E7B75DB0053DAED /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D937E1E7B75DA0053DAED /* Guest.swift */; };
 		109D93811E7B75EE0053DAED /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Worker.swift */; };
 		10DB302C1E8331D300B7F779 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 10DB302B1E8331D300B7F779 /* README.rtf */; };
@@ -49,6 +54,11 @@
 		100AC3691E7E116300FDD1E6 /* Gate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1038725E1E967D8800693DFC /* Entrant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entrant.swift; sourceTree = "<group>"; };
+		1047B24C1E99159800B316D9 /* Vendors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Vendors.plist; sourceTree = "<group>"; };
+		1047B24E1E991CC300B316D9 /* LoadGates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadGates.swift; sourceTree = "<group>"; };
+		1047B2501E9922C400B316D9 /* Rides.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Rides.plist; sourceTree = "<group>"; };
+		1047B2521E992C1500B316D9 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vendor.swift; sourceTree = "<group>"; };
+		1047B2541E992E9B00B316D9 /* Ride.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ride.swift; sourceTree = "<group>"; };
 		109D937E1E7B75DA0053DAED /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 		109D93801E7B75EE0053DAED /* Worker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
 		10DB302B1E8331D300B7F779 /* README.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
@@ -129,9 +139,14 @@
 				109D937E1E7B75DA0053DAED /* Guest.swift */,
 				109D93801E7B75EE0053DAED /* Worker.swift */,
 				100AC3691E7E116300FDD1E6 /* Gate.swift */,
+				1047B24E1E991CC300B316D9 /* LoadGates.swift */,
+				1047B2521E992C1500B316D9 /* Vendor.swift */,
+				1047B2541E992E9B00B316D9 /* Ride.swift */,
 				3A8AADD11DF9B85E00A2B931 /* LaunchScreen.storyboard */,
 				3A8AADCC1DF9B85E00A2B931 /* Main.storyboard */,
 				3A8AADCF1DF9B85E00A2B931 /* Assets.xcassets */,
+				1047B24C1E99159800B316D9 /* Vendors.plist */,
+				1047B2501E9922C400B316D9 /* Rides.plist */,
 				3A8AADD41DF9B85E00A2B931 /* Info.plist */,
 				3A8AADC81DF9B85E00A2B931 /* AppDelegate.swift */,
 			);
@@ -298,8 +313,10 @@
 			files = (
 				3A8AADD31DF9B85E00A2B931 /* LaunchScreen.storyboard in Resources */,
 				3A8AADD01DF9B85E00A2B931 /* Assets.xcassets in Resources */,
+				1047B2511E9922C400B316D9 /* Rides.plist in Resources */,
 				10DB302C1E8331D300B7F779 /* README.rtf in Resources */,
 				3A8AADCE1DF9B85E00A2B931 /* Main.storyboard in Resources */,
+				1047B24D1E99159800B316D9 /* Vendors.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,7 +353,10 @@
 				109D937F1E7B75DB0053DAED /* Guest.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
 				1038725F1E967D8800693DFC /* Entrant.swift in Sources */,
+				1047B2551E992E9B00B316D9 /* Ride.swift in Sources */,
+				1047B2531E992C1500B316D9 /* Vendor.swift in Sources */,
 				100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */,
+				1047B24F1E991CC300B316D9 /* LoadGates.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

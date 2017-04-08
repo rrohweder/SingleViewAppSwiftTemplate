@@ -10,10 +10,25 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    // FIXME: can they both be Gate, or are they subclasses? Or is Gate a protocol?
+    var rides = [Gate]()
+    var vendors = [Gate]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        
+
+        do {
+            rides = try loadRides(inputFile: "Rides", fileType: "plist")
+        } catch let error {
+            print(error)
+        }
+
+        do {
+            vendors = try loadVendors(inputFile: "Vendors", fileType: "plist")
+        } catch let error {
+            print(error)
+        }
+        print("Vendors and Rides loaded")
 
     }
 

@@ -5,7 +5,22 @@
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 \
+\f0\fs24 \cf0 Later on 4/8:\
+successfully reading from Vendors.plist, which surfaced a mess, maybe.  Each gate should have just the RBAC data it needs bases upon what kind of gate it is, right?  So Nathan's hotdogs doesn't need access information for Guests... (or they should ALL have access).  It is OK for workers to have kitchen access to Nathan's hotdogs (not if they were special to each sub-vendor, but I won't go there...). So I need to check to see if I have done that when I create a subclass Vendor, and a subclass Ride.\
+\
+NO. Every gate does not need a gate object with guest and worker roles access, discount, priveledge,  Only every gate TYPE needs that data. \
+So I want one object for each physical vendor/ride, but only one access object, one discount object and one privileges object?  Or maybe just\
+one PermissionsBenefits object (like my current Gate object...)\
+\
+\
+Notes from 4/8:\
+\
+I have headed down a path that will add quite a bit of work... getting vendors and rides from plists, just so I can show error handling and optionals.  \
+I SHOULD be able to do this kind of work... I hope I don't get so tangled that I don't finish any time soon...\
+\
+\
+\
+\
 Notes from 4/4/2017\
 \
 It seems like this exercise is to show that we can properly create and use class, inheritance, protocol, composition, enum and struct - but it really feels like a stretch to create a class for Classic Guest entrants. In a role based model, the classic guess object won't hold the 'where can I get in? do I get a discount? can I skip the line?' answers.  And since there is no 'name, address, etc. data for them, what is the need for  class ClassicGuest?\
@@ -14,7 +29,10 @@ Question: Making properties of the Entrant subclasses variable instead of consta
 \
 \
 MISSING:\
-- do I have a struct?\
+- from instructions: "be sure to make use of optionals"\
+- don't have any structs...\
 - error handling? should make Worker and Guest optional, so they can return nil when data is not valid. (I read that the caller is responsible for providing\
-good data in the init call...)\
+good data in the init call...).  Do my check of SSN, zip, age count?\
+\
+\
 }

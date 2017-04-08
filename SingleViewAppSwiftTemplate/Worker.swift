@@ -51,8 +51,9 @@ class Worker: Entrant {
     
 }
 
-// Arguments used to create an object (such a Worker) should be checked before calling the object init
-// These functions can be used by the caller to do that:
+// Arguments used to create an object (such a Worker) should be checked 
+// before calling the object init()
+
 
 class Hourly: Worker {
     // properties needed for this exercise are handled in the Worker superclass.
