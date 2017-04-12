@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>ID</key>
+		<integer>3000</integer>
+		<key>workerType</key>
+		<string>HourlyFoodServices</string>
+		<key>firstName</key>
+		<string>Kevin</string>
+		<key>lastName</key>
+		<string>Moreno</string>
+		<key>streetAddress</key>
+		<string>123 Cary Lane</string>
+		<key>city</key>
+		<string>Garner</string>
+		<key>state</key>
+		<string>NC</string>
+		<key>zipCode</key>
+		<string>28111</string>
+		<key>SSN</key>
+		<string>123-45-6789</string>
+		<key>dateOfBirth</key>
+		<date>1981-04-12T04:26:46Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>3001</integer>
+		<key>workerType</key>
+		<string>HourlyRideServices</string>
+		<key>firstName</key>
+		<string>Brad</string>
+		<key>lastName</key>
+		<string>Cox</string>
+		<key>streetAddress</key>
+		<string>456 Raleigh Ave</string>
+		<key>city</key>
+		<string>Durham</string>
+		<key>state</key>
+		<string>NC</string>
+		<key>zipCode</key>
+		<string>27714</string>
+		<key>SSN</key>
+		<string>987-65-4321</string>
+		<key>dateOfBirth</key>
+		<date>1967-01-31T04:29:49Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>3002</integer>
+		<key>workerType</key>
+		<string>HourlyMaintenance</string>
+		<key>firstName</key>
+		<string>Cheryl</string>
+		<key>lastName</key>
+		<string>Purser</string>
+		<key>streetAddress</key>
+		<string>789 Apex Ave</string>
+		<key>city</key>
+		<string>Burlington</string>
+		<key>state</key>
+		<string>NC</string>
+		<key>zipCode</key>
+		<string>27924</string>
+		<key>SSN</key>
+		<string>911-65-1121</string>
+		<key>dateOfBirth</key>
+		<date>1974-11-21T04:29:49Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>3003</integer>
+		<key>workerType</key>
+		<string>Manager</string>
+		<key>firstName</key>
+		<string>Duncan</string>
+		<key>lastName</key>
+		<string>Smith</string>
+		<key>streetAddress</key>
+		<string>201 Mebane Lane</string>
+		<key>city</key>
+		<string>White Rock</string>
+		<key>state</key>
+		<string>NC</string>
+		<key>zipCode</key>
+		<string>27114</string>
+		<key>SSN</key>
+		<string>199-65-9921</string>
+		<key>dateOfBirth</key>
+		<date>1976-02-12T04:29:49Z</date>
+	</dict>
+</array>
+</plist>

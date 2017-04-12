@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     // FIXME: can they both be Gate, or are they subclasses? Or is Gate a protocol?
     var rides = [Gate]()
     var vendors = [Gate]()
+    var workers = [Worker]()
+    var guests = [Guest]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +30,20 @@ class ViewController: UIViewController {
         } catch let error {
             print(error)
         }
-        print("Vendors and Rides loaded")
+        
+        do {
+            workers = try loadWorkers(inputFile: "Workers", fileType: "plist")
+        } catch let error {
+            print(error)
+        }
+
+        do {
+            guests = try loadGuests(inputFile: "Guests", fileType: "plist")
+        } catch let error {
+            print(error)
+        }
+
+        print("Vendors, Rides, Workers and Guests loaded")
 
     }
 

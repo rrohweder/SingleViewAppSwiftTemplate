@@ -20,7 +20,7 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         
         // create one of each needed object:
         
-        gate = Gate(gateID: 1, gateType: GateType.Amusement)
+        gate = Gate(gateID: 1, gateType: GateType.Amusement, gateName: "Whirlygig")
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -35,105 +35,77 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         super.tearDown()
     }
     
-// FIXME: I am not sure I want to include this...
-/*
-    func testWorkerInit() {
-        
-        // First just make sure the initializer creates the object with the correct
-        // data assigned to the correct properties
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let date = dateFormatter.date(from: "1953-12-18")!
-        
-        let oneEmp = Worker(entrantID: 1001, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateofBirth: date)
-
-        XCTAssert(
-            oneEmp.workerType == .HourlyFoodServices &&
-            oneEmp.firstName == "Roger" &&
-            oneEmp.lastName == "Rohweder" &&
-            oneEmp.streetAddress == "1205 Goldenview Ct" &&
-            oneEmp.city == "Durham" &&
-            oneEmp.state == "NC" &&
-            oneEmp.zipCode == "27713" &&
-            oneEmp.socialSecurityNumber == "329-50-6903" &&
-            oneEmp.dateofBirth == date
-        )
-        
-    }
-*/
-    
     func testWorkerAccess () {
         
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Kitchen) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Maintenance) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Office) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .RideControl) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Kitchen) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Maintenance) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Office) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .RideControl) == false)
 
         anyWorker.workerType = .HourlyRideServices
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Kitchen) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Maintenance) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Office) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Kitchen) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Maintenance) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Office) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
 
         anyWorker.workerType = .HourlyMaintenance
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Kitchen) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Maintenance) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Office) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Kitchen) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Maintenance) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Office) == false)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
 
         anyWorker.workerType = .Manager
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Kitchen) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Maintenance) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .Office) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Kitchen) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Maintenance) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .Office) == true)
+        XCTAssert(accessPermitted(requestor: anyWorker, gateType: .RideControl) == true)
     }
 
     func testGuestAccess () {
 
         anyGuest.guestType = .Classic
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Kitchen) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .RideControl) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Maintenance) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Office) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Kitchen) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .RideControl) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Maintenance) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Office) == false)
         
         anyGuest.guestType = .VIP
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Kitchen) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .RideControl) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Maintenance) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Office) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Kitchen) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .RideControl) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Maintenance) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Office) == false)
         
         anyGuest.guestType = .FreeChild
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Amusement) == true)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Kitchen) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .RideControl) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Maintenance) == false)
-        XCTAssert(gate.AccessPermitted(requestor: anyGuest, gateType: .Office) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Amusement) == true)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Kitchen) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .RideControl) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Maintenance) == false)
+        XCTAssert(accessPermitted(requestor: anyGuest, gateType: .Office) == false)
     }
     
     func testWorkerDiscount() {
 
         anyWorker.workerType = .HourlyFoodServices
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Food) == 15)
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 15)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
 
         anyWorker.workerType = .HourlyRideServices
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Food) == 15)
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 15)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
 
         anyWorker.workerType = .HourlyMaintenance
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Food) == 15)
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 15)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
 
         anyWorker.workerType = .Manager
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Food) == 25)
-        XCTAssert(gate.discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 25)
+        XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
     
     }
     
@@ -146,53 +118,53 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         gate.gateType = .Amusement
 
         anyGuest.guestType = .Classic
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Food) == 0)
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
         
         anyGuest.guestType = .VIP
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Food) == 10)
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Merchandise) == 20)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 10)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 20)
         
         anyGuest.guestType = .FreeChild
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Food) == 0)
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
         
         gate.gateType = .Kitchen
         
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Food) == 0)
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
         
         anyGuest.guestType = .VIP
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Food) == 10)
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Merchandise) == 20)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 10)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 20)
 
         gate.gateType = GateType.Kitchen
         anyGuest.guestType = .FreeChild
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Food) == 0)
-        XCTAssert(gate.discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 0)
+        XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
     }
     
     func testGuestSkipPrivilege() {
         anyGuest.guestType = .Classic
-        XCTAssert(gate.canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
         
         anyGuest.guestType = .VIP
-        XCTAssert(gate.canSkipLine(requestor: anyGuest, gateType: .Amusement) == true)
+        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .Amusement) == true)
         
         anyGuest.guestType = .FreeChild
-        XCTAssert(gate.canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
 
         anyWorker.workerType = .HourlyFoodServices
-        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
         
         anyWorker.workerType = .HourlyRideServices
-        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
         
         anyWorker.workerType = .HourlyMaintenance
-        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
         
         anyWorker.workerType = .Manager
-        XCTAssert(gate.canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
         
     }
     

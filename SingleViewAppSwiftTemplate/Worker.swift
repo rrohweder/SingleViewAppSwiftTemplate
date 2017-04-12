@@ -32,9 +32,9 @@ class Worker: Entrant {
     var state: String
     var zipCode: String
     let socialSecurityNumber: String
-    let dateofBirth: Date
+    let dateOfBirth: Date
 
-    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateofBirth: Date)
+    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateOfBirth: Date)
     {
         // FIXME: test for required values, return nil if not complete. Alert?
         self.entrantID = entrantID
@@ -46,7 +46,7 @@ class Worker: Entrant {
         self.state = state
         self.zipCode = zipCode
         self.socialSecurityNumber = socialSecurityNumber
-        self.dateofBirth = dateofBirth
+        self.dateOfBirth = dateOfBirth
     }
     
 }
