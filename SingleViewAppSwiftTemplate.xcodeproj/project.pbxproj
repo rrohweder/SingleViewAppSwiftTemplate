@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		100393F01E9E513300578B9E /* Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100393EF1E9E513300578B9E /* Pass.swift */; };
 		100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100AC3691E7E116300FDD1E6 /* Gate.swift */; };
 		1030BB9B1E9DDD4C0074D67B /* Guests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1030BB9A1E9DDD4C0074D67B /* Guests.plist */; };
 		1038725F1E967D8800693DFC /* Entrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1038725E1E967D8800693DFC /* Entrant.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		100393EF1E9E513300578B9E /* Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pass.swift; sourceTree = "<group>"; };
 		100AC3691E7E116300FDD1E6 /* Gate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1030BB9A1E9DDD4C0074D67B /* Guests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Guests.plist; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 				109D937E1E7B75DA0053DAED /* Guest.swift */,
 				109D93801E7B75EE0053DAED /* Worker.swift */,
 				100AC3691E7E116300FDD1E6 /* Gate.swift */,
+				100393EF1E9E513300578B9E /* Pass.swift */,
 				1047B24E1E991CC300B316D9 /* LoadGates.swift */,
 				1058D2921E9DD0CC0059C688 /* LoadEntrants.swift */,
 				1047B2521E992C1500B316D9 /* Vendor.swift */,
@@ -366,6 +369,7 @@
 				3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */,
 				109D93811E7B75EE0053DAED /* Worker.swift in Sources */,
 				109D937F1E7B75DB0053DAED /* Guest.swift in Sources */,
+				100393F01E9E513300578B9E /* Pass.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
 				1038725F1E967D8800693DFC /* Entrant.swift in Sources */,
 				1047B2551E992E9B00B316D9 /* Ride.swift in Sources */,

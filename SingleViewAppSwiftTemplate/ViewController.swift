@@ -42,8 +42,28 @@ class ViewController: UIViewController {
         } catch let error {
             print(error)
         }
-
-        print("Vendors, Rides, Workers and Guests loaded")
+        
+        for guest in guests {
+            for ride in rides {
+                printPaperPass(requestor: guest, gate: ride)
+            }
+        }
+        for worker in workers {
+            for ride in rides {
+                printPaperPass(requestor: worker, gate: ride)
+            }
+        }
+        for guest in guests {
+            for vendor in vendors {
+                printPaperPass(requestor: guest, gate: vendor)
+            }
+        }
+        for worker in workers {
+            for vendor in vendors {
+                printPaperPass(requestor: worker, gate: vendor)
+            }
+        }
+        
 
     }
 

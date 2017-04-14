@@ -35,6 +35,8 @@ class EntrantsPlistImporter {
 func loadGuests(inputFile: String, fileType: String) throws -> [Guest] {
     var inputRecord = 0
     var guestType: GuestType
+    var dateOfBirth: Date?
+    var aGuest: Guest
     
     do {
         let guestArray = try EntrantsPlistImporter.importDictionaries(fromFile: inputFile, ofType: fileType)
@@ -59,8 +61,18 @@ func loadGuests(inputFile: String, fileType: String) throws -> [Guest] {
         case "FreeChild": guestType = .FreeChild
         default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
-        
-        let aGuest = Guest(entrantID: id, guestType: guestType)
+        if guestType == .FreeChild {
+            guard let dob = dict["dateOfBirth"] as! Date? else {
+                // I guess I can't tell whether it is missing or a conversion failure...
+                throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
+            }
+            dateOfBirth = dob
+        }
+        if guestType == .FreeChild && dateOfBirth != nil {
+            aGuest = FreeChildGuest(entrantID: id, guestType: guestType, dateOfBirth: dateOfBirth!)
+        } else {
+            aGuest = Guest(entrantID: id, guestType: guestType)
+        }
         
         allGuests.append(aGuest)
         
@@ -91,11 +103,11 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
             throw EntrantImportError.missingRequiredField(fieldName: "workerType, input record \(inputRecord)")
         }
         switch type {
-        case "HourlyFoodServices": workerType = .HourlyFoodServices
-        case "HourlyRideServices": workerType = .HourlyRideServices
-        case "HourlyMaintenance": workerType = .HourlyMaintenance
-        case "Manager": workerType = .Manager
-        default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
+            case "HourlyFoodServices": workerType = .HourlyFoodServices
+            case "HourlyRideServices": workerType = .HourlyRideServices
+            case "HourlyMaintenance": workerType = .HourlyMaintenance
+            case "Manager": workerType = .Manager
+            default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
 
         guard let firstName = dict["firstName"] as! String? else {

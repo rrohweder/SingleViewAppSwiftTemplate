@@ -36,6 +36,7 @@ class FreeChildGuest: Guest {
         self.dateOfBirth = dateOfBirth
         super.init(entrantID: entrantID, guestType: guestType)
     }
+    
 }
 
 class ClassicGuest: Guest {

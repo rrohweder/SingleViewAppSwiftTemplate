@@ -1,34 +1,59 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf810
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf820
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
 \margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\fs24 \cf0 Notes, 4/8:\
+\f0\fs24 \cf0 Notes to reviewer / grader:\
 \
-successfully reading from Vendors and Rides .plists.  \
+I tried (successfully, I believe) to implement a form of Role Based Access Control (RBAC). The entrant object has information about the entrant, but does not include access, discounts, or skip information. The 'gates' (rides, vendors) objects have info about the gate, but, again, do not need access, skip, etc., knowledge -- that is addressed in PermissionsAndBenefits.  That way rules can change without needing to update user or gate records.  Entrants and gates can be added to the database without updating either about permissions / benefits.\
 \
-Each gate Type should have the needed RBAC data.\
+I modeled Pass with a function to return the data needed to print a pass, so it could have different functions that would actually do the different types of "printing" (paper ticket, mobile, etc.)\
 \
-Each physical vendor/ride does NOT need it.  \
+I wrote tests to confirm correct handling of the role access / benefits without actual entrants or gates (since it just depends upon role types). \
 \
-So I want one object (name?) for each physical vendor/ride, \
+I decided to add plist files with samples of each, implemented loaders for them, and print passes for all of them for all gates to confirm operation.\
 \
-One access object, one discount object and one privileges object?  \
-Or maybe just one PermissionsAndBenefits object (like my current Gate object...)\
-Does this part even need to be an object?  or is it just a collection and methods...\
+Interesting question about handling FreeChild.  Really, they are just a ClassicGuest whose birthdate may give them free access.  I suppose the only reason to have the definition is to get their birthdate in the first place. It would make the most sense to check their age on entry to the park, but this exercise doesn't speak to that part. \
+And one would probably change them from FreeChild to ClassicGuest on the first visit after they turn 6.  For this exercise, I just mark their pass to indicate "Free" if they are 5 or under.\
 \
---------\
-Notes from 4/4/2017\
+
+\b Question:
+\b0  Making properties of the Entrant subclasses variable instead of constant allows one to create an object in the test setup, and then modify values to test various situations.  BUT, in the live app it might make more sense for the property to be a constant. I suppose one would just need to 'work harder' (create an object each time they wanted to test a data variant) to test that those variants are properly handled.\
 \
+
+\b And
+\b0 \
+\
+
+\b Why doesn't this work:
+\b0 \
+\
+enum WorkerType: String \{\
+    case HourlyFoodServices\
+    case HourlyRideServices\
+    case HourlyMaintenance\
+    case Manager\
+\}\
+\
+guard let type = dict["workerType"] as! String? else \{\
+        throw EntrantImportError.missingRequiredField(fieldName: "workerType, input record \\(inputRecord)")\
+\}\
+\
+switch type \{\
+        	case .HourlyFoodServices.rawValue: workerType = .HourlyFoodServices\
+(etc.)\
+\
+(I get the error: 
+\b Expression pattern of type '_' cannot match values of type 'String'
+\b0 , but the rawValue IS a String, right?)\
+\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
+\cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
 It seems like this exercise is to show that we can properly create and use class, inheritance, protocol, composition, enum and struct - but it really feels like a stretch to create a class for Classic Guest entrants. In a role based model, the classic guess object won't hold the 'where can I get in? do I get a discount? can I skip the line?' answers.  And since there is no 'name, address, etc. data for them, what is the need for  class ClassicGuest?\
 \
-Question: Making properties of the Entrant subclasses variable instead of constant allows one to create an object in the test setup, and then modify values to test various situations.  BUT, in the live app it might make more sense for the property to be a constant. I suppose one would just need to 'work harder' (create an object each time they wanted to test a data variant) to test that those variants are properly handled.\
-\
-\
-MISSING:\
-- don't have any structs...\
 \
 \
 }
