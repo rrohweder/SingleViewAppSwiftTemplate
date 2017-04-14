@@ -19,17 +19,15 @@ class Pass {
     
     func generatePass(requestor: Entrant, gate: Gate) {
         
-        if requestor is Guest {
+        if requestor is Guest || requestor is FreeChildGuest {
+            
             let guestRequestor = requestor as! Guest
             accessingEntrantType = String(describing: guestRequestor.guestType) + " Guest"
 
-            // FIXME: how can I get the dob from the child record?
-/*
-            if requestor.guestType == .FreeChild {
+            if requestor is FreeChildGuest {
                 let childRequestor = requestor as! FreeChildGuest
                 freeChild = isChild(birthdate: childRequestor.dateOfBirth)
             }
-*/
             
         } else if requestor is Worker {
             let workerRequestor = requestor as! Worker
@@ -65,11 +63,13 @@ func printPaperPass(requestor: Entrant, gate: Gate) {
         
         print("Fun Land Amusement Park")
             print("Access for \(pass.accessingEntrantType) at \(gate.gateName)")
-        if pass.freeChild {
-            print("Child with Free Access")
-        }
-        if pass.guestCanSkipLine {
-            print("with \"Skip the Line!\" privilege")
+        if gate.gateType == .Amusement {
+            if pass.freeChild {
+                print("Child with Free Access")
+            }
+            if pass.guestCanSkipLine {
+                print("with \"Skip the Line!\" privilege")
+            }
         }
         if (gate.gateType == .FoodVendor && pass.foodDiscount > 0) {
             print("\(pass.foodDiscount)% discount on food purchases")

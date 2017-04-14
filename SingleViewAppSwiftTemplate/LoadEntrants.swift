@@ -8,7 +8,7 @@
 
 import Foundation
 
-var allGuests = [Guest]()
+var allGuests = [AnyObject]()
 var guestDataFromPlist = [[String:AnyObject]]()
 var allWorkers = [Worker]()
 var workerDataFromPlist = [[String:AnyObject]]()
@@ -32,7 +32,7 @@ class EntrantsPlistImporter {
     }
 }
 
-func loadGuests(inputFile: String, fileType: String) throws -> [Guest] {
+func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
     var inputRecord = 0
     var guestType: GuestType
     var dateOfBirth: Date?

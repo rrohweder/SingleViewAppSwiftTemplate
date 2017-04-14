@@ -14,9 +14,10 @@ class ViewController: UIViewController {
     var rides = [Gate]()
     var vendors = [Gate]()
     var workers = [Worker]()
-    var guests = [Guest]()
+    var guests = [AnyObject]()
     
     override func viewDidLoad() {
+        var childGuest: FreeChildGuest
         super.viewDidLoad()
 
         do {
@@ -45,7 +46,7 @@ class ViewController: UIViewController {
         
         for guest in guests {
             for ride in rides {
-                printPaperPass(requestor: guest, gate: ride)
+                printPaperPass(requestor: guest as! Entrant, gate: ride)
             }
         }
         for worker in workers {
@@ -55,7 +56,7 @@ class ViewController: UIViewController {
         }
         for guest in guests {
             for vendor in vendors {
-                printPaperPass(requestor: guest, gate: vendor)
+                printPaperPass(requestor: guest as! Entrant, gate: vendor)
             }
         }
         for worker in workers {
