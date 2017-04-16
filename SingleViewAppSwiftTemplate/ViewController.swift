@@ -11,22 +11,29 @@ import UIKit
 class ViewController: UIViewController {
 
     // FIXME: can they both be Gate, or are they subclasses? Or is Gate a protocol?
-    var rides = [Gate]()
-    var vendors = [Gate]()
+    var rides = [Ride]()
+    var vendors = [Vendor]()
+    var nonpublics = [NonPublic]()
     var workers = [Worker]()
-    var guests = [Guest]()
+    var guests = [AnyObject]()
     
     override func viewDidLoad() {
+        var childGuest: FreeChildGuest
         super.viewDidLoad()
 
         do {
-            rides = try loadRides(inputFile: "Rides", fileType: "plist")
+            rides = try loadRides(inputFile: "Rides", fileType: "plist") as! [Ride]
         } catch let error {
             print(error)
         }
 
         do {
-            vendors = try loadVendors(inputFile: "Vendors", fileType: "plist")
+            vendors = try loadVendors(inputFile: "Vendors", fileType: "plist") as! [Vendor]
+        } catch let error {
+            print(error)
+        }
+        do {
+            nonpublics = try loadNonPublics(inputFile: "NonPublics", fileType: "plist") as! [NonPublic]
         } catch let error {
             print(error)
         }
@@ -45,25 +52,26 @@ class ViewController: UIViewController {
         
         for guest in guests {
             for ride in rides {
-                printPaperPass(requestor: guest, gate: ride)
+                printPaperPass(requestor: guest as! Entrant, gate: ride)
+            }
+            for vendor in vendors {
+                printPaperPass(requestor: guest as! Entrant, gate: vendor)
+            }
+            for nonpublic in nonpublics {
+                printPaperPass(requestor: guest as! Entrant, gate: nonpublic)
             }
         }
         for worker in workers {
             for ride in rides {
                 printPaperPass(requestor: worker, gate: ride)
             }
-        }
-        for guest in guests {
-            for vendor in vendors {
-                printPaperPass(requestor: guest, gate: vendor)
-            }
-        }
-        for worker in workers {
             for vendor in vendors {
                 printPaperPass(requestor: worker, gate: vendor)
             }
+            for nonpublic in nonpublics {
+                printPaperPass(requestor: worker, gate: nonpublic)
+            }
         }
-        
 
     }
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-var allGuests = [Guest]()
+var allGuests = [AnyObject]()
 var guestDataFromPlist = [[String:AnyObject]]()
 var allWorkers = [Worker]()
 var workerDataFromPlist = [[String:AnyObject]]()
@@ -32,7 +32,7 @@ class EntrantsPlistImporter {
     }
 }
 
-func loadGuests(inputFile: String, fileType: String) throws -> [Guest] {
+func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
     var inputRecord = 0
     var guestType: GuestType
     var dateOfBirth: Date?
@@ -56,10 +56,10 @@ func loadGuests(inputFile: String, fileType: String) throws -> [Guest] {
             throw EntrantImportError.missingRequiredField(fieldName: "Type, input record \(inputRecord)")
         }
         switch (type) {
-        case "Classic": guestType = .Classic
-        case "VIP": guestType = .VIP
-        case "FreeChild": guestType = .FreeChild
-        default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
+            case "Classic": guestType = .Classic
+            case "VIP": guestType = .VIP
+            case "FreeChild": guestType = .FreeChild
+            default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
         if guestType == .FreeChild {
             guard let dob = dict["dateOfBirth"] as! Date? else {

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>ID</key>
+		<integer>5000</integer>
+		<key>Type</key>
+		<string>Kitchen</string>
+		<key>Name</key>
+		<string>Cafeteria kitchen</string>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<real>5001</real>
+		<key>Type</key>
+		<string>Ride Control</string>
+		<key>Name</key>
+		<string>Whirlygig ride control</string>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<real>5002</real>
+		<key>Type</key>
+		<string>Maintenance</string>
+		<key>Name</key>
+		<string>Whirlygig maintenance</string>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>5003</integer>
+		<key>Type</key>
+		<string>Office</string>
+		<key>Name</key>
+		<string>Payroll Office</string>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>5004</integer>
+		<key>Type</key>
+		<string>Maintenance</string>
+		<key>Name</key>
+		<string>VomitWagon maintenance</string>
+	</dict>
+</array>
+</plist>

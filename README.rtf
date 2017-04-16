@@ -18,42 +18,8 @@ I decided to add plist files with samples of each, implemented loaders for them,
 Interesting question about handling FreeChild.  Really, they are just a ClassicGuest whose birthdate may give them free access.  I suppose the only reason to have the definition is to get their birthdate in the first place. It would make the most sense to check their age on entry to the park, but this exercise doesn't speak to that part. \
 And one would probably change them from FreeChild to ClassicGuest on the first visit after they turn 6.  For this exercise, I just mark their pass to indicate "Free" if they are 5 or under.\
 \
-
-\b Question:
-\b0  Making properties of the Entrant subclasses variable instead of constant allows one to create an object in the test setup, and then modify values to test various situations.  BUT, in the live app it might make more sense for the property to be a constant. I suppose one would just need to 'work harder' (create an object each time they wanted to test a data variant) to test that those variants are properly handled.\
-\
-
-\b And
-\b0 \
-\
-
-\b Why doesn't this work:
-\b0 \
-\
-enum WorkerType: String \{\
-    case HourlyFoodServices\
-    case HourlyRideServices\
-    case HourlyMaintenance\
-    case Manager\
-\}\
-\
-guard let type = dict["workerType"] as! String? else \{\
-        throw EntrantImportError.missingRequiredField(fieldName: "workerType, input record \\(inputRecord)")\
-\}\
-\
-switch type \{\
-        	case .HourlyFoodServices.rawValue: workerType = .HourlyFoodServices\
-(etc.)\
-\
-(I get the error: 
-\b Expression pattern of type '_' cannot match values of type 'String'
-\b0 , but the rawValue IS a String, right?)\
-\pard\tx692\pardeftab692\pardirnatural\partightenfactor0
-\cf0 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-\cf0 \
-It seems like this exercise is to show that we can properly create and use class, inheritance, protocol, composition, enum and struct - but it really feels like a stretch to create a class for Classic Guest entrants. In a role based model, the classic guess object won't hold the 'where can I get in? do I get a discount? can I skip the line?' answers.  And since there is no 'name, address, etc. data for them, what is the need for  class ClassicGuest?\
-\
-\
-\
+
+\b \cf0 Question:
+\b0  Making properties of the Entrant subclasses variable instead of constant allows one to create an object in the test setup, and then modify values to test various situations.  BUT, in the live app it might make more sense for the property to be a constant. I suppose one would just need to 'work harder' (create an object each time they wanted to test a data variant) to test that those variants are properly handled.\
 }
