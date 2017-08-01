@@ -21,6 +21,7 @@
 		1058D2951E9DD3DF0059C688 /* Workers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1058D2941E9DD3DF0059C688 /* Workers.plist */; };
 		109D937F1E7B75DB0053DAED /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D937E1E7B75DA0053DAED /* Guest.swift */; };
 		109D93811E7B75EE0053DAED /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Worker.swift */; };
+		10B6012B1F0A89D300AE70F7 /* MenuLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */; };
 		10D5B8BC1EA1904700C1D75B /* NonPublic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10D5B8BB1EA1904700C1D75B /* NonPublic.swift */; };
 		10DB302C1E8331D300B7F779 /* README.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 10DB302B1E8331D300B7F779 /* README.rtf */; };
 		10E054B01EA1875C00776154 /* NonPublics.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10E054AF1EA1875C00776154 /* NonPublics.plist */; };
@@ -73,6 +74,7 @@
 		1058D2941E9DD3DF0059C688 /* Workers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workers.plist; sourceTree = "<group>"; };
 		109D937E1E7B75DA0053DAED /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 		109D93801E7B75EE0053DAED /* Worker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
+		10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLogic.swift; sourceTree = "<group>"; };
 		10D5B8BB1EA1904700C1D75B /* NonPublic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonPublic.swift; sourceTree = "<group>"; };
 		10DB302B1E8331D300B7F779 /* README.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = README.rtf; sourceTree = "<group>"; };
 		10E054AF1EA1875C00776154 /* NonPublics.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NonPublics.plist; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			isa = PBXGroup;
 			children = (
 				3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */,
+				10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */,
 				1038725E1E967D8800693DFC /* Entrant.swift */,
 				109D937E1E7B75DA0053DAED /* Guest.swift */,
 				109D93801E7B75EE0053DAED /* Worker.swift */,
@@ -381,6 +384,7 @@
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
 				103E950B1EA13B9500706F21 /* LoadGates.swift in Sources */,
 				1038725F1E967D8800693DFC /* Entrant.swift in Sources */,
+				10B6012B1F0A89D300AE70F7 /* MenuLogic.swift in Sources */,
 				1047B2551E992E9B00B316D9 /* Ride.swift in Sources */,
 				1047B2531E992C1500B316D9 /* Vendor.swift in Sources */,
 				1058D2931E9DD0CC0059C688 /* LoadEntrants.swift in Sources */,
