@@ -20,14 +20,17 @@ class ViewController: UIViewController {
     // current problem: sender is the clicked button, but guestButton and employeeButton are nil?
     // the buttons have been 'painted', and are active, so why would the @IBOutlet be nil?
 
-    @IBOutlet weak var guestButton: UIButton!
-    @IBOutlet weak var managerButton: UIButton!
-    @IBOutlet weak var employeeButton: UIButton!
-    @IBOutlet weak var vendorButton: UIButton!
-    @IBOutlet weak var childButton: UIButton!
-    @IBOutlet weak var adultButton: UIButton!
-    @IBOutlet weak var seniorButton: UIButton!
-    @IBOutlet weak var vpButton: UIButton!
+    @IBOutlet weak var MainMenuButton1: UIButton!
+    @IBOutlet weak var MainMenuButton2: UIButton!
+    @IBOutlet weak var MainMenuButton3: UIButton!
+    @IBOutlet weak var MainMenuButton4: UIButton!
+
+    @IBOutlet weak var SubMenuButton1: UIButton!
+    @IBOutlet weak var SubMenuButton2: UIButton!
+    @IBOutlet weak var SubMenuButton3: UIButton!
+    @IBOutlet weak var SubMenuButton4: UIButton!
+    
+    
     @IBOutlet weak var generatePassButton: UIButton!
     @IBOutlet weak var populateDataButton: UIButton!
     
@@ -47,6 +50,28 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         var childGuest: FreeChildGuest
         super.viewDidLoad() 
+
+        // set default main menu button labels:
+        self.MainMenuButton1.setTitle("Guest", for: .normal)
+        self.MainMenuButton1.setTitleColor(.white, for: .normal)
+        
+        self.MainMenuButton2.setTitle("Employee", for: .normal)
+        self.MainMenuButton2.setTitleColor(.gray, for: .normal)
+        
+        self.MainMenuButton3.setTitle("Manager", for: .normal)
+        self.MainMenuButton3.setTitleColor(.gray, for: .normal)
+        
+        self.MainMenuButton4.setTitle("Vendor", for: .normal)
+        self.MainMenuButton4.setTitleColor(.gray, for: .normal)
+        
+        // set submenu button labels for default main menu item (Guest)
+        self.SubMenuButton1.setTitle("Child", for: .normal)
+        self.SubMenuButton1.setTitleColor(.white, for: .normal)
+        
+        self.SubMenuButton2.setTitle("Adult", for: .normal)
+        self.SubMenuButton3.setTitle("Senior", for: .normal)
+        self.SubMenuButton4.setTitle("VP", for: .normal)
+       
 
 // move to loadAllData()
         do {
@@ -107,7 +132,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func menuHandler(_ sender: UIButton) {
-            menuLogic(buttonClicked: sender)
+        menuLogic(buttonClicked: sender, page: self)
 /*
          
     can I "see" the buttons from MenuLogic (or anywhere outside of the ViewController object)?

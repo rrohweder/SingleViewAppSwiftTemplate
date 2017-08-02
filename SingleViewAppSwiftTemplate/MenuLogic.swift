@@ -23,14 +23,21 @@ enum subMenuItem: Int {
     case VP = 14
 }
 
-func activateSubmenuItem(mainMenu: mainMenuItem) {
+func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
     switch (mainMenu) {
         case mainMenuItem.Guest:
             // label and activate Child, Adult, Senior, VP
-            
+            page.SubMenuButton1.setTitle("Child", for: .normal)
+            page.SubMenuButton2.setTitle("Adult", for: .normal)
+            page.SubMenuButton3.setTitle("Senior", for: .normal)
+            page.SubMenuButton4.setTitle("VP", for: .normal)
             break
         case mainMenuItem.Employee:
             // label and activate HourlyFoodServices, HourlyRideServices, HourlyMaintenance, Manager
+            page.SubMenuButton1.setTitle("Food Serv.", for: .normal)
+            page.SubMenuButton2.setTitle("Ride Serv.", for: .normal)
+            page.SubMenuButton3.setTitle("Maintenance", for: .normal)
+            page.SubMenuButton4.setTitle("Manager", for: .normal)
             break
         
         case mainMenuItem.Vendor:
@@ -52,21 +59,21 @@ func setForm(formType: subMenuItem) {
     }
 }
 
-func menuLogic(buttonClicked: UIButton) {
+func menuLogic(buttonClicked: UIButton, page: ViewController) {
     
     switch (buttonClicked.tag) {
     case mainMenuItem.Guest.rawValue:
         print("main menu item Guest clicked.")
-        activateSubmenuItem(mainMenu: mainMenuItem.Guest)
+        activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: page )
     case mainMenuItem.Employee.rawValue:
         print("main menu item Employee clicked.")
-        activateSubmenuItem(mainMenu: mainMenuItem.Employee)
+        activateSubmenuItem(mainMenu: mainMenuItem.Employee, page: page)
     case mainMenuItem.Manager.rawValue:
         print("main menu item Manager clicked.")
-        activateSubmenuItem(mainMenu: mainMenuItem.Manager)
+        activateSubmenuItem(mainMenu: mainMenuItem.Manager, page: page)
     case mainMenuItem.Vendor.rawValue:
         print("main menu item Vendor clicked.")
-        activateSubmenuItem(mainMenu: mainMenuItem.Vendor)
+        activateSubmenuItem(mainMenu: mainMenuItem.Vendor, page: page)
     case subMenuItem.Child.rawValue:
         print("sub menu item Child clicked.")
         setForm(formType: subMenuItem.Child)

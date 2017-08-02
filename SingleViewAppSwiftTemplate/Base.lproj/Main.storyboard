@@ -46,26 +46,26 @@
                                 <rect key="frame" x="21" y="65" width="333" height="30"/>
                                 <subviews>
                                     <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xVe-Pu-dpf">
-                                        <rect key="frame" x="0.0" y="0.0" width="36" height="30"/>
-                                        <state key="normal" title="Child">
+                                        <rect key="frame" x="0.0" y="0.0" width="34" height="30"/>
+                                        <state key="normal" title="Sub1">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" tag="12" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="42K-0Y-h33">
-                                        <rect key="frame" x="98.5" y="0.0" width="36" height="30"/>
-                                        <state key="normal" title="Adult">
+                                        <rect key="frame" x="97.5" y="0.0" width="36" height="30"/>
+                                        <state key="normal" title="Sub2">
                                             <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" tag="13" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Kf-We-5ro">
-                                        <rect key="frame" x="196.5" y="0.0" width="44" height="30"/>
-                                        <state key="normal" title="Senior">
+                                        <rect key="frame" x="196.5" y="0.0" width="36" height="30"/>
+                                        <state key="normal" title="Sub3">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" tag="14" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MQ5-gD-MWE">
-                                        <rect key="frame" x="303" y="0.0" width="30" height="30"/>
-                                        <state key="normal" title="VP">
+                                        <rect key="frame" x="296" y="0.0" width="37" height="30"/>
+                                        <state key="normal" title="Sub4">
                                             <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
@@ -274,9 +274,9 @@
                                 <rect key="frame" x="16" y="32" width="343" height="20.5"/>
                                 <subviews>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBF-rJ-HTM">
-                                        <rect key="frame" x="0.0" y="0.0" width="46" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="44" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Guest">
+                                        <state key="normal" title="Main1">
                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -284,9 +284,9 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aoX-9b-GrB">
-                                        <rect key="frame" x="79" y="0.0" width="75" height="20.5"/>
+                                        <rect key="frame" x="96" y="0.0" width="47" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Employee">
+                                        <state key="normal" title="Main2">
                                             <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
@@ -294,16 +294,16 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mF1-dQ-v2M">
-                                        <rect key="frame" x="187" y="0.0" width="68" height="20.5"/>
+                                        <rect key="frame" x="195" y="0.0" width="48" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Manager">
+                                        <state key="normal" title="Main3">
                                             <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GKc-xB-VyK">
-                                        <rect key="frame" x="288" y="0.0" width="55" height="20.5"/>
+                                        <rect key="frame" x="295" y="0.0" width="48" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" title="Vendor">
+                                        <state key="normal" title="Main4">
                                             <color key="titleColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
@@ -388,25 +388,25 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="adultButton" destination="42K-0Y-h33" id="dUN-2q-3lG"/>
-                        <outlet property="childButton" destination="xVe-Pu-dpf" id="NhG-HG-E9f"/>
+                        <outlet property="MainMenuButton1" destination="DBF-rJ-HTM" id="NaK-YG-Cga"/>
+                        <outlet property="MainMenuButton2" destination="aoX-9b-GrB" id="toH-fX-cUr"/>
+                        <outlet property="MainMenuButton3" destination="mF1-dQ-v2M" id="aB8-di-p41"/>
+                        <outlet property="MainMenuButton4" destination="GKc-xB-VyK" id="Mda-wG-QmJ"/>
+                        <outlet property="SubMenuButton1" destination="xVe-Pu-dpf" id="fSf-El-fcp"/>
+                        <outlet property="SubMenuButton2" destination="42K-0Y-h33" id="Laf-P7-0QN"/>
+                        <outlet property="SubMenuButton3" destination="7Kf-We-5ro" id="yWT-Yp-50p"/>
+                        <outlet property="SubMenuButton4" destination="MQ5-gD-MWE" id="Y42-29-Vle"/>
                         <outlet property="cityField" destination="rES-O5-kyT" id="7fP-GR-m40"/>
                         <outlet property="companyNameField" destination="CKc-fm-hYJ" id="sjI-Y9-Sai"/>
                         <outlet property="dateOfBirthField" destination="XUd-eL-HXB" id="4M4-Vx-nh2"/>
-                        <outlet property="employeeButton" destination="aoX-9b-GrB" id="jRu-eF-A8N"/>
                         <outlet property="firstNameField" destination="Eyy-cS-aYF" id="5ZZ-h6-Ba1"/>
                         <outlet property="generatePassButton" destination="O3R-WG-aTv" id="lnT-u4-tdu"/>
-                        <outlet property="guestButton" destination="DBF-rJ-HTM" id="xHw-pB-sGN"/>
                         <outlet property="lastNameField" destination="rfl-OP-Izo" id="Zy1-U3-fUF"/>
-                        <outlet property="managerButton" destination="mF1-dQ-v2M" id="usm-hE-EYF"/>
                         <outlet property="populateDataButton" destination="xlx-Un-GFy" id="gn5-HQ-9jk"/>
                         <outlet property="projectNumField" destination="Sfg-qD-ZbT" id="wfU-TW-qvq"/>
-                        <outlet property="seniorButton" destination="7Kf-We-5ro" id="hz4-uR-OjQ"/>
                         <outlet property="ssnField" destination="8su-1c-ckr" id="Iaf-3N-VYj"/>
                         <outlet property="stateField" destination="2Ky-6N-n9W" id="ugF-q5-7B3"/>
                         <outlet property="streetAddressField" destination="l9X-NB-nOU" id="9eW-Gp-lpt"/>
-                        <outlet property="vendorButton" destination="GKc-xB-VyK" id="buz-nO-CRk"/>
-                        <outlet property="vpButton" destination="MQ5-gD-MWE" id="2hM-fj-jJn"/>
                         <outlet property="zipCodeField" destination="4Yn-1q-q2Q" id="cYL-Pf-DtL"/>
                     </connections>
                 </viewController>
