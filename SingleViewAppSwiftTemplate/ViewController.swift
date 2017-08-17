@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var SubMenuButton2: UIButton!
     @IBOutlet weak var SubMenuButton3: UIButton!
     @IBOutlet weak var SubMenuButton4: UIButton!
-    
+    @IBOutlet weak var SubMenuButton5: UIButton!
     
     @IBOutlet weak var generatePassButton: UIButton!
     @IBOutlet weak var populateDataButton: UIButton!
@@ -65,12 +65,7 @@ class ViewController: UIViewController {
         self.MainMenuButton4.setTitleColor(.gray, for: .normal)
         
         // set submenu button labels for default main menu item (Guest)
-        self.SubMenuButton1.setTitle("Child", for: .normal)
-        self.SubMenuButton1.setTitleColor(.white, for: .normal)
-        
-        self.SubMenuButton2.setTitle("Adult", for: .normal)
-        self.SubMenuButton3.setTitle("Senior", for: .normal)
-        self.SubMenuButton4.setTitle("VP", for: .normal)
+        activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
        
 
 // move to loadAllData()
@@ -132,10 +127,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func menuHandler(_ sender: UIButton) {
+        
+        
         menuLogic(buttonClicked: sender, page: self)
+        
+        
 /*
          
-    can I "see" the buttons from MenuLogic (or anywhere outside of the ViewController object)?
+    can I "see" the buttons from MenuLogic (or anywhere outside of the ViewController object)? YES
          
     if TopMenuItem clicked:
          - highlight it (white instead of gray)
