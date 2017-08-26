@@ -418,6 +418,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="DateOfBirthLabel" destination="3tV-kA-gn1" id="fox-Kq-vcr"/>
                         <outlet property="MainMenuButton1" destination="DBF-rJ-HTM" id="NaK-YG-Cga"/>
                         <outlet property="MainMenuButton2" destination="aoX-9b-GrB" id="toH-fX-cUr"/>
                         <outlet property="MainMenuButton3" destination="mF1-dQ-v2M" id="aB8-di-p41"/>
@@ -430,17 +431,26 @@
                         <outlet property="SubMenuButton5" destination="8LS-No-NFh" id="KRN-Uh-BLz"/>
                         <outlet property="SubMenuStackView" destination="qIK-gg-Oz3" id="Hcf-MA-hJY"/>
                         <outlet property="cityField" destination="rES-O5-kyT" id="7fP-GR-m40"/>
+                        <outlet property="cityLabel" destination="1pi-Qb-jxh" id="C2e-5F-qRO"/>
                         <outlet property="companyNameField" destination="CKc-fm-hYJ" id="sjI-Y9-Sai"/>
+                        <outlet property="companyNameLabel" destination="KdU-uk-cQh" id="4H9-Co-NT7"/>
                         <outlet property="dateOfBirthField" destination="XUd-eL-HXB" id="4M4-Vx-nh2"/>
                         <outlet property="firstNameField" destination="Eyy-cS-aYF" id="5ZZ-h6-Ba1"/>
+                        <outlet property="firstNameLabel" destination="irs-qi-Gsk" id="piT-G4-scb"/>
                         <outlet property="generatePassButton" destination="O3R-WG-aTv" id="lnT-u4-tdu"/>
                         <outlet property="lastNameField" destination="rfl-OP-Izo" id="Zy1-U3-fUF"/>
+                        <outlet property="lastNameLabel" destination="lhT-K0-YId" id="AdC-Ls-U9e"/>
                         <outlet property="populateDataButton" destination="xlx-Un-GFy" id="gn5-HQ-9jk"/>
                         <outlet property="projectNumField" destination="Sfg-qD-ZbT" id="wfU-TW-qvq"/>
+                        <outlet property="projectNumLabel" destination="FhC-Fu-mOy" id="l78-bt-VzI"/>
                         <outlet property="ssnField" destination="8su-1c-ckr" id="Iaf-3N-VYj"/>
+                        <outlet property="ssnLabel" destination="c46-Jd-cHf" id="uYc-AT-SaV"/>
                         <outlet property="stateField" destination="2Ky-6N-n9W" id="ugF-q5-7B3"/>
+                        <outlet property="stateLabel" destination="b7C-zA-DTb" id="eyw-sl-CDs"/>
                         <outlet property="streetAddressField" destination="l9X-NB-nOU" id="9eW-Gp-lpt"/>
+                        <outlet property="streetAddressLabel" destination="DsD-H5-Xea" id="zuC-0H-hFu"/>
                         <outlet property="zipCodeField" destination="4Yn-1q-q2Q" id="cYL-Pf-DtL"/>
+                        <outlet property="zipLabel" destination="MeV-Zo-BHb" id="1Jh-K5-01F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -37,22 +37,34 @@ class ViewController: UIViewController {
     @IBOutlet weak var populateDataButton: UIButton!
     
     @IBOutlet weak var dateOfBirthField: UITextField!
+    @IBOutlet weak var DateOfBirthLabel: UILabel!
     @IBOutlet weak var ssnField: UITextField!
+    @IBOutlet weak var ssnLabel: UILabel!
     @IBOutlet weak var projectNumField: UITextField!
+    @IBOutlet weak var projectNumLabel: UILabel!
     @IBOutlet weak var firstNameField: UITextField!
+    @IBOutlet weak var firstNameLabel: UILabel!
     @IBOutlet weak var lastNameField: UITextField!
+    @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var companyNameField: UITextField!
+    @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var streetAddressField: UITextField!
+    @IBOutlet weak var streetAddressLabel: UILabel!
     @IBOutlet weak var cityField: UITextField!
+    @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var stateField: UITextField!
+    @IBOutlet weak var stateLabel: UILabel!
     @IBOutlet weak var zipCodeField: UITextField!
-    
+    @IBOutlet weak var zipLabel: UILabel!
     
     
     override func viewDidLoad() {
         var childGuest: FreeChildGuest
         super.viewDidLoad() 
 
+        // disable form fields, gray labels until a submenu item is selected
+        deactivateFormFields(page: self)
+        
         // set default main menu button labels:
         self.MainMenuButton1.setTitle("Guest", for: .normal)
         self.MainMenuButton1.setTitleColor(.white, for: .normal)
@@ -68,8 +80,8 @@ class ViewController: UIViewController {
         
         // set submenu button labels for default main menu item (Guest)
         activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
-       
 
+       
 // move to loadAllData()
         do {
             rides = try loadRides(inputFile: "Rides", fileType: "plist") as! [Ride]

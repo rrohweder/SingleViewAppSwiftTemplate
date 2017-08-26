@@ -59,6 +59,87 @@ func colorSubMenuText(whiteButton: Int, page: ViewController) {
     }
 }
 
+func deactivateFormFields(page: ViewController) {
+    
+    page.DateOfBirthLabel.textColor = .gray
+    page.dateOfBirthField.isUserInteractionEnabled = false
+    page.ssnField.isUserInteractionEnabled = false
+    page.ssnLabel.textColor = .gray
+    page.projectNumField.isUserInteractionEnabled = false
+    page.projectNumLabel.textColor = .gray
+    page.firstNameField.isUserInteractionEnabled = false
+    page.firstNameLabel.textColor = .gray
+    page.lastNameField.isUserInteractionEnabled = false
+    page.lastNameLabel.textColor = .gray
+    page.companyNameField.isUserInteractionEnabled = false
+    page.companyNameLabel.textColor = .gray
+    page.streetAddressField.isUserInteractionEnabled = false
+    page.streetAddressLabel.textColor = .gray
+    page.cityField.isUserInteractionEnabled = false
+    page.cityLabel.textColor = .gray
+    page.stateField.isUserInteractionEnabled = false
+    page.stateLabel.textColor = .gray
+    page.zipCodeField.isUserInteractionEnabled = false
+    page.zipLabel.textColor = .gray
+}
+
+func setForm(page: ViewController, formType: subMenuItem) {
+    deactivateFormFields(page: page)
+    switch(formType) {
+    case subMenuItem.Child:
+        // activate Date of Birth (only)
+        page.DateOfBirthLabel.textColor = .white
+        page.dateOfBirthField.isUserInteractionEnabled = true
+        break
+        
+    case subMenuItem.Classic:
+        // No personal information required.
+        break
+        
+    case subMenuItem.Senior:
+        /*
+         -First Name
+         -Last Name
+         -Date of Birth
+         */
+        break
+        
+    case subMenuItem.VIP:
+        // No personal information required.
+        break
+        
+    case subMenuItem.Season:
+        /*
+         -First Name
+         -Last Name
+         -Street Address
+         -City
+         -State
+         -Zip Code
+         -Date of Birth
+         */
+        
+        break
+        
+    case subMenuItem.HourlyEmployeeFoodServices,
+         subMenuItem.HourlyEmployeeRideServices,
+         subMenuItem.HourlyEmployeeMaintenance,
+         subMenuItem.ContractEmployee:
+        /*
+         -First Name
+         -Last Name
+         -Street Address
+         -City
+         -State
+         -Zip Code
+         -Social Security Number
+         -Date of Birth
+         */
+        break
+    }
+}
+
+
 func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
     switch (mainMenu) {
         case mainMenuItem.Guest:
@@ -87,6 +168,8 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             page.SubMenuButton5.tag = subMenuItem.Season.rawValue
             
             colorSubMenuText(whiteButton: subMenuItem.Child.rawValue, page: page)
+            // the next two lines belong in setForm(), right?
+            setForm(page: page, formType: subMenuItem.Child)
 
             break
         
@@ -122,59 +205,6 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
         default:
             break
         
-    }
-}
-
-func setForm(formType: subMenuItem) {
-    switch(formType) {
-        case subMenuItem.Child:
-            // Date of Birth
-        break
-        
-        case subMenuItem.Classic:
-            // No personal information required.
-        break
-        
-        case subMenuItem.Senior:
-            /*
-            -First Name
-            -Last Name
-            -Date of Birth
-             */
-        break
-        
-        case subMenuItem.VIP:
-            // No personal information required.
-        break
-        
-        case subMenuItem.Season:
-            /*
-            -First Name
-            -Last Name
-            -Street Address
-            -City
-            -State
-            -Zip Code
-            -Date of Birth
-            */
-
-        break
-        
-        case subMenuItem.HourlyEmployeeFoodServices,
-         subMenuItem.HourlyEmployeeRideServices,
-         subMenuItem.HourlyEmployeeMaintenance,
-         subMenuItem.ContractEmployee:
-         /*
-            -First Name
-            -Last Name
-            -Street Address
-            -City
-            -State
-            -Zip Code
-            -Social Security Number
-            -Date of Birth
-            */
-        break
     }
 }
 
@@ -214,39 +244,39 @@ func menuLogic(buttonClicked: UIButton, page: ViewController) {
         
     case subMenuItem.Child.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.Child.rawValue, page: page)
-        setForm(formType: subMenuItem.Child)
+        setForm(page: page, formType: subMenuItem.Child)
         
     case subMenuItem.Classic.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.Classic.rawValue, page: page)
-        setForm(formType: subMenuItem.Classic)
+        setForm(page: page, formType: subMenuItem.Classic)
         
     case subMenuItem.Senior.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.Senior.rawValue, page: page)
-        setForm(formType: subMenuItem.Senior)
+        setForm(page: page, formType: subMenuItem.Senior)
         
     case subMenuItem.VIP.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.VIP.rawValue, page: page)
-        setForm(formType: subMenuItem.VIP)
+        setForm(page: page, formType: subMenuItem.VIP)
         
     case subMenuItem.Season.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.Season.rawValue, page: page)
-        setForm(formType: subMenuItem.Season)
+        setForm(page: page, formType: subMenuItem.Season)
 
     case subMenuItem.HourlyEmployeeFoodServices.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeFoodServices.rawValue, page: page)
-        setForm(formType: subMenuItem.HourlyEmployeeFoodServices)
+        setForm(page: page, formType: subMenuItem.HourlyEmployeeFoodServices)
     
     case subMenuItem.HourlyEmployeeRideServices.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeRideServices.rawValue, page: page)
-        setForm(formType: subMenuItem.HourlyEmployeeRideServices)
+        setForm(page: page, formType: subMenuItem.HourlyEmployeeRideServices)
     
     case subMenuItem.HourlyEmployeeMaintenance.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeMaintenance.rawValue, page: page)
-        setForm(formType: subMenuItem.HourlyEmployeeMaintenance)
+        setForm(page: page, formType: subMenuItem.HourlyEmployeeMaintenance)
     
     case subMenuItem.ContractEmployee.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.ContractEmployee.rawValue, page: page)
-        setForm(formType: subMenuItem.ContractEmployee)
+        setForm(page: page, formType: subMenuItem.ContractEmployee)
     
     default:
         print("unknown button clicked. tag = \(buttonClicked.tag)")
