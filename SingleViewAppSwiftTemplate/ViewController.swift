@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var SubMenuButton3: UIButton!
     @IBOutlet weak var SubMenuButton4: UIButton!
     @IBOutlet weak var SubMenuButton5: UIButton!
+    @IBOutlet weak var SubMenuStackView: UIStackView!
+    @IBOutlet weak var SubMenuBackgroundLabel: UILabel!
     
     @IBOutlet weak var generatePassButton: UIButton!
     @IBOutlet weak var populateDataButton: UIButton!

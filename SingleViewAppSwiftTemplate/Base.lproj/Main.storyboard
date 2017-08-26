@@ -422,11 +422,13 @@
                         <outlet property="MainMenuButton2" destination="aoX-9b-GrB" id="toH-fX-cUr"/>
                         <outlet property="MainMenuButton3" destination="mF1-dQ-v2M" id="aB8-di-p41"/>
                         <outlet property="MainMenuButton4" destination="GKc-xB-VyK" id="Mda-wG-QmJ"/>
+                        <outlet property="SubMenuBackgroundLabel" destination="jx7-CO-uOa" id="HVL-wt-oQ3"/>
                         <outlet property="SubMenuButton1" destination="xVe-Pu-dpf" id="fSf-El-fcp"/>
                         <outlet property="SubMenuButton2" destination="42K-0Y-h33" id="Laf-P7-0QN"/>
                         <outlet property="SubMenuButton3" destination="7Kf-We-5ro" id="yWT-Yp-50p"/>
                         <outlet property="SubMenuButton4" destination="MQ5-gD-MWE" id="Y42-29-Vle"/>
                         <outlet property="SubMenuButton5" destination="8LS-No-NFh" id="KRN-Uh-BLz"/>
+                        <outlet property="SubMenuStackView" destination="qIK-gg-Oz3" id="Hcf-MA-hJY"/>
                         <outlet property="cityField" destination="rES-O5-kyT" id="7fP-GR-m40"/>
                         <outlet property="companyNameField" destination="CKc-fm-hYJ" id="sjI-Y9-Sai"/>
                         <outlet property="dateOfBirthField" destination="XUd-eL-HXB" id="4M4-Vx-nh2"/>
@@ -443,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1954" y="-711"/>
+            <point key="canvasLocation" x="-2278" y="-849"/>
         </scene>
     </scenes>
 </document>

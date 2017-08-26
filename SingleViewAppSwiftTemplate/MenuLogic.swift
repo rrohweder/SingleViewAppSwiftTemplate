@@ -18,7 +18,7 @@ enum mainMenuItem: Int {
 
 enum subMenuItem: Int {
     case Child = 11
-    case Adult = 12
+    case Classic = 12
     case Senior = 13
     case VIP = 14
     case Season = 15
@@ -46,13 +46,13 @@ func colorSubMenuText(whiteButton: Int, page: ViewController) {
     case 15:
         page.SubMenuButton5.setTitleColor(.white, for: .normal)
     case 16:
-        page.SubMenuButton5.setTitleColor(.white, for: .normal)
+        page.SubMenuButton1.setTitleColor(.white, for: .normal)
     case 17:
-        page.SubMenuButton5.setTitleColor(.white, for: .normal)
+        page.SubMenuButton2.setTitleColor(.white, for: .normal)
     case 18:
-        page.SubMenuButton5.setTitleColor(.white, for: .normal)
+        page.SubMenuButton3.setTitleColor(.white, for: .normal)
     case 19:
-        page.SubMenuButton5.setTitleColor(.white, for: .normal)
+        page.SubMenuButton4.setTitleColor(.white, for: .normal)
     default:
         print("invalid submenu button number")
         
@@ -62,13 +62,18 @@ func colorSubMenuText(whiteButton: Int, page: ViewController) {
 func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
     switch (mainMenu) {
         case mainMenuItem.Guest:
-            // label and activate Child, Adult, Senior, VIP
+            // label and activate Child, Classic, Senior, VIP
+            
+            if page.SubMenuStackView.isHidden == true {
+                page.SubMenuBackgroundLabel.isHidden = false
+                page.SubMenuStackView.isHidden = false
+            }
             
             page.SubMenuButton1.setTitle("Free Child", for: .normal)
             page.SubMenuButton1.tag = subMenuItem.Child.rawValue
             
-            page.SubMenuButton2.setTitle("Classic Adult", for: .normal)
-            page.SubMenuButton2.tag = subMenuItem.Adult.rawValue
+            page.SubMenuButton2.setTitle("Classic", for: .normal)
+            page.SubMenuButton2.tag = subMenuItem.Classic.rawValue
             
             page.SubMenuButton3.setTitle("Senior", for: .normal)
             page.SubMenuButton3.tag = subMenuItem.Senior.rawValue
@@ -87,6 +92,11 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
         
         case mainMenuItem.Employee:
             // label and activate HourlyFoodServices, HourlyRideServices, HourlyMaintenance, Manager
+            if page.SubMenuStackView.isHidden == true {
+                page.SubMenuBackgroundLabel.isHidden = false
+                page.SubMenuStackView.isHidden = false
+            }
+
             page.SubMenuButton1.setTitle("Food Serv.", for: .normal)
             page.SubMenuButton1.tag = subMenuItem.HourlyEmployeeFoodServices.rawValue
 
@@ -100,7 +110,7 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             page.SubMenuButton5.isHidden = true
             colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeFoodServices.rawValue, page: page)
 
-
+/* these cases don't occur -- no submenu for them
         case mainMenuItem.Manager:
             // hide submenu, set form?
             break
@@ -108,7 +118,7 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
         case mainMenuItem.Vendor:
             // hide submenu, set form?
             break
-        
+*/
         default:
             break
         
@@ -117,24 +127,66 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
 
 func setForm(formType: subMenuItem) {
     switch(formType) {
-        case subMenuItem.Child: break
-        case subMenuItem.Adult: break
-        case subMenuItem.Senior: break
-        case subMenuItem.VIP: break
-        case subMenuItem.Season: break
-        case subMenuItem.HourlyEmployeeFoodServices: break
-        case subMenuItem.HourlyEmployeeRideServices: break
-        case subMenuItem.HourlyEmployeeMaintenance: break
-        case subMenuItem.ContractEmployee: break
+        case subMenuItem.Child:
+            // Date of Birth
+        break
+        
+        case subMenuItem.Classic:
+            // No personal information required.
+        break
+        
+        case subMenuItem.Senior:
+            /*
+            -First Name
+            -Last Name
+            -Date of Birth
+             */
+        break
+        
+        case subMenuItem.VIP:
+            // No personal information required.
+        break
+        
+        case subMenuItem.Season:
+            /*
+            -First Name
+            -Last Name
+            -Street Address
+            -City
+            -State
+            -Zip Code
+            -Date of Birth
+            */
+
+        break
+        
+        case subMenuItem.HourlyEmployeeFoodServices,
+         subMenuItem.HourlyEmployeeRideServices,
+         subMenuItem.HourlyEmployeeMaintenance,
+         subMenuItem.ContractEmployee:
+         /*
+            -First Name
+            -Last Name
+            -Street Address
+            -City
+            -State
+            -Zip Code
+            -Social Security Number
+            -Date of Birth
+            */
+        break
     }
 }
 
 func menuLogic(buttonClicked: UIButton, page: ViewController) {
-    page.MainMenuButton1.setTitleColor(.gray, for: .normal)
-    page.MainMenuButton2.setTitleColor(.gray, for: .normal)
-    page.MainMenuButton3.setTitleColor(.gray, for: .normal)
-    page.MainMenuButton4.setTitleColor(.gray, for: .normal)
-    if (buttonClicked.tag > 10) { print("sub", terminator:"") }
+    if (buttonClicked.tag < 10) {
+        page.MainMenuButton1.setTitleColor(.gray, for: .normal)
+        page.MainMenuButton2.setTitleColor(.gray, for: .normal)
+        page.MainMenuButton3.setTitleColor(.gray, for: .normal)
+        page.MainMenuButton4.setTitleColor(.gray, for: .normal)
+    } else {
+        print("sub", terminator:"")
+    }
     print("menu item \(buttonClicked.tag) clicked.")
     
     
@@ -151,18 +203,22 @@ func menuLogic(buttonClicked: UIButton, page: ViewController) {
     case mainMenuItem.Manager.rawValue:
         page.MainMenuButton3.setTitleColor(.white, for: .normal)
         // hide submenu, display form
+        page.SubMenuStackView.isHidden = true
+        page.SubMenuBackgroundLabel.isHidden = true
+        
         
     case mainMenuItem.Vendor.rawValue:
         page.MainMenuButton4.setTitleColor(.white, for: .normal)
+        page.SubMenuStackView.isHidden = true
         // hide submenu, display form
         
     case subMenuItem.Child.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.Child.rawValue, page: page)
         setForm(formType: subMenuItem.Child)
         
-    case subMenuItem.Adult.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.Adult.rawValue, page: page)
-        setForm(formType: subMenuItem.Adult)
+    case subMenuItem.Classic.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.Classic.rawValue, page: page)
+        setForm(formType: subMenuItem.Classic)
         
     case subMenuItem.Senior.rawValue:
         colorSubMenuText(whiteButton: subMenuItem.Senior.rawValue, page: page)
