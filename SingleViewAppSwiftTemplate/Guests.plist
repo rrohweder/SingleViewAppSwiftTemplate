@@ -22,5 +22,35 @@
 		<key>dateOfBirth</key>
 		<date>2014-04-12T04:03:10Z</date>
 	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>5003</integer>
+		<key>guestType</key>
+		<string>Senior</string>
+		<key>firstName</key>
+		<string>Roger</string>
+		<key>lastName</key>
+		<string>Rohweder</string>
+		<key>dateOfBirth</key>
+		<date>1953-09-03T03:07:17Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<real>5004</real>
+		<key>guestType</key>
+		<string>Season</string>
+		<key>firstName</key>
+		<string>Brian</string>
+		<key>lastName</key>
+		<string>Pendell</string>
+		<key>streetAddress</key>
+		<string>999 Oxford St</string>
+		<key>city</key>
+		<string>Wake Forest</string>
+		<key>state</key>
+		<string>NC</string>
+		<key>zipCode</key>
+		<string>27587</string>
+	</dict>
 </array>
 </plist>

@@ -78,21 +78,7 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         // confirm that Guests do not have NonPublic Area access
         XCTAssert(accessPermitted(requestor: anyGuest, gate: nonpublicGate) == false)
         
- /*
-        anyGuest.guestType = .VIP
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Amusement) == true)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Kitchen) == false)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .RideControl) == false)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Maintenance) == false)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Office) == false)
-        
-        anyGuest.guestType = .FreeChild
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Amusement) == true)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Kitchen) == false)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .RideControl) == false)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Maintenance) == false)
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: gate .Office) == false)
- */
+
     }
     
     

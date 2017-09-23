@@ -12,6 +12,8 @@ enum GuestType {
     case Classic
     case VIP
     case FreeChild
+    case Senior
+    case Season
 }
 
 enum GuestErrorType: Error {
@@ -26,7 +28,7 @@ class Guest: Entrant {
     init(entrantID: Int, guestType: GuestType) {
         self.entrantID = entrantID
         self.guestType = guestType
-    }
+    }    
 }
 
 class FreeChildGuest: Guest {
@@ -34,6 +36,42 @@ class FreeChildGuest: Guest {
     
     init(entrantID: Int, guestType: GuestType, dateOfBirth: Date) {
         self.dateOfBirth = dateOfBirth
+        super.init(entrantID: entrantID, guestType: guestType)
+    }
+}
+
+class SeniorGuest: Guest {
+    var firstName: String
+    var lastName: String
+    var dateOfBirth: Date
+    
+    init(entrantID: Int, guestType: GuestType, firstName: String, lastName: String, dateOfBirth: Date) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.dateOfBirth = dateOfBirth
+        super.init(entrantID: entrantID, guestType: guestType)
+    }
+}
+
+class SeasonPassGuest: Guest {
+    var dateOfBirth: Date
+    var firstName: String
+    var lastName: String
+    var streetAddress: String
+    var city: String
+    var state: String
+    var zipCode: String
+    
+    init(entrantID: Int, guestType: GuestType, firstName: String, lastName: String, dateOfBirth: Date,
+         streetAddress: String, city: String, state: String, zipCode: String) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.dateOfBirth = dateOfBirth
+        self.streetAddress = streetAddress
+        self.city = city
+        self.state = state
+        self.zipCode = zipCode
+
         super.init(entrantID: entrantID, guestType: guestType)
     }
     
@@ -55,5 +93,4 @@ class VIPGuest: Guest {
     // easily imagine having properties like 'birthday' (just month/day),
     // or some preference (vegetarian?) that would be unique to VIP guests.
 }
-
 

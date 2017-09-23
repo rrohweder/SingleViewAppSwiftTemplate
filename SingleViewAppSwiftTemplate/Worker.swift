@@ -13,6 +13,7 @@ enum WorkerType {
     case HourlyRideServices
     case HourlyMaintenance
     case Manager
+    case VendorStaff // added 9/20/17
 }
 
 enum WorkerErrorType: Error {

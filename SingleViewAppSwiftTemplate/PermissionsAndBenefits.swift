@@ -133,19 +133,8 @@ func discountAvailable(requestor: Entrant, product: ProductType) -> Int {
     case .Food:
         if (requestor is Guest) {
             let guestRequestor = requestor as! Guest
-            switch guestRequestor.guestType {
-            case GuestType.Classic:
-                if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
-                    return discount
-                }
-            case GuestType.VIP:
-                if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
-                    return discount
-                }
-            case GuestType.FreeChild:
-                if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
-                    return discount
-                }
+            if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
+                return discount
             }
         } else if requestor is Worker {
             let workerRequestor = requestor as! Worker

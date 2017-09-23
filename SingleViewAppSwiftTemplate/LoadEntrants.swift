@@ -36,6 +36,14 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
     var inputRecord = 0
     var guestType: GuestType
     var dateOfBirth: Date?
+    var ssn: String
+    var firstName: String
+    var lastName: String
+    var streetAddress: String
+    var city: String
+    var state: String
+    var zip: String
+    
     var aGuest: Guest
     
     do {
@@ -55,27 +63,93 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
         guard let type = dict["guestType"] as! String? else {
             throw EntrantImportError.missingRequiredField(fieldName: "Type, input record \(inputRecord)")
         }
+        
+// FIXME: Why did I make dateOfBirth optional? If it is a required piece of 
+// data for that GuestType, I won't create and store the object, right?
+        
         switch (type) {
-            case "Classic": guestType = .Classic
-            case "VIP": guestType = .VIP
-            case "FreeChild": guestType = .FreeChild
-            default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
-        }
-        if guestType == .FreeChild {
-            guard let dob = dict["dateOfBirth"] as! Date? else {
-                // I guess I can't tell whether it is missing or a conversion failure...
-                throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
-            }
-            dateOfBirth = dob
-        }
-        if guestType == .FreeChild && dateOfBirth != nil {
-            aGuest = FreeChildGuest(entrantID: id, guestType: guestType, dateOfBirth: dateOfBirth!)
-        } else {
-            aGuest = Guest(entrantID: id, guestType: guestType)
+            case "Classic":
+                guestType = .Classic
+                aGuest = Guest(entrantID: id, guestType: guestType)
+           
+            case "VIP":
+                guestType = .VIP
+                aGuest = Guest(entrantID: id, guestType: guestType)
+
+        case "FreeChild":
+                guestType = .FreeChild
+                guard let dob = dict["dateOfBirth"] as! Date? else {
+                    // I guess I can't tell whether it is missing or a conversion failure...
+                    throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
+                }
+                dateOfBirth = dob
+                
+                aGuest = FreeChildGuest(entrantID: id, guestType: guestType, dateOfBirth: dateOfBirth!)
+            
+            case "Senior":
+                guestType = .Senior
+                guard let dob = dict["dateOfBirth"] as! Date? else {
+                    // I guess I can't tell whether it is missing or a conversion failure...
+                    throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
+                }
+                dateOfBirth = dob
+                
+                guard let fn = dict["firstName"] as! String? else {
+                    // I guess I can't tell whether it is missing or a conversion failure...
+                    throw EntrantImportError.missingRequiredField(fieldName: "firstName, input record \(inputRecord)")
+                }
+                firstName = fn
+                
+                guard let ln = dict["lastName"] as! String? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "lastName, input record \(inputRecord)")
+                }
+                lastName = ln
+                
+                aGuest = SeniorGuest(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!)
+
+            
+            case "Season": guestType = .Season
+                
+                guard let fn = dict["firstName"] as! String? else {
+                    // I guess I can't tell whether it is missing or a conversion failure...
+                    throw EntrantImportError.missingRequiredField(fieldName: "firstName, input record \(inputRecord)")
+                }
+                firstName = fn
+                
+                guard let ln = dict["lastName"] as! String? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "lastName, input record \(inputRecord)")
+                }
+                lastName = ln
+            
+                guard let sa = dict["streetAddress"] as! String? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "streetAddress, input record \(inputRecord)")
+                }
+                streetAddress = sa
+                
+                guard let ci = dict["city"] as! String? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "streetAddress, input record \(inputRecord)")
+                }
+                city = ci
+            
+                guard let st = dict["state"] as! String? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "streetAddress, input record \(inputRecord)")
+                }
+                state = st
+
+                guard let zc = dict["zipCode"] as! String? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "streetAddress, input record \(inputRecord)")
+                }
+                zip = zc
+
+                aGuest = SeasonPassGuest(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!, streetAddress: streetAddress, city: city, state: state, zipCode: zip)
+            
+            default:
+                throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
         
-        allGuests.append(aGuest)
-        
+        if (aGuest != nil) {
+            allGuests.append(aGuest)
+        }
     }
     return allGuests
     
@@ -107,6 +181,7 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
             case "HourlyRideServices": workerType = .HourlyRideServices
             case "HourlyMaintenance": workerType = .HourlyMaintenance
             case "Manager": workerType = .Manager
+            case "VendorStaff": workerType = .VendorStaff
             default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
 
