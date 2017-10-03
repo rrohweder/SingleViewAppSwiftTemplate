@@ -48,6 +48,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     @IBOutlet weak var lastNameLabel: UILabel!
     @IBOutlet weak var companyNameField: UITextField!
     @IBOutlet weak var companyNameLabel: UILabel!
+    @IBOutlet weak var MgmtTierLabel: UILabel!
+    @IBOutlet weak var MgmtTierField: UITextField!
     @IBOutlet weak var streetAddressField: UITextField!
     @IBOutlet weak var streetAddressLabel: UILabel!
     @IBOutlet weak var cityField: UITextField!
@@ -310,21 +312,20 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             
             case mainMenuItem.Manager.rawValue:
                 
-                if let employee = getEntrant(entrantType: WorkerType.Manager) {
+                if let mgr = getEntrant(entrantType: WorkerType.Manager) as! Manager? {
                     dateOfBirthField.textColor = .black
-                    dateOfBirthField.text = dateFormatter.string(from: employee.dateOfBirth)
+                    dateOfBirthField.text = dateFormatter.string(from: mgr.dateOfBirth)
                     ssnField.textColor = .black
-                    ssnField.text = employee.socialSecurityNumber
-                    firstNameField.text = employee.firstName
-                    lastNameField.text = employee.lastName
-                    streetAddressField.text = employee.streetAddress
-                    cityField.text = employee.city
-                    stateField.text = employee.state
-                    zipCodeField.text = employee.zipCode
-                    // FIXME: Management Tier (Shift Mgr., General Mgr., Senior Mgr.)
-                    return employee as Entrant
+                    ssnField.text = mgr.socialSecurityNumber
+                    firstNameField.text = mgr.firstName
+                    lastNameField.text = mgr.lastName
+                    streetAddressField.text = mgr.streetAddress
+                    cityField.text = mgr.city
+                    stateField.text = mgr.state
+                    zipCodeField.text = mgr.zipCode
+                    MgmtTierField.text = mgr.mgmtTier
+                    return mgr as Entrant
                 }
-                break
             
             case mainMenuItem.Vendor.rawValue:
 
@@ -378,6 +379,10 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 default: wt = WorkerType.HourlyFoodServices
             }
             entrant = Worker(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            
+        case mainMenuItem.Manager.rawValue:
+            entrant = Manager(entrantID: 6, workerType: .Manager, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, mgmtTier: MgmtTierField.text!)
+
 /*
         case subMenuItem.ContractEmployee.rawValue:
             break
@@ -393,12 +398,26 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         isFormComplete()
     }
     
-    
     @IBAction func dobEntry(_ sender: Any) {
-        // clear and set text to black
+        // clear field and set text to black
         dateOfBirthField.textColor = .black
         if dateOfBirthField.text == "MM/DD/YYYY" {
             dateOfBirthField.text = ""
+        }
+    }
+    
+    @IBAction func dobDone(_ sender: Any) {
+        // on Primary Action Triggered
+        if (lastClicked == subMenuItem.Child.rawValue) {
+            isFormComplete()
+        }
+    }
+    
+    @IBAction func ssnEntry(_ sender: Any) {
+        // clear field and set text to black
+        ssnField.textColor = .black
+        if ssnField.text == "NNN-NN-NNNN" {
+            ssnField.text = ""
         }
     }
     
@@ -431,13 +450,47 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 isComplete = true
 
             case subMenuItem.Season.rawValue:
-                break
+                if firstNameField.text != ""
+                    && lastNameField.text != ""
+                    && streetAddressField.text != ""
+                    && cityField.text != ""
+                    && stateField.text != ""
+                    && isZipCodeValid(zipCode: zipCodeField.text!)
+                    && isDobValid(birthdateString: dateOfBirthField.text!)
+
+                {
+                        isComplete = true
+                }
             
             case subMenuItem.HourlyEmployeeFoodServices.rawValue,
              subMenuItem.HourlyEmployeeRideServices.rawValue,
              subMenuItem.HourlyEmployeeMaintenance.rawValue:
-                break
-            
+                if isDobValid(birthdateString: dateOfBirthField.text!)
+                    && isSSNValid(socialSecurityNumber: ssnField.text!)
+                    && firstNameField.text != ""
+                    && lastNameField.text != ""
+                    && streetAddressField.text != ""
+                    && cityField.text != ""
+                    && stateField.text != ""
+                    && isZipCodeValid(zipCode: zipCodeField.text!)
+                {
+                    isComplete = true
+                }
+
+        case mainMenuItem.Manager.rawValue:
+            if isDobValid(birthdateString: dateOfBirthField.text!)
+                && isSSNValid(socialSecurityNumber: ssnField.text!)
+                && firstNameField.text != ""
+                && lastNameField.text != ""
+                && streetAddressField.text != ""
+                && cityField.text != ""
+                && stateField.text != ""
+                && isZipCodeValid(zipCode: zipCodeField.text!)
+                // + Management Tier (Shift Mgr., General Mgr., Senior Mgr.)
+            {
+                isComplete = true
+            }
+
             case subMenuItem.ContractEmployee.rawValue:
                 break
             
@@ -466,12 +519,12 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             isFormComplete()
         } else {
             // FIXME: do an alert here
-            print("\(ssnField.text!) is an invalid SSN value - please correct")
+            print("\(dateOfBirthField.text!) is an invalid SSN value - please correct")
         }
     }
     
     @IBAction func validateSSN(_ sender: Any) {
-        if validSSN(socialSecurityNumber: ssnField.text!) == false {
+        if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
             // FIXME: do an alert here
             print("\(ssnField.text!) is an invalid SSN value - please correct")
         }

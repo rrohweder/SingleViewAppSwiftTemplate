@@ -16,7 +16,7 @@ protocol Entrant {
     var entrantID: Int { get }
 }
 
-func validSSN(socialSecurityNumber: String) -> Bool {
+func isSSNValid(socialSecurityNumber: String) -> Bool {
     var isValid = false
     var regexForSSN:NSRegularExpression
     var matches = [NSTextCheckingResult]()
@@ -40,7 +40,7 @@ func validSSN(socialSecurityNumber: String) -> Bool {
     return isValid
 }
 
-func validZipCode(zipCode: String) -> Bool {
+func isZipCodeValid(zipCode: String) -> Bool {
     var isValid = false
     var regexForZip:NSRegularExpression
     var matches = [NSTextCheckingResult]()
@@ -67,10 +67,11 @@ func isDobValid(birthdateString: String) -> Bool {
     let now = Date()
     let calendar = Calendar.current
     dateFormatter.dateFormat = "MM/dd/yyyy"
-    let birthDate = dateFormatter.date(from: birthdateString)!
-    let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
-    if ageComponents.year! > 0 && ageComponents.year! < 120 {
-        return true
+    if let birthDate = dateFormatter.date(from: birthdateString) {
+        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+        if ageComponents.year! > 0 && ageComponents.year! < 120 {
+            return true
+        }
     }
     return false
 }

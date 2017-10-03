@@ -117,7 +117,12 @@ func deactivateFormFields(page: ViewController) {
         red: 204.0/255.0, green: 204.0/255.0,
         blue: 204.0/255.0, alpha: 1.0)
     page.companyNameField.text = ""
-    
+
+    page.MgmtTierLabel.isHidden = true
+    page.MgmtTierField.isHidden = true
+    page.MgmtTierField.isUserInteractionEnabled = false
+    page.MgmtTierField.text = ""
+
     page.streetAddressLabel.textColor = .gray
     page.streetAddressField.isUserInteractionEnabled = false
     page.streetAddressField.backgroundColor = UIColor(
@@ -152,19 +157,16 @@ func setForm(page: ViewController, formType: Menus) {
     switch(formType) {
         
     case subMenuItem.Child:
-        
         page.DateOfBirthLabel.textColor = .black
-        page.dateOfBirthField.textColor = .black
+        // leave dob field text color gray (template is in place)
         page.dateOfBirthField.backgroundColor = .white
         page.dateOfBirthField.isUserInteractionEnabled = true
-        break
         
     case subMenuItem.Classic:
         // No personal information required.
         break
         
     case subMenuItem.Senior:
-        
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
         page.firstNameField.isUserInteractionEnabled = true
@@ -174,9 +176,9 @@ func setForm(page: ViewController, formType: Menus) {
         page.lastNameField.isUserInteractionEnabled = true
         
         page.DateOfBirthLabel.textColor = .black
+        // leave dob field text color gray (template is in place)
         page.dateOfBirthField.backgroundColor = .white
         page.dateOfBirthField.isUserInteractionEnabled = true
-        break
         
     case subMenuItem.VIP:
         // No personal information required.
@@ -207,7 +209,11 @@ func setForm(page: ViewController, formType: Menus) {
         page.zipLabel.textColor = .black
         page.zipCodeField.backgroundColor = .white
         page.zipCodeField.isUserInteractionEnabled = true
-        break
+        
+        page.DateOfBirthLabel.textColor = .black
+        page.dateOfBirthField.backgroundColor = .white
+        // leave dob field text color gray (template is in place)
+        page.dateOfBirthField.isUserInteractionEnabled = true
         
     case subMenuItem.HourlyEmployeeFoodServices,
          subMenuItem.HourlyEmployeeRideServices,
@@ -240,15 +246,16 @@ func setForm(page: ViewController, formType: Menus) {
         
         page.ssnLabel.textColor = .black
         page.ssnField.backgroundColor = .white
+        // leave ssn field text color gray (template is in place)
         page.ssnField.isUserInteractionEnabled = true
         
         page.DateOfBirthLabel.textColor = .black
         page.dateOfBirthField.backgroundColor = .white
+        // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
-        break
+
         
     case mainMenuItem.Manager:
-        // FIXME: handle Management Tier 
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -257,6 +264,14 @@ func setForm(page: ViewController, formType: Menus) {
         page.lastNameLabel.textColor = .black
         page.lastNameField.backgroundColor = .white
         page.lastNameField.isUserInteractionEnabled = true
+        
+        page.companyNameLabel.isHidden = true
+        page.companyNameField.isHidden = true
+        page.MgmtTierLabel.isHidden = false
+        page.MgmtTierLabel.textColor = .black
+        page.MgmtTierField.isHidden = false
+        page.MgmtTierField.backgroundColor = .white
+        page.MgmtTierField.isUserInteractionEnabled = true
         
         page.streetAddressLabel.textColor = .black
         page.streetAddressField.backgroundColor = .white
@@ -276,12 +291,14 @@ func setForm(page: ViewController, formType: Menus) {
         
         page.ssnLabel.textColor = .black
         page.ssnField.backgroundColor = .white
+        // leave ssn field text color gray (template is in place)
         page.ssnField.isUserInteractionEnabled = true
         
         page.DateOfBirthLabel.textColor = .black
         page.dateOfBirthField.backgroundColor = .white
+        // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
-        break
+
 
     case mainMenuItem.Vendor:
         // FIXME: handle Date of Visit
@@ -302,8 +319,9 @@ func setForm(page: ViewController, formType: Menus) {
         
         page.DateOfBirthLabel.textColor = .black
         page.dateOfBirthField.backgroundColor = .white
+        // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
-        break
+
         
 // FIXME: error message? can one pass an invalid form type?
     default: break
