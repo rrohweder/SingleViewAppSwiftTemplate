@@ -158,6 +158,7 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
 func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
     var inputRecord = 0
     var workerType: WorkerType
+    var aWorker: Worker
     
     do {
         let workerArray = try EntrantsPlistImporter.importDictionaries(fromFile: inputFile, ofType: fileType)
@@ -216,12 +217,20 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
         guard let dateOfBirth = dict["dateOfBirth"] as! Date? else {
             throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
         }
-        
-        let aWorker =
-Worker(entrantID: id, workerType: workerType, firstName: firstName,
-                             lastName: lastName, streetAddress: streetAddress, city: city,
-                             state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth)
-        
+
+        if workerType == .Manager {
+            guard let mgmtTier = dict["mgmtTier"] as! String? else {
+                throw EntrantImportError.missingRequiredField(fieldName: "mgmtTier, input record \(inputRecord)")
+            }
+            aWorker = Manager(entrantID: id, workerType: workerType, firstName: firstName,
+                       lastName: lastName, streetAddress: streetAddress, city: city,
+                       state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth, mgmtTier: mgmtTier)
+
+        } else {
+            aWorker = Worker(entrantID: id, workerType: workerType, firstName: firstName,
+                                 lastName: lastName, streetAddress: streetAddress, city: city,
+                                 state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth)
+        }
         allWorkers.append(aWorker)
         
     }

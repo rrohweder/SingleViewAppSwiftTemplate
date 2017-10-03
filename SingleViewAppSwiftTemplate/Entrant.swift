@@ -8,40 +8,99 @@
 
 import Foundation
 
-let maxChildAge = 5
+let maxFreeChildAge = 5
+let minSeniorAge = 65
+let dateFormatter = DateFormatter()
 
 protocol Entrant {
     var entrantID: Int { get }
 }
 
 func validSSN(socialSecurityNumber: String) -> Bool {
-    if socialSecurityNumber.characters.count == 9 {
-        return true
+    var isValid = false
+    var regexForSSN:NSRegularExpression
+    var matches = [NSTextCheckingResult]()
+    
+    // actual valid SSN needs to match one of these regexs
+    // (from https://www.codeproject.com/Articles/651609/Validating-Social-Security-Numbers-through-Regular)
+    // ^(?!219-09-9999|078-05-1120)(?!666|000|9\d{2})\d{3}-(?!00)\d{2}-(?!0{4})\d{4}$   (with dashes)
+    // ^(?!219099999|078051120)(?!666|000|9\d{2})\d{3}(?!00)\d{2}(?!0{4})\d{4}$    (without dashes)
+    
+    regexForSSN = try! NSRegularExpression(pattern: "^(?!219-09-9999|078-05-1120)(?!666|000|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}$", options: [])
+    matches = regexForSSN.matches(in: socialSecurityNumber, options: [], range: NSRange(location: 0, length: socialSecurityNumber.characters.count))
+    if matches.count == 1 {
+        isValid = true
     } else {
-        return false
+        regexForSSN = try! NSRegularExpression(pattern: "^(?!219099999|078051120)(?!666|000|9\\d{2})\\d{3}(?!00)\\d{2}(?!0{4})\\d{4}$", options: [])
+        matches = regexForSSN.matches(in: socialSecurityNumber, options: [], range: NSRange(location: 0, length: socialSecurityNumber.characters.count))
+        if matches.count == 1 {
+            isValid = true
+        }
     }
+    return isValid
 }
 
 func validZipCode(zipCode: String) -> Bool {
-    if (zipCode.characters.count == 5 || zipCode.characters.count == 9) {
+    var isValid = false
+    var regexForZip:NSRegularExpression
+    var matches = [NSTextCheckingResult]()
+
+    regexForZip = try! NSRegularExpression(pattern: "^\\d{5}$", options: [])
+    matches = regexForZip.matches(in: zipCode, options: [], range: NSRange(location: 0, length: zipCode.characters.count))
+    if matches.count == 1 {
+        isValid = true
+    } else {
+        regexForZip = try! NSRegularExpression(pattern: "^\\d{5}-\\d{4}$", options: [])
+        matches = regexForZip.matches(in: zipCode, options: [], range: NSRange(location: 0, length: zipCode.characters.count))
+        if matches.count == 1 {
+            isValid = true
+        }
+    }
+    return isValid
+}
+
+func isDobValid(birthdateString: String) -> Bool {
+
+    if (birthdateString == "MM / DD / YYYY" || birthdateString.trimmingCharacters(in: NSCharacterSet.whitespaces) == "") {
+        return false
+    }
+    let now = Date()
+    let calendar = Calendar.current
+    dateFormatter.dateFormat = "MM/dd/yyyy"
+    let birthDate = dateFormatter.date(from: birthdateString)!
+    let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+    if ageComponents.year! > 0 && ageComponents.year! < 120 {
+        return true
+    }
+    return false
+}
+
+func isFreeChild(birthdateString: String) -> Bool {
+    let now = Date()
+    let calendar = Calendar.current
+    let birthDate = dateFormatter.date(from: birthdateString)!
+
+    let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+    if ageComponents.year! <= maxFreeChildAge {
         return true
     } else {
         return false
     }
 }
 
-func isChild(birthdate: Date) -> Bool {
+func isSenior(birthdateString: String) -> Bool {
     let now = Date()
     let calendar = Calendar.current
-    
-    let ageComponents = calendar.dateComponents([.year], from: birthdate, to: now)
-    if ageComponents.year! <= maxChildAge {
+    let birthDate = dateFormatter.date(from: birthdateString)!
+
+    let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
+    if ageComponents.year! >= minSeniorAge {
         return true
-        
     } else {
         return false
     }
 }
+
 
 
 

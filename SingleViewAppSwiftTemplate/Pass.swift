@@ -26,7 +26,7 @@ class Pass {
 
             if requestor is FreeChildGuest {
                 let childRequestor = requestor as! FreeChildGuest
-                freeChild = isChild(birthdate: childRequestor.dateOfBirth)
+                freeChild = isFreeChild(birthdateString: dateFormatter.string(from: childRequestor.dateOfBirth))
             }
             
         } else if requestor is Worker {

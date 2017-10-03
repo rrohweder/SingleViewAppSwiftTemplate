@@ -305,9 +305,6 @@ func setForm(page: ViewController, formType: Menus) {
         page.dateOfBirthField.isUserInteractionEnabled = true
         break
         
-        
-        break
-
 // FIXME: error message? can one pass an invalid form type?
     default: break
     }
@@ -355,6 +352,9 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             
             page.SubMenuButton3.setTitle("Maintenance", for: .normal)
             page.SubMenuButton3.tag = subMenuItem.HourlyEmployeeMaintenance.rawValue
+
+            page.SubMenuButton4.isHidden = true
+            page.SubMenuButton5.isHidden = true
 
         // Manager and Vendor don't have submenus
         

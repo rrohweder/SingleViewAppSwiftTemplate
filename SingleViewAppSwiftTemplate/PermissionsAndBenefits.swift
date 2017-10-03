@@ -27,9 +27,9 @@ let guestRolesAccess:[GateType: [GuestType]] = [
 
 let guestRolesDiscount:[ProductType:[GuestType:Int]] = [
     .Food:
-        [.VIP:10],
+        [.VIP:10, .Senior:10, .Season:10],
     .Merchandise:
-        [.VIP:20]
+        [.VIP:20, .Senior:10, .Season:20]
 ]
 
 let guestRolesSkipPrivilege:[GateType:[GuestType]] = [

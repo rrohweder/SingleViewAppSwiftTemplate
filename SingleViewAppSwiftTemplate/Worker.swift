@@ -64,12 +64,30 @@ class Hourly: Worker {
 }
 
 class Manager: Worker {
-    // properties needed for this exercise are handled in the Worker superclass
-    // one could picture how the swipe into an area might be used to record
-    // hours in an area (to support a Manager Area Coverage Report), for instance, 
-    // in which case there could be other properties specific to this WorkerType.
+    let mgmtTier: String
+    
+    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateOfBirth: Date, mgmtTier: String) {
+        
+        self.mgmtTier = mgmtTier
+        
+        super.init(entrantID: entrantID, workerType: workerType, firstName: firstName, lastName: lastName, streetAddress: streetAddress, city: city, state: state, zipCode: zipCode, socialSecurityNumber: socialSecurityNumber, dateOfBirth: dateOfBirth)
+    }
 }
 
- 
- 
+// FIXME: VendorStaff has two extra properties, but doesn't need the address and ssn stuff... is it a proper subclass?  Or should I make it a another class conforming to Entrant?
+/*
+class VendorStaff: Worker {
+    var vendorCompanyName: String
+    var dateOfLastVisit: Date
+    
+    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, vendorCompanyName: String, dateOfBirth: Date, dateOfLastVisit: Date) {
+        
+        self.vendorCompanyName = vendorCompanyName
+        self.dateOfLastVisit = dateOfLastVisit
+
+        super.init(entrantID: entrantID, workerType: workerType, firstName: <#String#>, lastName: <#String#>, streetAddress: <#String#>, city: <#String#>, state: <#String#>, zipCode: <#String#>, socialSecurityNumber: <#String#>, dateOfBirth: <#Date#>)
+    }
+}
+ */
+
     

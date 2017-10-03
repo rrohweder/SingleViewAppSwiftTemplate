@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PassViewControllerDelegate {
 
     // FIXME: can they both be Gate, or are they subclasses? Or is Gate a protocol?
     var rides = [Ride]()
@@ -58,16 +58,66 @@ class ViewController: UIViewController {
     @IBOutlet weak var zipLabel: UILabel!
     
     
+    func enablePopulateButton() {
+        populateDataButton.isEnabled = true
+        populateDataButton.backgroundColor = .white
+        populateDataButton.setTitleColor(UIColor(
+            red: 90.0/255.0, green: 149.0/255.0,
+            blue: 143.0/255.0, alpha: 1.0), for: .normal)
+    }
+    
+    func disablePopulateButton() {
+        populateDataButton.isEnabled = false
+        populateDataButton.backgroundColor = UIColor(
+            red: 230.0/255.0, green: 230.0/255.0,
+            blue: 230.0/255.0, alpha: 1.0)
+        populateDataButton.setTitleColor(UIColor(
+            red: 179.0/255.0, green: 179.0/255.0,
+            blue: 179.0/255.0, alpha: 1.0),for: .normal)
+    }
+    
+    func enableGeneratePassButton() {
+        generatePassButton.isEnabled = true
+        generatePassButton.backgroundColor = UIColor(
+            red: 90.0/255.0, green: 149.0/255.0,
+            blue: 143.0/255.0, alpha: 1.0)
+        generatePassButton.setTitleColor(.white, for: .normal)
+    }
+    
+    func disableGeneratePassButton() {
+        generatePassButton.isEnabled = false
+        generatePassButton.backgroundColor = UIColor(
+            red: 230.0/255.0, green: 230.0/255.0,
+            blue: 230.0/255.0, alpha: 1.0)
+        generatePassButton.setTitleColor(UIColor(
+            red: 179.0/255.0, green: 179.0/255.0,
+            blue: 179.0/255.0, alpha: 1.0),for: .normal)
+    }
+    
+    func myVCDidFinish(controller:PassViewController,text:String) {
+        // so what clearing do I need to do when I return from PassViewController?
+        deactivateFormFields(page: self)
+        disablePopulateButton()
+        disableGeneratePassButton()
+        
+        // I need to reset the SubMenu, SHOULD do it based upon the (last) mainmenu..
+        if (lastClicked <= 15) {
+            activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
+        } else {
+            activateSubmenuItem(mainMenu: mainMenuItem.Employee, page: self)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        dateFormatter.dateFormat = "MM / dd / yyyy"
+        dateFormatter.dateFormat = "MM/dd/yyyy"
 
         // disable form fields, gray labels until a submenu item is selected
         deactivateFormFields(page: self)
         disablePopulateButton()
         disableGeneratePassButton()
-        
+
         /* These don't change in this exercise, but one might set default main menu button labels. I went with generic ("mainMenu1") in the storyboard, and set them at launch. */
         self.MainMenuButton1.setTitle("Guest", for: .normal)
         self.MainMenuButton2.setTitle("Employee", for: .normal)
@@ -133,7 +183,7 @@ class ViewController: UIViewController {
         }
     }
 // end of testing stuff to move
-    
+
     
     @IBAction func menuHandler(_ sender: UIButton) {
         disableGeneratePassButton()
@@ -145,7 +195,6 @@ class ViewController: UIViewController {
         menuLogic(buttonClicked: sender, page: self)
     }
 
-    
     // use filter to get JUST the records I want
     func getEntrant(entrantType: GuestType) -> Guest? {
         var filteredArray = [AnyObject]()
@@ -176,7 +225,7 @@ class ViewController: UIViewController {
             return (filteredArray[0] as! Guest)
         }
         return nil
-            
+
     }
 
 
@@ -188,7 +237,6 @@ class ViewController: UIViewController {
             return filteredArray[0]
         }
         return nil
-        
     }
     
     // FIXME: move this to another file
@@ -298,107 +346,134 @@ class ViewController: UIViewController {
         return currentEntrant!
     }
     
-    func validateEnteredData(type: GuestType) -> Bool {
-// FIXME: this mixes data and view... ugly...
-        print("I wish I knew how to do this correctly...")
-        return true
-    }
-    
-    
-    // FIXME: validate field-by-field, or at the Submit?
-/*
-    func createEntrantFromFormData(menuSelection: Int) -> AnyObject {
-
-    create EntrantObject from data entered into form. Once fields are
-         grabbed (or as grabbing them?), validate that necessary data is included.
-
-        var entrantRecord:AnyObject?
-
-        switch (menuSelection) {
+    func createEntrantFromFormData() -> AnyObject {
+        var entrant: Entrant?
+        var wt: WorkerType
+        
+        switch (lastClicked) {
+            
         case subMenuItem.Child.rawValue:
-            if self.dateOfBirthField.text != "" { // assume date has been validated
-                
-// FIXME: create an entrantID? Or will 0 take care of this?
-
- (don't have time to add to .plist file dynamically... if I did: https://stackoverflow.com/questions/41668166/save-data-to-plist-file-in-swift-3)
- fetch a GUID? then Int would need to change everywhere...
-
-                entrantRecord = FreeChildGuest(entrantID: 0, guestType: GuestType.FreeChild, dateOfBirth: dateFormatter.date(from: self.dateOfBirthField.text!)!) as AnyObject
-            }
-            return entrantRecord!
-
+            entrant = FreeChildGuest(entrantID: 1, guestType: .FreeChild, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            
         case subMenuItem.Classic.rawValue:
-            if validateEnteredData(type: GuestType.Classic) {
-                entrantRecord = ClassicGuest(entrantID: 0, guestType: GuestType.Classic) as AnyObject
-            }
-            else {
-                alert("message")?
-            }
+            entrant = Guest(entrantID: 2, guestType: .Classic)
+            
         case subMenuItem.Senior.rawValue:
-            validateEnteredData(type: GuestType.Senior)
-            entrantRecord = SeniorGuest(entrantID: 0, guestType: GuestType.Senior, dateOfBirth: dateFormatter.date(from: self.dateOfBirthField.text!)!) as AnyObject
+            entrant = SeniorGuest(entrantID: 3, guestType: .Senior, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
             
         case subMenuItem.VIP.rawValue:
-            validateEnteredData(type: GuestType.VIP)
-            entrantRecord = VIPGuest(entrantID: 0, guestType: GuestType.VIP, dateOfBirth: dateFormatter.date(from: self.dateOfBirthField.text!)!) as AnyObject
+            entrant = Guest(entrantID: 2, guestType: .VIP)
 
         case subMenuItem.Season.rawValue:
-            validateEnteredData(type: GuestType.Season)
-            entrantRecord = SeasonPassGuest(entrantID: 0, guestType: GuestType.Season, dateOfBirth: dateFormatter.date(from: self.dateOfBirthField.text!)!) as AnyObject
-// FIXME: make the Guest stuff work first, then finish these:
-        case subMenuItem.HourlyEmployeeFoodServices.rawValue,
-         subMenuItem.HourlyEmployeeRideServices.rawValue,
-         subMenuItem.HourlyEmployeeMaintenance.rawValue: break
-        case mainMenuItem.Manager.rawValue: break
-        case mainMenuItem.Vendor.rawValue: break
-        default: break
+            entrant = SeasonPassGuest(entrantID: 5, guestType: .Season, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!)
             
+        case subMenuItem.HourlyEmployeeFoodServices.rawValue,
+             subMenuItem.HourlyEmployeeRideServices.rawValue,
+             subMenuItem.HourlyEmployeeMaintenance.rawValue:
+            switch (lastClicked) {
+                case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
+                case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
+                case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
+            // FIXME: is there another way to deal with wt value than this?
+                default: wt = WorkerType.HourlyFoodServices
+            }
+            entrant = Worker(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+/*
+        case subMenuItem.ContractEmployee.rawValue:
+            break
+ */
+            
+        default: entrant = Guest(entrantID: 99, guestType: .Classic)
+        }
+        
+        return entrant! as AnyObject
+    }
+    
+    @IBAction func genericFieldExit(_ sender: Any) {
+        isFormComplete()
+    }
+    
+    
+    @IBAction func dobEntry(_ sender: Any) {
+        // clear and set text to black
+        dateOfBirthField.textColor = .black
+        if dateOfBirthField.text == "MM/DD/YYYY" {
+            dateOfBirthField.text = ""
         }
     }
- */
     
-    func enablePopulateButton() {
-        populateDataButton.isEnabled = true
-        populateDataButton.backgroundColor = .white
-        populateDataButton.setTitleColor(UIColor(
-            red: 90.0/255.0, green: 149.0/255.0,
-            blue: 143.0/255.0, alpha: 1.0), for: .normal)
-    }
-    
-    func disablePopulateButton() {
-        populateDataButton.isEnabled = false
-        populateDataButton.backgroundColor = UIColor(
-            red: 230.0/255.0, green: 230.0/255.0,
-            blue: 230.0/255.0, alpha: 1.0)
-        populateDataButton.setTitleColor(UIColor(
-            red: 179.0/255.0, green: 179.0/255.0,
-            blue: 179.0/255.0, alpha: 1.0),for: .normal)
+    func isFormComplete() {
+        var isComplete = false
+        
+        let dobValid = isDobValid(birthdateString: dateOfBirthField.text!)
+        
+        switch (lastClicked) {
+
+            case subMenuItem.Child.rawValue:
+                // FIXME: should just pass string, and let validator (try to) make it into date type to validate.
+                if dobValid {
+                    isComplete = true
+                }
+            
+            case subMenuItem.Classic.rawValue:
+                isComplete = true
+
+            case subMenuItem.Senior.rawValue:
+                 // firstName, lastName, dob
+                if dobValid
+                    && isSenior(birthdateString: dateOfBirthField.text!)
+                    && firstNameField.text != ""
+                    && lastNameField.text != "" {
+                        isComplete = true
+                }
+            
+            case subMenuItem.VIP.rawValue:
+                isComplete = true
+
+            case subMenuItem.Season.rawValue:
+                break
+            
+            case subMenuItem.HourlyEmployeeFoodServices.rawValue,
+             subMenuItem.HourlyEmployeeRideServices.rawValue,
+             subMenuItem.HourlyEmployeeMaintenance.rawValue:
+                break
+            
+            case subMenuItem.ContractEmployee.rawValue:
+                break
+            
+            default: break
+        }
+        
+        if isComplete {
+            currentEntrant = createEntrantFromFormData() as! Entrant  // which will create object and
+            enableGeneratePassButton()
+        }
     }
 
-    
-    func enableGeneratePassButton() {
-        generatePassButton.isEnabled = true
-        generatePassButton.backgroundColor = UIColor(
-            red: 90.0/255.0, green: 149.0/255.0,
-            blue: 143.0/255.0, alpha: 1.0)
-        generatePassButton.setTitleColor(.white, for: .normal)
-    }
-    
-    func disableGeneratePassButton() {
-        generatePassButton.isEnabled = false
-        generatePassButton.backgroundColor = UIColor(
-            red: 230.0/255.0, green: 230.0/255.0,
-            blue: 230.0/255.0, alpha: 1.0)
-        generatePassButton.setTitleColor(UIColor(
-            red: 179.0/255.0, green: 179.0/255.0,
-            blue: 179.0/255.0, alpha: 1.0),for: .normal)
-    }
-    
+// (don't have time to add to .plist file dynamically... need to finish this usit.
+// if I did: https://stackoverflow.com/questions/41668166/save-data-to-plist-file-in-swift-3)
+   
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if (segue.identifier == "MainToPass") {
             let passViewController = (segue.destination as! PassViewController)
             passViewController.entrant = currentEntrant
+            passViewController.delegate = self
+        }
+    }
+    
+    @IBAction func validateDoB(_ sender: Any) {
+        if isDobValid(birthdateString: dateOfBirthField.text!) {
+            isFormComplete()
+        } else {
+            // FIXME: do an alert here
+            print("\(ssnField.text!) is an invalid SSN value - please correct")
+        }
+    }
+    
+    @IBAction func validateSSN(_ sender: Any) {
+        if validSSN(socialSecurityNumber: ssnField.text!) == false {
+            // FIXME: do an alert here
+            print("\(ssnField.text!) is an invalid SSN value - please correct")
         }
     }
     
@@ -408,21 +483,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func generatePass(_ sender: Any) {
-        
-        // FIXME: is this what I want to do?
-        
-        
-        
-        if (currentEntrant != nil) {
-        // FIXME:    currentEntrant = createEntrantFromFormData(menuSelection: lastClicked)
-            
-            
-            // segue to Pass view
-            // let detailVC = segue.destination as! DetailViewController
-        }
-        
-        // maybe I only call this one from the other controller when testing access:
-        // Pass.generatePass(requestor: entrant, gate: )
+            print("who called this? (want to delete it)")
     }
     
     
