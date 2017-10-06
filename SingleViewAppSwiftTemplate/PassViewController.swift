@@ -27,7 +27,7 @@ class PassViewController: UIViewController {
         super.viewDidLoad()
         
         let attributesDictionary = [NSFontAttributeName : PermissionsAndBenefits.font]
-        let fullAttributedString = NSMutableAttributedString(string: "", attributes: attributesDictionary)
+        let fullAttributedString = NSMutableAttributedString(string: "", attributes: attributesDictionary as [String : Any])
         
         var strings = [String]()
         EntrantPicture.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor
@@ -150,6 +150,12 @@ class PassViewController: UIViewController {
                     
                 default: break
                 }
+            } else if entrant is VendorStaff {
+                let vendorFolk = entrant as! VendorStaff
+                EntrantName.text = "\(vendorFolk.firstName) \(vendorFolk.lastName)"
+                EntrantPassType.text = "Vendor Staff Pass"
+                getMyPermissionsAndBenfits(requestor: entrant!)
+                setEntrantImage(entrantImageID: vendorFolk.entrantID)
             }
         }
         

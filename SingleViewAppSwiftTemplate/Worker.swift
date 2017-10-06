@@ -74,20 +74,17 @@ class Manager: Worker {
     }
 }
 
-// FIXME: VendorStaff has two extra properties, but doesn't need the address and ssn stuff... is it a proper subclass?  Or should I make it a another class conforming to Entrant?
-/*
 class VendorStaff: Worker {
-    var vendorCompanyName: String
+    var companyName: String
     var dateOfLastVisit: Date
     
-    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, vendorCompanyName: String, dateOfBirth: Date, dateOfLastVisit: Date) {
+    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, dateOfBirth: Date, companyName: String, dateOfLastVisit: Date) {
         
-        self.vendorCompanyName = vendorCompanyName
+        self.companyName = companyName
         self.dateOfLastVisit = dateOfLastVisit
 
-        super.init(entrantID: entrantID, workerType: workerType, firstName: <#String#>, lastName: <#String#>, streetAddress: <#String#>, city: <#String#>, state: <#String#>, zipCode: <#String#>, socialSecurityNumber: <#String#>, dateOfBirth: <#Date#>)
+        super.init(entrantID: entrantID, workerType: workerType, firstName: firstName, lastName: lastName, streetAddress: "", city: "", state: "", zipCode: "", socialSecurityNumber: "", dateOfBirth: dateOfBirth)
     }
 }
- */
 
     

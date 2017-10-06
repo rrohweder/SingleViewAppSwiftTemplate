@@ -16,6 +16,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     var nonpublics = [NonPublic]()
     var workers = [Worker]()
     var guests = [AnyObject]()
+    var vendorFolks = [VendorStaff]()
     var lastClicked = 0
     let dateFormatter = DateFormatter()
     var currentEntrant: Entrant?
@@ -50,6 +51,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     @IBOutlet weak var companyNameLabel: UILabel!
     @IBOutlet weak var MgmtTierLabel: UILabel!
     @IBOutlet weak var MgmtTierField: UITextField!
+    @IBOutlet weak var lastVisitLabel: UILabel!
+    @IBOutlet weak var lastVisitField: UITextField!
     @IBOutlet weak var streetAddressField: UITextField!
     @IBOutlet weak var streetAddressLabel: UILabel!
     @IBOutlet weak var cityField: UITextField!
@@ -109,7 +112,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             activateSubmenuItem(mainMenu: mainMenuItem.Employee, page: self)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -141,6 +144,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         } catch let error {
             print(error)
         }
+        
         do {
             nonpublics = try loadNonPublics(inputFile: "NonPublics", fileType: "plist") as! [NonPublic]
         } catch let error {
@@ -158,9 +162,16 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         } catch let error {
             print(error)
         }
+        
+        do {
+            vendorFolks = try loadVendorStaff(inputFile: "VendorStaff", fileType: "plist")
+        } catch let error {
+            print(error)
+        }
+
 // end of "move to loadAllData()"
         
-// move, since this was all just testing
+/* move, since this was all just testing
         for guest in guests {
             for ride in rides {
                 printPaperPass(requestor: guest as! Entrant, gate: ride)
@@ -183,8 +194,10 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 printPaperPass(requestor: worker, gate: nonpublic)
             }
         }
-    }
-// end of testing stuff to move
+         end of testing stuff to move
+*/
+        
+    } // end of ViewDidLoad()
 
     
     @IBAction func menuHandler(_ sender: UIButton) {
@@ -221,25 +234,31 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         case GuestType.VIP:
             filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.VIP }
             break
-        }
+        } // end switch (entrantType)
         
         if filteredArray.count > 0 {
             return (filteredArray[0] as! Guest)
         }
         return nil
 
-    }
-
+    } // end getEntrant(Guest)
 
     func getEntrant(entrantType: WorkerType) -> Worker? {
-        
-        let filteredArray = workers.filter() { $0.workerType == entrantType }
-        
-        if filteredArray.count > 0 {
-            return filteredArray[0]
+        switch entrantType {
+        case .VendorStaff:
+            let filteredArray = vendorFolks.filter() { $0.workerType == entrantType }
+            if vendorFolks.count > 0 {
+                return vendorFolks[0]
+            }
+        default:
+            let filteredArray = workers.filter() { $0.workerType == entrantType }
+            if filteredArray.count > 0 {
+                return filteredArray[0]
+            }
+
         }
         return nil
-    }
+    } // end getEntrant(worker)
     
     // FIXME: move this to another file
     func populateFormWithRandomPerson(menuSelection: Int) -> Entrant {
@@ -252,6 +271,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 }
             
             case subMenuItem.Classic.rawValue:
+                // FIXME: create guest record to return
                 // Nothing to display in the form, all they have is an ID
                 // but we do want to use the Entrant record for pass creation
                 break
@@ -263,11 +283,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     firstNameField.text = senior.firstName
                     lastNameField.text = senior.lastName
                     return senior as Entrant
-
                 }
 
             
             case subMenuItem.VIP.rawValue:
+                // FIXME: create guest record to return
                 break
             
             case subMenuItem.Season.rawValue:
@@ -288,12 +308,12 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 var wt = WorkerType.HourlyFoodServices
                 
                 switch (menuSelection) {
-                case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
-                case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
-                case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
+                    case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
+                    case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
+                    case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
 
-                default: // FIXME: what to do here?
-                    break
+                    default: // FIXME: what to do here?
+                        break
                 }
                 
                 if let employee = getEntrant(entrantType: wt) {
@@ -329,77 +349,75 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             
             case mainMenuItem.Vendor.rawValue:
 
-                if let employee = getEntrant(entrantType: WorkerType.VendorStaff) {
-
-// FIXME: what info do I need for VendorStaff?
+                if let vendorstaff = getEntrant(entrantType: WorkerType.VendorStaff) as! VendorStaff? {
                     dateOfBirthField.textColor = .black
-                    dateOfBirthField.text = dateFormatter.string(from: employee.dateOfBirth)
-                    firstNameField.text = employee.firstName
-                    lastNameField.text = employee.lastName
-// FIXME: not in Worker type.. do I need this? companyNameField = employee.company
-                    return employee as Entrant
+                    dateOfBirthField.text = dateFormatter.string(from: vendorstaff.dateOfBirth)
+                    firstNameField.text = vendorstaff.firstName
+                    lastNameField.text = vendorstaff.lastName
+                    companyNameField.text = vendorstaff.companyName
+                    lastVisitField.textColor = .black
+                    lastVisitField.text = dateFormatter.string(from: vendorstaff.dateOfLastVisit)
+                    return vendorstaff as Entrant
                 }
-                break
             
         default:
             print("invalid menu / submenu selection: tag=\(menuSelection)")
-        }
+        } // end of switch (menuselection)
         return currentEntrant!
-    }
+    } // end of populateFormWithRandomPerson()
     
-    func createEntrantFromFormData() -> AnyObject {
+        
+    func createEntrantFromFormData() -> Entrant {
         var entrant: Entrant?
         var wt: WorkerType
         
         switch (lastClicked) {
-            
-        case subMenuItem.Child.rawValue:
-            entrant = FreeChildGuest(entrantID: 1, guestType: .FreeChild, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
-            
-        case subMenuItem.Classic.rawValue:
-            entrant = Guest(entrantID: 2, guestType: .Classic)
-            
-        case subMenuItem.Senior.rawValue:
-            entrant = SeniorGuest(entrantID: 3, guestType: .Senior, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
-            
-        case subMenuItem.VIP.rawValue:
-            entrant = Guest(entrantID: 2, guestType: .VIP)
 
-        case subMenuItem.Season.rawValue:
-            entrant = SeasonPassGuest(entrantID: 5, guestType: .Season, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!)
+            case subMenuItem.Child.rawValue:
+                entrant = FreeChildGuest(entrantID: 1, guestType: .FreeChild, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
             
-        case subMenuItem.HourlyEmployeeFoodServices.rawValue,
-             subMenuItem.HourlyEmployeeRideServices.rawValue,
-             subMenuItem.HourlyEmployeeMaintenance.rawValue:
-            switch (lastClicked) {
-                case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
-                case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
-                case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
-            // FIXME: is there another way to deal with wt value than this?
-                default: wt = WorkerType.HourlyFoodServices
-            }
-            entrant = Worker(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            case subMenuItem.Classic.rawValue:
+                entrant = Guest(entrantID: 2, guestType: .Classic)
             
-        case mainMenuItem.Manager.rawValue:
-            entrant = Manager(entrantID: 6, workerType: .Manager, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, mgmtTier: MgmtTierField.text!)
+            case subMenuItem.Senior.rawValue:
+                entrant = SeniorGuest(entrantID: 3, guestType: .Senior, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            
+            case subMenuItem.VIP.rawValue:
+                entrant = Guest(entrantID: 2, guestType: .VIP)
 
-/*
-        case subMenuItem.ContractEmployee.rawValue:
-            break
- */
+            case subMenuItem.Season.rawValue:
+                entrant = SeasonPassGuest(entrantID: 5, guestType: .Season, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!)
             
-        default: entrant = Guest(entrantID: 99, guestType: .Classic)
-        }
+            case subMenuItem.HourlyEmployeeFoodServices.rawValue,
+                 subMenuItem.HourlyEmployeeRideServices.rawValue,
+                 subMenuItem.HourlyEmployeeMaintenance.rawValue:
+                switch (lastClicked) {
+                    case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
+                    case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
+                    case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
+                // FIXME: is there another way to deal with wt value than this?
+                    default: wt = WorkerType.HourlyFoodServices
+                }
+                entrant = Worker(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            
+            case mainMenuItem.Manager.rawValue:
+                entrant = Manager(entrantID: 6, workerType: .Manager, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, mgmtTier: MgmtTierField.text!)
+            
+        case mainMenuItem.Vendor.rawValue:
+            entrant = VendorStaff(entrantID: 6, workerType: .VendorStaff, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, companyName: companyNameField.text!, dateOfLastVisit: dateFormatter.date(from: lastVisitField.text!)!)
+
+            default:
+                entrant = Guest(entrantID: 99, guestType: .Classic)
+        } // end of switch (lastClicked)
         
-        return entrant! as AnyObject
-    }
+        return entrant!
+    } // end of createEntrantFromFormData()
     
     @IBAction func genericFieldExit(_ sender: Any) {
         isFormComplete()
     }
     
     @IBAction func dobEntry(_ sender: Any) {
-        // clear field and set text to black
         dateOfBirthField.textColor = .black
         if dateOfBirthField.text == "MM/DD/YYYY" {
             dateOfBirthField.text = ""
@@ -414,10 +432,16 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     }
     
     @IBAction func ssnEntry(_ sender: Any) {
-        // clear field and set text to black
         ssnField.textColor = .black
         if ssnField.text == "NNN-NN-NNNN" {
             ssnField.text = ""
+        }
+    }
+    
+    @IBAction func lastVisitEditBegin(_ sender: Any) {
+        lastVisitField.textColor = .black
+        if lastVisitField.text == "MM/DD/YYYY" {
+            lastVisitField.text = ""
         }
     }
     
@@ -442,7 +466,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 if dobValid
                     && isSenior(birthdateString: dateOfBirthField.text!)
                     && firstNameField.text != ""
-                    && lastNameField.text != "" {
+                    && lastNameField.text != ""
+                {
                         isComplete = true
                 }
             
@@ -477,16 +502,26 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     isComplete = true
                 }
 
-        case mainMenuItem.Manager.rawValue:
+            case mainMenuItem.Manager.rawValue:
+                if isDobValid(birthdateString: dateOfBirthField.text!)
+                    && isSSNValid(socialSecurityNumber: ssnField.text!)
+                    && firstNameField.text != ""
+                    && lastNameField.text != ""
+                    && streetAddressField.text != ""
+                    && cityField.text != ""
+                    && stateField.text != ""
+                    && isZipCodeValid(zipCode: zipCodeField.text!)
+                    && MgmtTierField.text != ""
+                {
+                    isComplete = true
+                }
+            
+        case mainMenuItem.Vendor.rawValue:
             if isDobValid(birthdateString: dateOfBirthField.text!)
-                && isSSNValid(socialSecurityNumber: ssnField.text!)
                 && firstNameField.text != ""
                 && lastNameField.text != ""
-                && streetAddressField.text != ""
-                && cityField.text != ""
-                && stateField.text != ""
-                && isZipCodeValid(zipCode: zipCodeField.text!)
-                // + Management Tier (Shift Mgr., General Mgr., Senior Mgr.)
+                && companyNameField.text != ""
+                && lastVisitField.text != ""
             {
                 isComplete = true
             }
@@ -495,13 +530,13 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 break
             
             default: break
-        }
+        } // switch (lastClicked) {
         
         if isComplete {
-            currentEntrant = createEntrantFromFormData() as! Entrant  // which will create object and
+            currentEntrant = createEntrantFromFormData()
             enableGeneratePassButton()
         }
-    }
+    } // isFormComplete()
 
 // (don't have time to add to .plist file dynamically... need to finish this usit.
 // if I did: https://stackoverflow.com/questions/41668166/save-data-to-plist-file-in-swift-3)
@@ -534,11 +569,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         currentEntrant = populateFormWithRandomPerson(menuSelection: lastClicked)
         enableGeneratePassButton()
     }
-    
-    @IBAction func generatePass(_ sender: Any) {
-            print("who called this? (want to delete it)")
-    }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

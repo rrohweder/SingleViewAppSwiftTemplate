@@ -31,17 +31,21 @@ enum subMenuItem: Int, Menus {
 }
 
 func fadeMainMenuLabels(page: ViewController) {
-    page.MainMenuButton1.setTitleColor(UIColor(red: 195.0/255, green:177.0/255, blue: 213.0/255, alpha: 1), for: .normal)
-    page.MainMenuButton2.setTitleColor(UIColor(red: 195.0/255, green:177.0/255, blue: 213.0/255, alpha: 1), for: .normal)
-    page.MainMenuButton3.setTitleColor(UIColor(red: 195.0/255, green:177.0/255, blue: 213.0/255, alpha: 1), for: .normal)
-    page.MainMenuButton4.setTitleColor(UIColor(red: 195.0/255, green:177.0/255, blue: 213.0/255, alpha: 1), for: .normal)
+    let fadedMainMenuLabelColor = UIColor(red: 195.0/255, green:177.0/255, blue: 213.0/255, alpha: 1)
+    
+    page.MainMenuButton1.setTitleColor(fadedMainMenuLabelColor, for: .normal)
+    page.MainMenuButton2.setTitleColor(fadedMainMenuLabelColor, for: .normal)
+    page.MainMenuButton3.setTitleColor(fadedMainMenuLabelColor, for: .normal)
+    page.MainMenuButton4.setTitleColor(fadedMainMenuLabelColor, for: .normal)
 }
 
 func fadeSubMenuLabels(page: ViewController) {
-    page.SubMenuButton1.setTitleColor(UIColor(red: 204.0/255, green:204.0/255, blue: 204.0/255, alpha: 1), for: .normal)
-    page.SubMenuButton2.setTitleColor(UIColor(red: 204.0/255, green:204.0/255, blue: 204.0/255, alpha: 1), for: .normal)
-    page.SubMenuButton3.setTitleColor(UIColor(red: 204.0/255, green:204.0/255, blue: 204.0/255, alpha: 1), for: .normal)
-    page.SubMenuButton4.setTitleColor(UIColor(red: 204.0/255, green:204.0/255, blue: 204.0/255, alpha: 1), for: .normal)
+    let fadedSubMenuLabelColor = UIColor(red: 204.0/255, green:204.0/255, blue: 204.0/255, alpha: 1)
+    
+    page.SubMenuButton1.setTitleColor(fadedSubMenuLabelColor, for: .normal)
+    page.SubMenuButton2.setTitleColor(fadedSubMenuLabelColor, for: .normal)
+    page.SubMenuButton3.setTitleColor(fadedSubMenuLabelColor, for: .normal)
+    page.SubMenuButton4.setTitleColor(fadedSubMenuLabelColor, for: .normal)
 }
 
 
@@ -73,49 +77,42 @@ func colorSubMenuText(whiteButton: Int, page: ViewController) {
 }
 
 func deactivateFormFields(page: ViewController) {
+    let deactivatedFieldColor = UIColor(
+        red: 204.0/255.0, green: 204.0/255.0,
+        blue: 204.0/255.0, alpha: 1.0)
     
     page.DateOfBirthLabel.textColor = .gray
     page.dateOfBirthField.isUserInteractionEnabled = false
     page.dateOfBirthField.textColor = .lightGray
-    page.dateOfBirthField.backgroundColor = UIColor(
-     red: 204.0/255.0, green: 204.0/255.0,
-     blue: 204.0/255.0, alpha: 1.0)
+    page.dateOfBirthField.backgroundColor = deactivatedFieldColor
     page.dateOfBirthField.text = "MM/DD/YYYY"
 
     page.ssnLabel.textColor = .gray
     page.ssnField.isUserInteractionEnabled = false
     page.ssnField.textColor = .lightGray
-    page.ssnField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.ssnField.backgroundColor = deactivatedFieldColor
     page.ssnField.text = "NNN-NN-NNNN"
 
     page.projectNumLabel.textColor = .gray
     page.projectNumField.isUserInteractionEnabled = false
-    page.projectNumField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.projectNumField.backgroundColor = deactivatedFieldColor
     page.projectNumField.text = ""
     
     page.firstNameLabel.textColor = .gray
     page.firstNameField.isUserInteractionEnabled = false
-    page.firstNameField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.firstNameField.backgroundColor = deactivatedFieldColor
     page.firstNameField.text = ""
     
     page.lastNameLabel.textColor = .gray
     page.lastNameField.isUserInteractionEnabled = false
-    page.lastNameField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.lastNameField.backgroundColor = deactivatedFieldColor
     page.lastNameField.text = ""
     
+    page.companyNameLabel.isHidden = false
+    page.companyNameField.isHidden = false
     page.companyNameLabel.textColor = .gray
     page.companyNameField.isUserInteractionEnabled = false
-    page.companyNameField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.companyNameField.backgroundColor = deactivatedFieldColor
     page.companyNameField.text = ""
 
     page.MgmtTierLabel.isHidden = true
@@ -123,32 +120,31 @@ func deactivateFormFields(page: ViewController) {
     page.MgmtTierField.isUserInteractionEnabled = false
     page.MgmtTierField.text = ""
 
+    page.lastVisitLabel.isHidden = true
+    page.lastVisitField.isHidden = true
+    page.lastVisitField.isUserInteractionEnabled = false
+    page.lastVisitField.textColor = .lightGray
+    page.lastVisitField.backgroundColor = deactivatedFieldColor
+    page.lastVisitField.text = "MM/DD/YYYY"
+
     page.streetAddressLabel.textColor = .gray
     page.streetAddressField.isUserInteractionEnabled = false
-    page.streetAddressField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.streetAddressField.backgroundColor = deactivatedFieldColor
     page.streetAddressField.text = ""
     
     page.cityLabel.textColor = .gray
     page.cityField.isUserInteractionEnabled = false
-    page.cityField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.cityField.backgroundColor = deactivatedFieldColor
     page.cityField.text = ""
     
     page.stateLabel.textColor = .gray
     page.stateField.isUserInteractionEnabled = false
-    page.stateField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.stateField.backgroundColor = deactivatedFieldColor
     page.stateField.text = ""
     
     page.zipLabel.textColor = .gray
     page.zipCodeField.isUserInteractionEnabled = false
-    page.zipCodeField.backgroundColor = UIColor(
-        red: 204.0/255.0, green: 204.0/255.0,
-        blue: 204.0/255.0, alpha: 1.0)
+    page.zipCodeField.backgroundColor = deactivatedFieldColor
     page.zipCodeField.text = ""
 }
 
@@ -315,7 +311,14 @@ func setForm(page: ViewController, formType: Menus) {
         page.companyNameField.backgroundColor = .white
         page.companyNameField.isUserInteractionEnabled = true
 
-        // FIXME: add Date of Visit
+        page.MgmtTierLabel.isHidden = true
+        page.MgmtTierField.isHidden = true
+        page.lastVisitLabel.isHidden = false
+        page.lastVisitLabel.textColor = .black
+        // leave dob field text color gray (template is in place)
+        page.lastVisitField.isHidden = false
+        page.lastVisitField.backgroundColor = .white
+        page.lastVisitField.isUserInteractionEnabled = true
         
         page.DateOfBirthLabel.textColor = .black
         page.dateOfBirthField.backgroundColor = .white
