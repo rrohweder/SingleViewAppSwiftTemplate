@@ -395,7 +395,7 @@ func menuLogic(buttonClicked: UIButton, page: ViewController) {
         page.enablePopulateButton()
         print("sub", terminator:"")
     }
-    print("menu item \(buttonClicked.tag) clicked.")
+    // print("menu item \(buttonClicked.tag) clicked.") used for debugging
     
     switch (buttonClicked.tag) {
         

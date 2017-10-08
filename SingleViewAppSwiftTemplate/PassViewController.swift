@@ -29,6 +29,9 @@ class PassViewController: UIViewController {
         let attributesDictionary = [NSFontAttributeName : PermissionsAndBenefits.font]
         let fullAttributedString = NSMutableAttributedString(string: "", attributes: attributesDictionary as [String : Any])
         
+        EntrantPicture.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor
+        EntrantPicture.layer.borderWidth = 2
+
         var strings = [String]()
         EntrantPicture.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor
         EntrantPicture.layer.borderWidth = 2
@@ -61,7 +64,7 @@ class PassViewController: UIViewController {
             
             PermissionsAndBenefits.attributedText = fullAttributedString
         }
-        
+
     func createParagraphAttribute() ->NSParagraphStyle
     {
         var paragraphStyle: NSMutableParagraphStyle
@@ -86,82 +89,80 @@ class PassViewController: UIViewController {
         }
     }
         
-        if entrant != nil {
-            if  entrant is Guest {
-                let guest = entrant as! Guest
-                switch (guest.guestType) {
-                case .FreeChild:
-                    let freeChildGuest = guest as! FreeChildGuest
-                    EntrantName.text = "************"
-                    EntrantPassType.text = "Child Guest Pass"
-                    getMyPermissionsAndBenfits(requestor: entrant!)
-                    setEntrantImage(entrantImageID: freeChildGuest.entrantID)
+    if entrant != nil {
+        if  entrant is Guest {
+            let guest = entrant as! Guest
+            switch (guest.guestType) {
+            case .FreeChild:
+                let freeChildGuest = guest as! FreeChildGuest
+                EntrantName.text = "************"
+                EntrantPassType.text = "Child Guest Pass"
+                getMyPermissionsAndBenfits(requestor: entrant!)
+                setEntrantImage(entrantImageID: freeChildGuest.entrantID)
 
-                case .Classic:
-                    let classicGuest = guest as! ClassicGuest
-                    EntrantName.text = "************"
-                    EntrantPassType.text = "Classic Guest Pass"
-                    getMyPermissionsAndBenfits(requestor: entrant!)
-                    setEntrantImage(entrantImageID: classicGuest.entrantID)
+            case .Classic:
+                let classicGuest = guest as! ClassicGuest
+                EntrantName.text = "************"
+                EntrantPassType.text = "Classic Guest Pass"
+                getMyPermissionsAndBenfits(requestor: entrant!)
+                setEntrantImage(entrantImageID: classicGuest.entrantID)
 
-                case .VIP:
-                    let vipGuest = guest as! VIPGuest
-                    EntrantName.text = "************"
-                    EntrantPassType.text = "VIP Guest Pass"
-                    getMyPermissionsAndBenfits(requestor: vipGuest)
-                    setEntrantImage(entrantImageID: vipGuest.entrantID)
-                    
-                case .Season:
-                    let seasonGuest = guest as! SeasonPassGuest
-                    EntrantName.text = "\(seasonGuest.firstName) \(seasonGuest.lastName)"
-                    EntrantPassType.text = "Season Pass Guest Pass"
-                    getMyPermissionsAndBenfits(requestor: seasonGuest)
-                    setEntrantImage(entrantImageID: seasonGuest.entrantID)
-                    
-                case .Senior:
-                    let seniorGuest = guest as! SeniorGuest
-                    EntrantName.text = "\(seniorGuest.firstName) \(seniorGuest.lastName)"
-                    EntrantPassType.text = "Senior Guest Pass"
-                    getMyPermissionsAndBenfits(requestor: seniorGuest)
-                    setEntrantImage(entrantImageID: seniorGuest.entrantID)
-                    
-                }
+            case .VIP:
+                let vipGuest = guest as! VIPGuest
+                EntrantName.text = "************"
+                EntrantPassType.text = "VIP Guest Pass"
+                getMyPermissionsAndBenfits(requestor: vipGuest)
+                setEntrantImage(entrantImageID: vipGuest.entrantID)
                 
-            } else if entrant is Worker {
-                let worker = entrant as! Worker
+            case .Season:
+                let seasonGuest = guest as! SeasonPassGuest
+                EntrantName.text = "\(seasonGuest.firstName) \(seasonGuest.lastName)"
+                EntrantPassType.text = "Season Pass Guest Pass"
+                getMyPermissionsAndBenfits(requestor: seasonGuest)
+                setEntrantImage(entrantImageID: seasonGuest.entrantID)
+                
+            case .Senior:
+                let seniorGuest = guest as! SeniorGuest
+                EntrantName.text = "\(seniorGuest.firstName) \(seniorGuest.lastName)"
+                EntrantPassType.text = "Senior Guest Pass"
+                getMyPermissionsAndBenfits(requestor: seniorGuest)
+                setEntrantImage(entrantImageID: seniorGuest.entrantID)
+                
+            }
+            
+        } else if entrant is Worker {
+            let worker = entrant as! Worker
+            switch (worker.workerType) {
+            case .HourlyFoodServices, .HourlyMaintenance, .HourlyRideServices:
+                EntrantName.text = "\(worker.firstName) \(worker.lastName)"
                 switch (worker.workerType) {
-                case .HourlyFoodServices, .HourlyMaintenance, .HourlyRideServices:
-                    EntrantName.text = "\(worker.firstName) \(worker.lastName)"
-                    switch (worker.workerType) {
-                    case .HourlyFoodServices: EntrantPassType.text = "Food Services Worker Pass"
-                    case .HourlyMaintenance: EntrantPassType.text = "Maintenance Worker Pass"
-                    case .HourlyRideServices: EntrantPassType.text = "Ride Services Worker Pass"
-                    default: break
-                    }
-                    getMyPermissionsAndBenfits(requestor: worker)
-                    setEntrantImage(entrantImageID: worker.entrantID)
-
-                case .Manager:
-                    let manager = worker as! Manager // FIXME: cannot cast worker to mgr? why not?
-                    EntrantName.text = "\(manager.firstName) \(manager.lastName)"
-                    EntrantPassType.text = "Manager Guest Pass"
-                    getMyPermissionsAndBenfits(requestor: entrant!)
-                    setEntrantImage(entrantImageID: manager.entrantID)
-                    
+                case .HourlyFoodServices: EntrantPassType.text = "Food Services Worker Pass"
+                case .HourlyMaintenance: EntrantPassType.text = "Maintenance Worker Pass"
+                case .HourlyRideServices: EntrantPassType.text = "Ride Services Worker Pass"
                 default: break
                 }
-            } else if entrant is VendorStaff {
+                getMyPermissionsAndBenfits(requestor: worker)
+                setEntrantImage(entrantImageID: worker.entrantID)
+
+            case .Manager:
+                let manager = worker as! Manager // FIXME: cannot cast worker to mgr? why not?
+                EntrantName.text = "\(manager.firstName) \(manager.lastName)"
+                EntrantPassType.text = "Manager Guest Pass"
+                getMyPermissionsAndBenfits(requestor: entrant!)
+                setEntrantImage(entrantImageID: manager.entrantID)
+                
+            case .VendorStaff:
                 let vendorFolk = entrant as! VendorStaff
                 EntrantName.text = "\(vendorFolk.firstName) \(vendorFolk.lastName)"
                 EntrantPassType.text = "Vendor Staff Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: vendorFolk.entrantID)
+                
             }
         }
-        
-
     }
-    
+}
+
 // FIXME: need a different hook to falling back to main screen
     @IBAction func RideAccessAsExit(_ sender: Any) {
         if (delegate != nil) {

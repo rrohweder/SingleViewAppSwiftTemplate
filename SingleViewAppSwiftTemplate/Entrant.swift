@@ -59,17 +59,19 @@ func isZipCodeValid(zipCode: String) -> Bool {
     return isValid
 }
 
-func isDobValid(birthdateString: String) -> Bool {
+func isDateValid(dateString: String) -> Bool {
 
-    if (birthdateString == "MM / DD / YYYY" || birthdateString.trimmingCharacters(in: NSCharacterSet.whitespaces) == "") {
+    if (
+        dateString == "MM/DD/YYYY" || dateString.trimmingCharacters(in: NSCharacterSet.whitespaces) == "") {
         return false
     }
     let now = Date()
     let calendar = Calendar.current
     dateFormatter.dateFormat = "MM/dd/yyyy"
-    if let birthDate = dateFormatter.date(from: birthdateString) {
-        let ageComponents = calendar.dateComponents([.year], from: birthDate, to: now)
-        if ageComponents.year! > 0 && ageComponents.year! < 120 {
+    if let date = dateFormatter.date(from: dateString) {
+        let ageComponents = calendar.dateComponents([.year, .day], from: date, to: now)
+        if (ageComponents.year! > 0 && ageComponents.year! < 120) ||
+            (ageComponents.year! == 0 && ageComponents.day! > 0)  {  // at least one day old
             return true
         }
     }

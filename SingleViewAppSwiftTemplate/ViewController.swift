@@ -244,21 +244,20 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     } // end getEntrant(Guest)
 
     func getEntrant(entrantType: WorkerType) -> Worker? {
-        switch entrantType {
-        case .VendorStaff:
-            let filteredArray = vendorFolks.filter() { $0.workerType == entrantType }
-            if vendorFolks.count > 0 {
-                return vendorFolks[0]
-            }
-        default:
-            let filteredArray = workers.filter() { $0.workerType == entrantType }
-            if filteredArray.count > 0 {
-                return filteredArray[0]
-            }
-
+        let filteredArray = workers.filter() { $0.workerType == entrantType }
+        if filteredArray.count > 0 {
+            return filteredArray[0]
         }
         return nil
     } // end getEntrant(worker)
+
+    func getVendorEntrant() -> VendorStaff? {
+        if vendorFolks.count > 0 {
+            return vendorFolks[0]
+        }
+        return nil
+    } // end getVendorEntrant()
+
     
     // FIXME: move this to another file
     func populateFormWithRandomPerson(menuSelection: Int) -> Entrant {
@@ -349,7 +348,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             
             case mainMenuItem.Vendor.rawValue:
 
-                if let vendorstaff = getEntrant(entrantType: WorkerType.VendorStaff) as! VendorStaff? {
+                if let vendorstaff = getVendorEntrant() {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: vendorstaff.dateOfBirth)
                     firstNameField.text = vendorstaff.firstName
@@ -424,11 +423,21 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
     
+    @IBAction func lastVisitBeginEdit(_ sender: Any) {
+        lastVisitField.textColor = .black
+        if lastVisitField.text == "MM/DD/YYYY" {
+            lastVisitField.text = ""
+        }
+    }
+    
+    // FIXME: should just use one action, dateDone(), for both
     @IBAction func dobDone(_ sender: Any) {
         // on Primary Action Triggered
-        if (lastClicked == subMenuItem.Child.rawValue) {
-            isFormComplete()
-        }
+        isFormComplete()
+    }    
+    @IBAction func lastVisitDone(_ sender: Any) {
+        // on Primary Action Triggered
+        isFormComplete()
     }
     
     @IBAction func ssnEntry(_ sender: Any) {
@@ -448,12 +457,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     func isFormComplete() {
         var isComplete = false
         
-        let dobValid = isDobValid(birthdateString: dateOfBirthField.text!)
+        let dobValid = isDateValid(dateString: dateOfBirthField.text!)
         
         switch (lastClicked) {
 
             case subMenuItem.Child.rawValue:
-                // FIXME: should just pass string, and let validator (try to) make it into date type to validate.
                 if dobValid {
                     isComplete = true
                 }
@@ -481,7 +489,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     && cityField.text != ""
                     && stateField.text != ""
                     && isZipCodeValid(zipCode: zipCodeField.text!)
-                    && isDobValid(birthdateString: dateOfBirthField.text!)
+                    && isDateValid(dateString: dateOfBirthField.text!)
 
                 {
                         isComplete = true
@@ -490,7 +498,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             case subMenuItem.HourlyEmployeeFoodServices.rawValue,
              subMenuItem.HourlyEmployeeRideServices.rawValue,
              subMenuItem.HourlyEmployeeMaintenance.rawValue:
-                if isDobValid(birthdateString: dateOfBirthField.text!)
+                if dobValid
                     && isSSNValid(socialSecurityNumber: ssnField.text!)
                     && firstNameField.text != ""
                     && lastNameField.text != ""
@@ -503,7 +511,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 }
 
             case mainMenuItem.Manager.rawValue:
-                if isDobValid(birthdateString: dateOfBirthField.text!)
+                if dobValid
                     && isSSNValid(socialSecurityNumber: ssnField.text!)
                     && firstNameField.text != ""
                     && lastNameField.text != ""
@@ -517,11 +525,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 }
             
         case mainMenuItem.Vendor.rawValue:
-            if isDobValid(birthdateString: dateOfBirthField.text!)
+            if dobValid
                 && firstNameField.text != ""
                 && lastNameField.text != ""
                 && companyNameField.text != ""
-                && lastVisitField.text != ""
+                && isDateValid(dateString: lastVisitField.text!)
             {
                 isComplete = true
             }
@@ -550,7 +558,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     }
     
     @IBAction func validateDoB(_ sender: Any) {
-        if isDobValid(birthdateString: dateOfBirthField.text!) {
+        if isDateValid(dateString: dateOfBirthField.text!) {
             isFormComplete()
         } else {
             // FIXME: do an alert here

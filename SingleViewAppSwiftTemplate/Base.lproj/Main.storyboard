@@ -86,6 +86,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="genericFieldExit:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="axX-Rl-bE2"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Management Tier" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gmj-zh-ayf">
                                         <rect key="frame" x="0.0" y="68" width="134.5" height="20.5"/>
@@ -98,6 +101,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="genericFieldExit:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="kje-wC-Ae9"/>
+                                        </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Last Visit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6b-9t-Lzj">
                                         <rect key="frame" x="0.0" y="138.5" width="130" height="20.5"/>
@@ -111,6 +117,8 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="lastVisitBeginEdit:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="nBu-uL-zhy"/>
+                                            <action selector="lastVisitDone:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="dha-1a-Jfy"/>
                                             <action selector="lastVisitEditBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="7QW-xm-IPd"/>
                                         </connections>
                                     </textField>

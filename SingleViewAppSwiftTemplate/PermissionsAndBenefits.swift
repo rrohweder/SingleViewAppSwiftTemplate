@@ -6,17 +6,6 @@
 //  Copyright © 2017 Treehouse. All rights reserved.
 //
 
-//  Why not just do this?
-//  entrantsAllowed = accessDictionary[gate]
-//    accessAnswer = entrantsAllowed.contains(requestor_type)
-// if let discount = discountAvailable[requestor_type] {
-//    discountAmount = discount
-// if let skip = skipLine[requestor_type] {
-//    skipLine = skip
-// if nothing puked, return access, discount, and skip answers.
-// answer: to show that we have learned how to use class / subclass, protocol, collections, etc.
-
-
 import Foundation
 
 let guestRolesAccess:[GateType: [GuestType]] = [
@@ -171,3 +160,4 @@ func canSkipLine(requestor: Entrant, gateType: GateType) -> Bool {
     }
     return permitted
 }
+
