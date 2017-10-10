@@ -328,7 +328,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     zipCodeField.text = employee.zipCode
                     return employee as Entrant
                 }
-            
+
             case mainMenuItem.Manager.rawValue:
                 
                 if let mgr = getEntrant(entrantType: WorkerType.Manager) as! Manager? {
@@ -346,6 +346,23 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     return mgr as Entrant
                 }
             
+            case subMenuItem.ContractEmployee.rawValue:
+                
+                if let contractor = getEntrant(entrantType: WorkerType.Contract) as! Contract? {
+                    dateOfBirthField.textColor = .black
+                    dateOfBirthField.text = dateFormatter.string(from: contractor.dateOfBirth)
+                    ssnField.textColor = .black
+                    ssnField.text = contractor.socialSecurityNumber
+                    firstNameField.text = contractor.firstName
+                    lastNameField.text = contractor.lastName
+                    streetAddressField.text = contractor.streetAddress
+                    cityField.text = contractor.city
+                    stateField.text = contractor.state
+                    zipCodeField.text = contractor.zipCode
+                    projectNumField.text = String(contractor.projectNumber)
+                    return contractor as Entrant
+                }
+
             case mainMenuItem.Vendor.rawValue:
 
                 if let vendorstaff = getVendorEntrant() {
@@ -413,6 +430,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     } // end of createEntrantFromFormData()
     
     @IBAction func genericFieldExit(_ sender: Any) {
+        // on Editing Did End (not always...)
         isFormComplete()
     }
     

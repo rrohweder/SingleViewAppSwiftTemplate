@@ -180,6 +180,7 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
             case "HourlyRideServices": workerType = .HourlyRideServices
             case "HourlyMaintenance": workerType = .HourlyMaintenance
             case "Manager": workerType = .Manager
+            case "Contractor": workerType = .Contract
             default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
 
@@ -224,6 +225,14 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
                 aWorker = Manager(entrantID: id, workerType: workerType, firstName: firstName,
                            lastName: lastName, streetAddress: streetAddress, city: city,
                            state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth, mgmtTier: mgmtTier)
+
+            case .Contract:
+                guard let projectNumber = dict["projectNumber"] as! Int? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "projectNumber, input record \(inputRecord)")
+                }
+                aWorker = Contract(entrantID: id, workerType: workerType, firstName: firstName,
+                              lastName: lastName, streetAddress: streetAddress, city: city,
+                              state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth, projectNumber: projectNumber)
 
             default:
                 aWorker = Worker(entrantID: id, workerType: workerType, firstName: firstName,

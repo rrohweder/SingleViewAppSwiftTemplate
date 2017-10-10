@@ -92,5 +92,53 @@
 		<key>mgmtTier</key>
 		<string>General Mgr</string>
 	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>3004</integer>
+		<key>workerType</key>
+		<string>Contractor</string>
+		<key>firstName</key>
+		<string>Danielle</string>
+		<key>lastName</key>
+		<string>Borasky</string>
+		<key>streetAddress</key>
+		<string>36783 N. Nathan Hale Dr.</string>
+		<key>city</key>
+		<string>Lake Villa</string>
+		<key>state</key>
+		<string>IL</string>
+		<key>zipCode</key>
+		<string>60046</string>
+		<key>SSN</key>
+		<string>876-44-0770</string>
+		<key>dateOfBirth</key>
+		<date>1982-10-01T02:18:42Z</date>
+		<key>projectNumber</key>
+		<integer>1001</integer>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>3005</integer>
+		<key>workerType</key>
+		<string>Contractor</string>
+		<key>firstName</key>
+		<string>Charles</string>
+		<key>lastName</key>
+		<string>Hildenbrand</string>
+		<key>streetAddress</key>
+		<string>1845 Stonebanks Loop</string>
+		<key>city</key>
+		<string>Cary</string>
+		<key>state</key>
+		<string>NC</string>
+		<key>zipCode</key>
+		<string>27518</string>
+		<key>SSN</key>
+		<string>832-69-1805</string>
+		<key>dateOfBirth</key>
+		<date>1947-01-04T03:23:45Z</date>
+		<key>projectNumber</key>
+		<integer>2001</integer>
+	</dict>
 </array>
 </plist>

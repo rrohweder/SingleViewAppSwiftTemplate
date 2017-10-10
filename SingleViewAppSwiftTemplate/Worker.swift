@@ -13,6 +13,7 @@ enum WorkerType {
     case HourlyRideServices
     case HourlyMaintenance
     case Manager
+    case Contract
     case VendorStaff // added 9/20/17
 }
 
@@ -74,6 +75,18 @@ class Manager: Worker {
     }
 }
 
+class Contract: Worker {
+    let projectNumber: Int
+    
+    init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateOfBirth: Date, projectNumber: Int) {
+        
+        self.projectNumber = projectNumber
+        
+        super.init(entrantID: entrantID, workerType: workerType, firstName: firstName, lastName: lastName, streetAddress: streetAddress, city: city, state: state, zipCode: zipCode, socialSecurityNumber: socialSecurityNumber, dateOfBirth: dateOfBirth)
+    }
+}
+
+ 
 class VendorStaff: Worker {
     var companyName: String
     var dateOfLastVisit: Date

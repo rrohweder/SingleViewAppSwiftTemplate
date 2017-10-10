@@ -14,9 +14,57 @@
 		<key>dateOfBirth</key>
 		<date>1952-12-06T02:13:46Z</date>
 		<key>companyName</key>
-		<string>Montpelier Associates</string>
+		<string>Acme</string>
 		<key>lastVisit</key>
 		<date>2017-10-04T01:14:23Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>6001</integer>
+		<key>workerType</key>
+		<string>vendorStaff</string>
+		<key>firstName</key>
+		<string>Tony</string>
+		<key>lastName</key>
+		<string>Farone</string>
+		<key>dateOfBirth</key>
+		<date>1949-10-10T02:01:00Z</date>
+		<key>companyName</key>
+		<string>Orkin</string>
+		<key>lastVisit</key>
+		<date>2017-05-10T01:01:41Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>6002</integer>
+		<key>workerType</key>
+		<string>vendorStaff</string>
+		<key>firstName</key>
+		<string>Liz</string>
+		<key>lastName</key>
+		<string>Dole</string>
+		<key>dateOfBirth</key>
+		<date>1953-02-23T02:04:20Z</date>
+		<key>companyName</key>
+		<string>FedEx</string>
+		<key>lastVisit</key>
+		<date>2017-06-04T01:05:16Z</date>
+	</dict>
+	<dict>
+		<key>ID</key>
+		<integer>6003</integer>
+		<key>workerType</key>
+		<string>vendorStaff</string>
+		<key>firstName</key>
+		<string>Will</string>
+		<key>lastName</key>
+		<string>Leskin</string>
+		<key>dateOfBirth</key>
+		<date>1954-11-04T02:07:08Z</date>
+		<key>companyName</key>
+		<string>NW Electrical</string>
+		<key>lastVisit</key>
+		<date>2017-03-23T01:07:52Z</date>
 	</dict>
 </array>
 </plist>

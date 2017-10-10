@@ -151,6 +151,13 @@ class PassViewController: UIViewController {
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: manager.entrantID)
                 
+            case .Contract:
+                let contractor = worker as! Contract
+                EntrantName.text = "\(contractor.firstName) \(contractor.lastName)"
+                EntrantPassType.text = "Contractor Guest Pass"
+                getMyPermissionsAndBenfits(requestor: entrant!)
+                setEntrantImage(entrantImageID: contractor.entrantID)
+
             case .VendorStaff:
                 let vendorFolk = entrant as! VendorStaff
                 EntrantName.text = "\(vendorFolk.firstName) \(vendorFolk.lastName)"

@@ -213,8 +213,7 @@ func setForm(page: ViewController, formType: Menus) {
         
     case subMenuItem.HourlyEmployeeFoodServices,
          subMenuItem.HourlyEmployeeRideServices,
-         subMenuItem.HourlyEmployeeMaintenance,
-         subMenuItem.ContractEmployee:
+         subMenuItem.HourlyEmployeeMaintenance:
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -295,7 +294,58 @@ func setForm(page: ViewController, formType: Menus) {
         // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
 
+    case subMenuItem.ContractEmployee:
+        
+        page.firstNameLabel.textColor = .black
+        page.firstNameField.backgroundColor = .white
+        page.firstNameField.isUserInteractionEnabled = true
+        
+        page.lastNameLabel.textColor = .black
+        page.lastNameField.backgroundColor = .white
+        page.lastNameField.isUserInteractionEnabled = true
+        
+        page.projectNumLabel.textColor = .black
+        page.projectNumField.backgroundColor = .white
+        page.projectNumField.isUserInteractionEnabled = true
+        
+        page.MgmtTierLabel.isHidden = true
+        page.MgmtTierField.isHidden = true
+        page.MgmtTierField.isUserInteractionEnabled = false
+        
+        page.companyNameLabel.isHidden = false
+        page.companyNameField.isHidden = false
+        page.companyNameLabel.textColor = .black
+        page.companyNameField.backgroundColor = .white
+        page.companyNameField.isUserInteractionEnabled = true
+        
+        page.streetAddressLabel.textColor = .black
+        page.streetAddressField.backgroundColor = .white
+        page.streetAddressField.isUserInteractionEnabled = true
+        
+        page.cityLabel.textColor = .black
+        page.cityField.backgroundColor = .white
+        page.cityField.isUserInteractionEnabled = true
+        
+        page.stateLabel.textColor = .black
+        page.stateField.backgroundColor = .white
+        page.stateField.isUserInteractionEnabled = true
+        
+        page.zipLabel.textColor = .black
+        page.zipCodeField.backgroundColor = .white
+        page.zipCodeField.isUserInteractionEnabled = true
+        
+        page.ssnLabel.textColor = .black
+        page.ssnField.backgroundColor = .white
+        // leave ssn field text color gray (template is in place)
+        page.ssnField.isUserInteractionEnabled = true
+        
+        page.DateOfBirthLabel.textColor = .black
+        page.dateOfBirthField.backgroundColor = .white
+        // leave dob field text color gray (template is in place)
+        page.dateOfBirthField.isUserInteractionEnabled = true
+        
 
+        
     case mainMenuItem.Vendor:
         // FIXME: handle Date of Visit
         
@@ -350,7 +400,6 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             page.SubMenuButton3.setTitle("Senior", for: .normal)
             page.SubMenuButton3.tag = subMenuItem.Senior.rawValue
             
-            page.SubMenuButton4.isHidden = false
             page.SubMenuButton4.setTitle("VIP", for: .normal)
             page.SubMenuButton4.tag = subMenuItem.VIP.rawValue
             
@@ -374,7 +423,9 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             page.SubMenuButton3.setTitle("Maintenance", for: .normal)
             page.SubMenuButton3.tag = subMenuItem.HourlyEmployeeMaintenance.rawValue
 
-            page.SubMenuButton4.isHidden = true
+            page.SubMenuButton4.setTitle("Contract", for: .normal)
+            page.SubMenuButton4.tag = subMenuItem.ContractEmployee.rawValue
+            
             page.SubMenuButton5.isHidden = true
 
         // Manager and Vendor don't have submenus
