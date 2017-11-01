@@ -10,7 +10,9 @@ import UIKit
 
 class ViewController: UIViewController, PassViewControllerDelegate {
 
-    // FIXME: can they both be Gate, or are they subclasses? Or is Gate a protocol?
+    // should these be vars in their respective classes, instead of vars in
+    // this class? and then accessed with class.var?
+    // var accessRules = [String:Any]()
     var rides = [Ride]()
     var vendors = [Vendor]()
     var nonpublics = [NonPublic]()
@@ -132,7 +134,18 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         // set submenu button labels for default main menu item (Guest)
         activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
        
-// move to loadAllData() ?
+    // move this stuff to loadAllData() ?
+        
+        let rules = RulesImporter()
+        do {
+            try rules.loadRules()
+        } catch let error {
+            print(error)
+        }
+
+        let testAccess = canAccess(guestType: GuestType.Season, gateType: GateType.Amusement)
+        print("testAccess = canAccess(guestType: GuestType.Season, gateType: GateType.Amusement): \(testAccess)")
+        
         do {
             rides = try loadRides(inputFile: "Rides", fileType: "plist") as! [Ride]
         } catch let error {
@@ -168,34 +181,50 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         } catch let error {
             print(error)
         }
-
-// end of "move to loadAllData()"
         
-/* move, since this was all just testing
+        let pass = Pass()
+
+
+// end of "move this stuff to loadAllData()"
+        
+        
+// move to regressionTest() (or some such)
         for guest in guests {
             for ride in rides {
-                printPaperPass(requestor: guest as! Entrant, gate: ride)
+                pass.printPaperPass(requestor: guest as! Entrant, gate: ride)
             }
             for vendor in vendors {
-                printPaperPass(requestor: guest as! Entrant, gate: vendor)
+                pass.printPaperPass(requestor: guest as! Entrant, gate: vendor)
             }
             for nonpublic in nonpublics {
-                printPaperPass(requestor: guest as! Entrant, gate: nonpublic)
+                pass.printPaperPass(requestor: guest as! Entrant, gate: nonpublic)
             }
         }
         for worker in workers {
             for ride in rides {
-                printPaperPass(requestor: worker, gate: ride)
+                pass.printPaperPass(requestor: worker, gate: ride)
             }
             for vendor in vendors {
-                printPaperPass(requestor: worker, gate: vendor)
+                pass.printPaperPass(requestor: worker, gate: vendor)
             }
             for nonpublic in nonpublics {
-                printPaperPass(requestor: worker, gate: nonpublic)
+                pass.printPaperPass(requestor: worker, gate: nonpublic)
             }
         }
-         end of testing stuff to move
-*/
+        
+        for vendorStaff in vendorFolks {
+            for ride in rides {
+                pass.printPaperPass(requestor: vendorStaff, gate: ride)
+            }
+            for vendor in vendors {
+                pass.printPaperPass(requestor: vendorStaff, gate: vendor)
+            }
+            for nonpublic in nonpublics {
+                pass.printPaperPass(requestor: vendorStaff, gate: nonpublic)
+            }
+
+        }
+//         end of testing stuff to move
         
     } // end of ViewDidLoad()
 

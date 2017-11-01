@@ -18,6 +18,8 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     var restrictedRide:Ride!
     var anyWorker:Worker!
     var anyGuest:Guest!
+    var rules:RulesImporter!
+    
     
     override func setUp() {
         super.setUp()
@@ -37,6 +39,14 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         anyWorker = Worker(entrantID: 1000, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateOfBirth: date)
         
         anyGuest = Guest(entrantID: 1, guestType: .Classic)
+        
+        let rules = RulesImporter()
+        do {
+            try rules.loadRules()
+        } catch let error {
+            print(error)
+        }
+
     }
     
     override func tearDown() {
@@ -68,6 +78,9 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         // confirm that Guests have Amusement (ride) Area access (all guests can access all rides, with one exception (below)
         anyGuest.guestType = .Classic
         XCTAssert(accessPermitted(requestor: anyGuest, gate: ride) == true)
+        
+        // XCTAssert(rules.canAccess(guestType: .Classic, gateType: .Amusement) == true)
+        // rules is nil... can't remember how to setup env. for this test.
 
         // test the one exception: Child cannot ride on ageRestricted rides
         anyGuest.guestType = .FreeChild

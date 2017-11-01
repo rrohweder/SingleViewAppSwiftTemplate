@@ -1,4 +1,4 @@
-{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\rtf1\ansi\ansicpg1252\cocoartf1561
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
 {\colortbl;\red255\green255\blue255;}
 {\*\expandedcolortbl;;}
@@ -7,6 +7,8 @@
 
 \f0\b\fs24 \cf0 Unit 4 notes to reviewer / grader:
 \b0 \
+\
+Excellent set of exercises (Unit 4 + Unit 5).  The experience for students of building the back-end, and proving it with unit tests, separately from the front-end will be valuable for your student.\
 \
 I tried (successfully, I believe) to implement a form of Role Based Access Control (RBAC). The entrant object has information about the entrant, but does not include access, discounts, or skip information. The 'gates' (rides, vendors) objects have info about the gate, but, again, do not need access, skip, etc., knowledge -- that is addressed in PermissionsAndBenefits.  That way rules can change without needing to update user or gate records.  Entrants and gates can be added to the database without updating either about permissions / benefits.\
 \
@@ -29,9 +31,13 @@ Unit 5 notes to reviewer / grader:\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \b0 \cf0 \
-I am shooting for "Exceeds Expectations"\
+I loved the way the back-end requirements were expanded, which forced everyone to look at their initial implementation. Adding the Contractor access rules by company, for instance, complicated my access-by-role. I moved my access rules out of logic and into data (plist), which would certainly be how a commercial application would be written (using a DB).\
 \
-Interesting task.  For changing submenus, I thought about whether it would be better to create a view for each different submenu (4, with the current data), but it seemed to make more sense to just have a single stack view and dynamically change the label (and tag?) and hide buttons when fewer were needed. That lets the stack view handle the layout work for that view.\
+For changing submenus, I thought about whether it would be better to create a view for each different submenu (4, with the current data), but it seemed to make more sense to just have a single stack view and dynamically change the label (and tag?) and hide buttons when fewer were needed. That lets the stack view handle the layout work for that view.\
+\
+My work and family circumstances changed right at the beginning of this unit, and so I had a hard time devoting time to working on it. As a result, this was a pretty expensive unit, and so I am going to move on rather than doing the 'exceeds expectations' parts, hopefully just for this unit.\
+\
+\
 \
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
