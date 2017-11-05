@@ -52,7 +52,7 @@ func loadRides(inputFile: String, fileType: String) throws -> [AnyObject] {
     
     for dict in rideDataFromPlist {
         inputRecord += 1
-        gateType = GateType.Amusement
+        gateType = GateType.RideRides
         guard let id = dict["ID"] as! Int? else {
               throw GatesImportError.missingRequiredField(fieldName: "ID, input record \(inputRecord)")
         }
@@ -65,11 +65,6 @@ func loadRides(inputFile: String, fileType: String) throws -> [AnyObject] {
             ageRestricted = false
         }
 
-/*  do I want to do this again, even though it is not required?
-        if let lattitude = dict["Lattitude"]
-        if let longitude = dict["Longitude"]
-         
-*/
         aRide = Ride(gateID: id, gateType: gateType, gateName: name, ageRestricted: ageRestricted)
         
         allRides.append(aRide)

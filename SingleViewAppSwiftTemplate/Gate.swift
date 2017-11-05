@@ -26,6 +26,7 @@ import Foundation
  */
 
 enum GateType {
+    case RideRides
     case Amusement
     case FoodVendor
     case MerchVendor

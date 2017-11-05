@@ -33,6 +33,10 @@ class RulesImporter {
         var typeRules = [GateType:Bool]()
         
         for (key,value) in textRules["guests"] as! [String:[String:Bool]] {
+            
+            if let accessSet = value["RideRides"] {
+                typeRules[GateType.RideRides] = accessSet
+            }
 
             if let accessSet = value["AmusementAreas"] {
                 typeRules[GateType.Amusement] = accessSet
@@ -75,6 +79,10 @@ class RulesImporter {
         
         for (key,value) in textRules["workers"] as! [String:[String:Bool]] {
             
+            if let accessSet = value["RideRides"] {
+                typeRules[GateType.RideRides] = accessSet
+            }
+            
             if let accessRules = value["AmusementAreas"] {
                 typeRules[GateType.Amusement] = accessRules
             }
@@ -110,6 +118,9 @@ class RulesImporter {
         }
 
         for (key,value) in textRules["companies"] as! [String:[String:Bool]] {
+            if let accessRules = value["RideRides"] {
+                typeRules[GateType.RideRides] = accessRules
+            }
             if let accessRules = value["AmusementAreas"] {
                 typeRules[GateType.Amusement] = accessRules
             }
@@ -131,6 +142,9 @@ class RulesImporter {
         }
         
         for (key,value) in textRules["projects"] as! [String:[String:Bool]] {
+            if let accessRules = value["RideRides"] {
+                typeRules[GateType.RideRides] = accessRules
+            }
             if let accessRules = value["AmusementAreas"] {
                 typeRules[GateType.Amusement] = accessRules
             }

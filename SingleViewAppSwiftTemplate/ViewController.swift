@@ -143,9 +143,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             print(error)
         }
 
-        let testAccess = canAccess(guestType: GuestType.Season, gateType: GateType.Amusement)
-        print("testAccess = canAccess(guestType: GuestType.Season, gateType: GateType.Amusement): \(testAccess)")
-        
         do {
             rides = try loadRides(inputFile: "Rides", fileType: "plist") as! [Ride]
         } catch let error {
@@ -183,7 +180,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
         
         let pass = Pass()
-
 
 // end of "move this stuff to loadAllData()"
         

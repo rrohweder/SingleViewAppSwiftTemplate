@@ -7,14 +7,16 @@
 		<key>1001</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<false/>
+			<true/>
 			<key>RideControlAreas</key>
-			<false/>
+			<true/>
 			<key>KitchenAreas</key>
 			<false/>
 			<key>Maintenance</key>
 			<false/>
 			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
 			<false/>
 		</dict>
 		<key>1002</key>
@@ -22,25 +24,29 @@
 			<key>AmusementAreas</key>
 			<true/>
 			<key>RideControlAreas</key>
-			<false/>
+			<true/>
 			<key>KitchenAreas</key>
 			<false/>
 			<key>Maintenance</key>
-			<false/>
+			<true/>
 			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
 			<false/>
 		</dict>
 		<key>1003</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<false/>
+			<true/>
 			<key>RideControlAreas</key>
-			<false/>
+			<true/>
 			<key>KitchenAreas</key>
-			<false/>
+			<true/>
 			<key>Maintenance</key>
-			<false/>
+			<true/>
 			<key>OfficeAreas</key>
+			<true/>
+			<key>RideRides</key>
 			<false/>
 		</dict>
 		<key>2001</key>
@@ -54,6 +60,8 @@
 			<key>Maintenance</key>
 			<false/>
 			<key>OfficeAreas</key>
+			<true/>
+			<key>RideRides</key>
 			<false/>
 		</dict>
 		<key>2002</key>
@@ -63,10 +71,12 @@
 			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
-			<false/>
+			<true/>
 			<key>Maintenance</key>
-			<false/>
+			<true/>
 			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
 			<false/>
 		</dict>
 	</dict>
@@ -79,13 +89,30 @@
 			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
-			<false/>
+			<true/>
 			<key>Maintenance</key>
 			<false/>
 			<key>OfficeAreas</key>
 			<false/>
+			<key>RideRides</key>
+			<false/>
 		</dict>
 		<key>Orkin</key>
+		<dict>
+			<key>AmusementAreas</key>
+			<true/>
+			<key>RideControlAreas</key>
+			<true/>
+			<key>KitchenAreas</key>
+			<true/>
+			<key>Maintenance</key>
+			<false/>
+			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
+			<false/>
+		</dict>
+		<key>FedEx</key>
 		<dict>
 			<key>AmusementAreas</key>
 			<false/>
@@ -94,8 +121,25 @@
 			<key>KitchenAreas</key>
 			<false/>
 			<key>Maintenance</key>
-			<false/>
+			<true/>
 			<key>OfficeAreas</key>
+			<true/>
+			<key>RideRides</key>
+			<false/>
+		</dict>
+		<key>NW Electrical</key>
+		<dict>
+			<key>AmusementAreas</key>
+			<true/>
+			<key>RideControlAreas</key>
+			<true/>
+			<key>KitchenAreas</key>
+			<true/>
+			<key>Maintenance</key>
+			<true/>
+			<key>OfficeAreas</key>
+			<true/>
+			<key>RideRides</key>
 			<false/>
 		</dict>
 	</dict>
@@ -104,7 +148,7 @@
 		<key>Classic</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<true/>
+			<false/>
 			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
@@ -113,11 +157,43 @@
 			<false/>
 			<key>OfficeAreas</key>
 			<false/>
+			<key>RideRides</key>
+			<true/>
+		</dict>
+		<key>FreeChild</key>
+		<dict>
+			<key>AmusementAreas</key>
+			<false/>
+			<key>RideControlAreas</key>
+			<false/>
+			<key>KitchenAreas</key>
+			<false/>
+			<key>Maintenance</key>
+			<false/>
+			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
+			<true/>
+		</dict>
+		<key>VIP</key>
+		<dict>
+			<key>AmusementAreas</key>
+			<false/>
+			<key>RideContrrolAreas</key>
+			<false/>
+			<key>KitchenAreas</key>
+			<false/>
+			<key>Maintenance</key>
+			<false/>
+			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
+			<true/>
 		</dict>
 		<key>Senior</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<true/>
+			<false/>
 			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
@@ -126,17 +202,23 @@
 			<false/>
 			<key>OfficeAreas</key>
 			<false/>
+			<key>RideRides</key>
+			<true/>
 		</dict>
 		<key>Season</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<true/>
+			<false/>
 			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
 			<false/>
 			<key>Maintenance</key>
 			<false/>
+			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>workers</key>
@@ -144,7 +226,7 @@
 		<key>RideServices</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<false/>
+			<true/>
 			<key>RideControlAreas</key>
 			<true/>
 			<key>KitchenAreas</key>
@@ -153,19 +235,53 @@
 			<false/>
 			<key>OfficeAreas</key>
 			<false/>
+			<key>RideRides</key>
+			<true/>
 		</dict>
 		<key>FoodServices</key>
 		<dict>
 			<key>AmusementAreas</key>
-			<false/>
+			<true/>
 			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
-			<false/>
+			<true/>
 			<key>Maintenance</key>
 			<false/>
 			<key>OfficeAreas</key>
 			<false/>
+			<key>RideRides</key>
+			<true/>
+		</dict>
+		<key>Maintenance</key>
+		<dict>
+			<key>AmusementAreas</key>
+			<true/>
+			<key>RideControlAreas</key>
+			<true/>
+			<key>KitchenAreas</key>
+			<true/>
+			<key>Maintenance</key>
+			<true/>
+			<key>OfficeAreas</key>
+			<false/>
+			<key>RideRides</key>
+			<true/>
+		</dict>
+		<key>Manager</key>
+		<dict>
+			<key>AmusementAreas</key>
+			<true/>
+			<key>RideControlAreas</key>
+			<true/>
+			<key>KitchenAreas</key>
+			<true/>
+			<key>Maintenance</key>
+			<true/>
+			<key>OfficeAreas</key>
+			<true/>
+			<key>RideRides</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

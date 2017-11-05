@@ -29,7 +29,7 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         
         nonpublicGate = NonPublic(gateID: 1, gateType: .RideControl, gateName: "Whirlygig ride control")
         
-        ride = Ride(gateID: 1, gateType: GateType.Amusement, gateName: "Whirlygig", ageRestricted: true)
+        ride = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Whirlygig", ageRestricted: true)
         
         restrictedRide = Ride(gateID: 1, gateType: GateType.Amusement, gateName: "Whirlygig", ageRestricted: true)
 
@@ -74,20 +74,15 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     
     func testGuestAccess () {
   
-        
         // confirm that Guests have Amusement (ride) Area access (all guests can access all rides, with one exception (below)
-        anyGuest.guestType = .Classic
-        XCTAssert(accessPermitted(requestor: anyGuest, gate: ride) == true)
-        
-        // XCTAssert(rules.canAccess(guestType: .Classic, gateType: .Amusement) == true)
-        // rules is nil... can't remember how to setup env. for this test.
+        XCTAssert(canAccess(guestType: .Classic, gateType: .Amusement) == true)  // it worked!!!
 
         // test the one exception: Child cannot ride on ageRestricted rides
         anyGuest.guestType = .FreeChild
         ride.gateType = .Amusement
         ride.ageRestricted = true
         XCTAssert(accessPermitted(requestor: anyGuest, gate: ride) == false)
-        
+
         // confirm that Guests do not have NonPublic Area access
         XCTAssert(accessPermitted(requestor: anyGuest, gate: nonpublicGate) == false)
         

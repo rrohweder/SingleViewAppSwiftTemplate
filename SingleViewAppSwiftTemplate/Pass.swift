@@ -23,7 +23,8 @@ class Pass {
             
             let guestRequestor = requestor as! Guest
             accessingEntrantType = String(describing: guestRequestor.guestType) + " Guest"
-            entrantCanAccess = canAccess(guestType: guestRequestor.guestType, gateType: gate.gateType)
+            entrantCanAccess = accessPermitted(requestor: guestRequestor, gate: gate)
+            
             if requestor is FreeChildGuest {
                 let childRequestor = requestor as! FreeChildGuest
                 freeChild = isFreeChild(birthdateString: dateFormatter.string(from: childRequestor.dateOfBirth))
@@ -32,14 +33,15 @@ class Pass {
         } else if requestor is Worker {
             let workerRequestor = requestor as! Worker
             accessingEntrantType = String(describing: workerRequestor.workerType)
-            entrantCanAccess = canAccess(workerType: workerRequestor.workerType, gateType: gate.gateType)
+            entrantCanAccess = accessPermitted(requestor: workerRequestor, gate: gate)
         } else if requestor is VendorStaff {
             let vendorRequestor = requestor as! VendorStaff
             accessingEntrantType = "Vendor: " + String(describing: vendorRequestor.companyName)
-            entrantCanAccess = canAccess(companyName: vendorRequestor.companyName, gateType: gate.gateType)
+            entrantCanAccess = accessPermitted(requestor: vendorRequestor, gate: gate)
         } else if requestor is Contract {
             let contractorRequestor = requestor as! Contract
             accessingEntrantType = "Project # " + String(describing: contractorRequestor.projectNumber)
+            entrantCanAccess = accessPermitted(requestor: contractorRequestor, gate: gate)
         }
         
         // all else is mute if they can't enter
