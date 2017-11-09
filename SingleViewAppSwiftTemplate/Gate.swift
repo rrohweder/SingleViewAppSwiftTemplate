@@ -46,6 +46,8 @@ enum GateError: Error {
     
 }
 
+var rides = [Ride]()  // only exists to for-loop through, generating passes for test purposes
+
 class Gate {
     
     var gateID: Int

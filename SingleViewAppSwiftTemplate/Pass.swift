@@ -30,18 +30,18 @@ class Pass {
                 freeChild = isFreeChild(birthdateString: dateFormatter.string(from: childRequestor.dateOfBirth))
             }
             
-        } else if requestor is Worker {
-            let workerRequestor = requestor as! Worker
-            accessingEntrantType = String(describing: workerRequestor.workerType)
-            entrantCanAccess = accessPermitted(requestor: workerRequestor, gate: gate)
-        } else if requestor is VendorStaff {
-            let vendorRequestor = requestor as! VendorStaff
-            accessingEntrantType = "Vendor: " + String(describing: vendorRequestor.companyName)
-            entrantCanAccess = accessPermitted(requestor: vendorRequestor, gate: gate)
         } else if requestor is Contract {
             let contractorRequestor = requestor as! Contract
             accessingEntrantType = "Project # " + String(describing: contractorRequestor.projectNumber)
             entrantCanAccess = accessPermitted(requestor: contractorRequestor, gate: gate)
+        } else if requestor is VendorStaff {
+            let vendorRequestor = requestor as! VendorStaff
+            accessingEntrantType = "Vendor: " + String(describing: vendorRequestor.companyName)
+            entrantCanAccess = accessPermitted(requestor: vendorRequestor, gate: gate)
+        } else if requestor is Worker {
+            let workerRequestor = requestor as! Worker
+            accessingEntrantType = String(describing: workerRequestor.workerType)
+            entrantCanAccess = accessPermitted(requestor: workerRequestor, gate: gate)
         }
         
         // all else is mute if they can't enter
@@ -50,7 +50,7 @@ class Pass {
             foodDiscount = discountAvailable(requestor: requestor, product: .Food)
             merchDiscount = discountAvailable(requestor: requestor, product: .Merchandise)
             if requestor is Guest {
-                if gate is Ride {
+                if gate.gateType == .RideRides {
                     guestCanSkipLine = canSkipLine(requestor: requestor, gateType: gate.gateType)
                 }
             }
@@ -69,7 +69,7 @@ class Pass {
         print("\(gate.gateName)")
 
         if entrantCanAccess {
-            if gate.gateType == .Amusement {
+            if gate.gateType == .RideRides {
                 print("Access Permitted for \(accessingEntrantType)")
                 if guestCanSkipLine {
                     print("with \"Skip the Line!\" privilege")

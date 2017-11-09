@@ -76,7 +76,7 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
                 guestType = .VIP
                 aGuest = Guest(entrantID: id, guestType: guestType)
 
-        case "FreeChild":
+            case "FreeChild":
                 guestType = .FreeChild
                 guard let dob = dict["dateOfBirth"] as! Date? else {
                     // I guess I can't tell whether it is missing or a conversion failure...

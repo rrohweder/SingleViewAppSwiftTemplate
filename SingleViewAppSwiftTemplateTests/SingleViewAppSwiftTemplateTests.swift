@@ -20,18 +20,14 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     var anyGuest:Guest!
     var rules:RulesImporter!
     
-    
     override func setUp() {
         super.setUp()
         
         // create one of each needed object:
         vendorGate = Vendor(gateID: 1, gateType: GateType.FoodVendor, gateName: "Nathan's Hot Dogs")
-        
         nonpublicGate = NonPublic(gateID: 1, gateType: .RideControl, gateName: "Whirlygig ride control")
-        
         ride = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Whirlygig", ageRestricted: true)
-        
-        restrictedRide = Ride(gateID: 1, gateType: GateType.Amusement, gateName: "Whirlygig", ageRestricted: true)
+        restrictedRide = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Whirlygig", ageRestricted: true)
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -46,7 +42,6 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         } catch let error {
             print(error)
         }
-
     }
     
     override func tearDown() {
@@ -57,7 +52,7 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     func testWorkerAccess () {
         
         // Test ride access with one worker (all workers can access rides):
-        ride.gateType = .Amusement
+        ride.gateType = .RideRides
         ride.gateName = "Whirlygig"
         anyWorker.workerType = .HourlyFoodServices
         XCTAssert(accessPermitted(requestor: anyWorker, gate: ride) == true)
@@ -74,19 +69,18 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     
     func testGuestAccess () {
   
-        // confirm that Guests have Amusement (ride) Area access (all guests can access all rides, with one exception (below)
-        XCTAssert(canAccess(guestType: .Classic, gateType: .Amusement) == true)  // it worked!!!
+        // confirm that Guests have RideRides (ride) Area access (all guests can access all rides, with one exception (below)
+        XCTAssert(canAccess(guestType: .Classic, gateType: .RideRides) == true)  // it worked!!!
 
         // test the one exception: Child cannot ride on ageRestricted rides
         anyGuest.guestType = .FreeChild
-        ride.gateType = .Amusement
+        ride.gateType = .RideRides
         ride.ageRestricted = true
         XCTAssert(accessPermitted(requestor: anyGuest, gate: ride) == false)
 
         // confirm that Guests do not have NonPublic Area access
         XCTAssert(accessPermitted(requestor: anyGuest, gate: nonpublicGate) == false)
         
-
     }
     
     
@@ -128,25 +122,25 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     
     func testSkipPrivilege() {
         anyGuest.guestType = .Classic
-        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .RideRides) == false)
         
         anyGuest.guestType = .VIP
-        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .Amusement) == true)
+        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .RideRides) == true)
         
         anyGuest.guestType = .FreeChild
-        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyGuest, gateType: .RideRides) == false)
 
         anyWorker.workerType = .HourlyFoodServices
-        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
         anyWorker.workerType = .HourlyRideServices
-        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
         anyWorker.workerType = .HourlyMaintenance
-        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
         anyWorker.workerType = .Manager
-        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .Amusement) == false)
+        XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
     }
     

@@ -10,7 +10,6 @@
 		100393F01E9E513300578B9E /* Pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100393EF1E9E513300578B9E /* Pass.swift */; };
 		100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100AC3691E7E116300FDD1E6 /* Gate.swift */; };
 		100CD4EA1F92D9B7004E318B /* LoadAccessRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100CD4E91F92D9B7004E318B /* LoadAccessRules.swift */; };
-		100CD4EC1F92DB5F004E318B /* NOTUSEDAccessRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100CD4EB1F92DB5F004E318B /* NOTUSEDAccessRules.swift */; };
 		102CB9171F768CF10046AF92 /* PassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102CB9161F768CF10046AF92 /* PassViewController.swift */; };
 		1030BB9B1E9DDD4C0074D67B /* Guests.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1030BB9A1E9DDD4C0074D67B /* Guests.plist */; };
 		1038725F1E967D8800693DFC /* Entrant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1038725E1E967D8800693DFC /* Entrant.swift */; };
@@ -75,7 +74,6 @@
 		100393EF1E9E513300578B9E /* Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pass.swift; sourceTree = "<group>"; };
 		100AC3691E7E116300FDD1E6 /* Gate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		100CD4E91F92D9B7004E318B /* LoadAccessRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAccessRules.swift; sourceTree = "<group>"; };
-		100CD4EB1F92DB5F004E318B /* NOTUSEDAccessRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NOTUSEDAccessRules.swift; sourceTree = "<group>"; };
 		101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		102CB9161F768CF10046AF92 /* PassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassViewController.swift; sourceTree = "<group>"; };
 		1030BB9A1E9DDD4C0074D67B /* Guests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Guests.plist; sourceTree = "<group>"; };
@@ -186,7 +184,6 @@
 				1058D2921E9DD0CC0059C688 /* LoadEntrants.swift */,
 				103E950A1EA13B9500706F21 /* LoadGates.swift */,
 				100CD4E91F92D9B7004E318B /* LoadAccessRules.swift */,
-				100CD4EB1F92DB5F004E318B /* NOTUSEDAccessRules.swift */,
 				100AC3691E7E116300FDD1E6 /* Gate.swift */,
 				1047B2541E992E9B00B316D9 /* Ride.swift */,
 				1047B2521E992C1500B316D9 /* Vendor.swift */,
@@ -440,7 +437,6 @@
 				100CD4EA1F92D9B7004E318B /* LoadAccessRules.swift in Sources */,
 				1058D2931E9DD0CC0059C688 /* LoadEntrants.swift in Sources */,
 				100AC36A1E7E116300FDD1E6 /* Gate.swift in Sources */,
-				100CD4EC1F92DB5F004E318B /* NOTUSEDAccessRules.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,10 @@
 			<false/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>1002</key>
 		<dict>
@@ -33,6 +37,10 @@
 			<false/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>1003</key>
 		<dict>
@@ -48,6 +56,10 @@
 			<true/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>2001</key>
 		<dict>
@@ -63,6 +75,10 @@
 			<true/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>2002</key>
 		<dict>
@@ -78,6 +94,10 @@
 			<false/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>companies</key>
@@ -96,6 +116,10 @@
 			<false/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>Orkin</key>
 		<dict>
@@ -111,6 +135,10 @@
 			<false/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>FedEx</key>
 		<dict>
@@ -126,6 +154,10 @@
 			<true/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>NW Electrical</key>
 		<dict>
@@ -141,6 +173,10 @@
 			<true/>
 			<key>RideRides</key>
 			<false/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 	</dict>
 	<key>guests</key>
@@ -159,6 +195,10 @@
 			<false/>
 			<key>RideRides</key>
 			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>FreeChild</key>
 		<dict>
@@ -174,12 +214,16 @@
 			<false/>
 			<key>RideRides</key>
 			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>VIP</key>
 		<dict>
 			<key>AmusementAreas</key>
 			<false/>
-			<key>RideContrrolAreas</key>
+			<key>RideControlAreas</key>
 			<false/>
 			<key>KitchenAreas</key>
 			<false/>
@@ -188,6 +232,10 @@
 			<key>OfficeAreas</key>
 			<false/>
 			<key>RideRides</key>
+			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
 			<true/>
 		</dict>
 		<key>Senior</key>
@@ -204,6 +252,10 @@
 			<false/>
 			<key>RideRides</key>
 			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>Season</key>
 		<dict>
@@ -218,6 +270,10 @@
 			<key>OfficeAreas</key>
 			<false/>
 			<key>RideRides</key>
+			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
 			<true/>
 		</dict>
 	</dict>
@@ -237,6 +293,10 @@
 			<false/>
 			<key>RideRides</key>
 			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>FoodServices</key>
 		<dict>
@@ -251,6 +311,10 @@
 			<key>OfficeAreas</key>
 			<false/>
 			<key>RideRides</key>
+			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
 			<true/>
 		</dict>
 		<key>Maintenance</key>
@@ -267,6 +331,10 @@
 			<false/>
 			<key>RideRides</key>
 			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
+			<true/>
 		</dict>
 		<key>Manager</key>
 		<dict>
@@ -281,6 +349,10 @@
 			<key>OfficeAreas</key>
 			<true/>
 			<key>RideRides</key>
+			<true/>
+			<key>FoodVendor</key>
+			<true/>
+			<key>MerchVendor</key>
 			<true/>
 		</dict>
 	</dict>

@@ -25,7 +25,6 @@ class RulesImporter {
             throw EntrantImportError.conversionFailure(resourceName: "AccessRules.plist")
         }
         mapTextToCustomTypes(textRules: textRules)
-        print("guestRules: \(guestRules)")
     }
 
     
@@ -37,25 +36,26 @@ class RulesImporter {
             if let accessSet = value["RideRides"] {
                 typeRules[GateType.RideRides] = accessSet
             }
-
             if let accessSet = value["AmusementAreas"] {
                 typeRules[GateType.Amusement] = accessSet
             }
-            
             if let accessSet =  value["RideControlAreas"] {
                 typeRules[GateType.RideControl] = accessSet
             }
-            
             if let accessSet = value["KitchenAreas"] {
                 typeRules[GateType.Kitchen] = accessSet
             }
-            
             if let accessSet = value["Maintenance"] {
                 typeRules[GateType.Maintenance] = accessSet
             }
-            
             if let accessSet = value["OfficeAreas"] {
                 typeRules[GateType.Office] = accessSet
+            }
+            if let accessSet = value["FoodVendor"] {
+                typeRules[GateType.FoodVendor] = accessSet
+            }
+            if let accessSet = value["MerchVendor"] {
+                typeRules[GateType.MerchVendor] = accessSet
             }
 
             switch (key) {
@@ -65,50 +65,48 @@ class RulesImporter {
                     guestRules[GuestType.Senior] = typeRules
                 case "Season":
                     guestRules[GuestType.Season] = typeRules
-                case "Child":
+                case "FreeChild":
                     guestRules[GuestType.FreeChild] = typeRules
                 case "VIP":
                     guestRules[GuestType.VIP] = typeRules
                 default: break
             }
-            // print("guestRules[GuestType.Season]: \(guestRules[GuestType.Season])")  // this works
-            // print("guestRules[GuestType.Season][GateType.Amusement]: \(guestRules[GuestType.Season]![GateType.Amusement])") // this works
 
             typeRules = [GateType:Bool]() // need to clear it, I think.
         }
         
         for (key,value) in textRules["workers"] as! [String:[String:Bool]] {
-            
             if let accessSet = value["RideRides"] {
                 typeRules[GateType.RideRides] = accessSet
             }
-            
             if let accessRules = value["AmusementAreas"] {
                 typeRules[GateType.Amusement] = accessRules
             }
-            
             if let accessRules = value["RideControlAreas"] {
                 typeRules[GateType.RideControl] = accessRules
             }
-            
             if let accessRules = value["KitchenAreas"] {
                 typeRules[GateType.Kitchen] = accessRules
             }
-            
             if let accessRules = value["Maintenance"] {
                 typeRules[GateType.Maintenance] = accessRules
             }
-            
             if let accessRules = value["OfficeAreas"] {
                 typeRules[GateType.Office] = accessRules
             }
-            
+            if let accessRules = value["FoodVendor"] {
+                typeRules[GateType.FoodVendor] = accessRules
+            }
+            if let accessRules = value["MerchVendor"] {
+                typeRules[GateType.MerchVendor] = accessRules
+            }
+
             switch (key) {
             case "FoodServices":
                 workerRules[WorkerType.HourlyFoodServices] = typeRules
             case "RideServices":
                 workerRules[WorkerType.HourlyRideServices] = typeRules
-            case "Mainenance":
+            case "Maintenance":
                 workerRules[WorkerType.HourlyMaintenance] = typeRules
             case "Manager":
                 workerRules[WorkerType.Manager] = typeRules
@@ -136,6 +134,12 @@ class RulesImporter {
             if let accessRules = value["OfficeAreas"] {
                 typeRules[GateType.Office] = accessRules
             }
+            if let accessRules = value["FoodVendor"] {
+                typeRules[GateType.FoodVendor] = accessRules
+            }
+            if let accessRules = value["MerchVendor"] {
+                typeRules[GateType.MerchVendor] = accessRules
+            }
             vendorStaffRules[key] = typeRules
            
             typeRules = [GateType:Bool]() // need to clear it, I think.
@@ -160,7 +164,13 @@ class RulesImporter {
             if let accessRules = value["OfficeAreas"] {
                 typeRules[GateType.Office] = accessRules
             }
-            
+            if let accessRules = value["FoodVendor"] {
+                typeRules[GateType.FoodVendor] = accessRules
+            }
+            if let accessRules = value["MerchVendor"] {
+                typeRules[GateType.MerchVendor] = accessRules
+            }
+
             contractorRules[key] = typeRules
             typeRules = [GateType:Bool]() // need to clear it, I think.
         }

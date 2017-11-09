@@ -8,12 +8,6 @@
 
 import Foundation
 
-let guestRolesAccess:[GateType: [GuestType]] = [
-    .Amusement:[.Classic,.VIP,.FreeChild],
-    .FoodVendor:[.Classic,.VIP,.FreeChild],
-    .MerchVendor:[.Classic,.VIP,.FreeChild]
-]
-
 let guestRolesDiscount:[ProductType:[GuestType:Int]] = [
     .Food:
         [.VIP:10, .Senior:10, .Season:10],
@@ -70,74 +64,17 @@ func accessPermitted(requestor: Entrant, gate: Gate) -> Bool {
                  permitted = false
             }
         }
+     } else if requestor is Contract {
+        let contractRequestor = requestor as! Contract
+        permitted = canAccess(projectNumber: String(contractRequestor.projectNumber), gateType: gate.gateType)
+     } else if requestor is VendorStaff {
+        let vendorRequestor = requestor as! VendorStaff
+        permitted = canAccess(companyName: vendorRequestor.companyName, gateType: gate.gateType)
      } else if requestor is Worker {
          let workerRequestor = requestor as! Worker
          permitted = canAccess(workerType: workerRequestor.workerType, gateType: gate.gateType)
-     } else if requestor is VendorStaff {
-         let vendorRequestor = requestor as! VendorStaff
-         permitted = canAccess(companyName: vendorRequestor.companyName, gateType: gate.gateType)
-     } else if requestor is Contract {
-         let contractRequestor = requestor as! Contract
-        permitted = canAccess(projectNumber: String(contractRequestor.projectNumber), gateType: gate.gateType)
      }
      return permitted
-
-/*
-    let gateType = gate.gateType
-    switch (gateType) {
-    case .Amusement:
-        if (requestor is Guest) {
-            let guestRequestor = requestor as! Guest
-            let ride = gate as! Ride // Amusement == Ride
-            
-            // if var isPermitted = (guestRolesAccess[.Amusement]?.contains(guestRequestor.guestType)) {
-            permitted = canAccess(guestType: guestRequestor.guestType, gateType: ride.gateType)
-            if permitted == true {
-                if guestRequestor.guestType == .FreeChild && ride.ageRestricted {
-                    permitted = false
-                }
-            }
-        } else if requestor is Worker {
-            let workerRequestor = requestor as! Worker
-            permitted = canAccess(workerType: workerRequestor.workerType, gateType: gate.gateType)
-        }
-        
-    case .FoodVendor, .MerchVendor: permitted = true
-        
-    case .Kitchen:
-        if requestor is Worker {
-            let workerRequestor = requestor as! Worker
-            if let isPermitted = (workerRolesAccess[.Kitchen]?.contains(workerRequestor.workerType)) {
-                permitted = isPermitted
-            }
-        }
-        
-    case .Maintenance:
-        if requestor is Worker {
-            let workerRequestor = requestor as! Worker
-            if let isPermitted = (workerRolesAccess[.Maintenance]?.contains(workerRequestor.workerType)) {
-                permitted = isPermitted
-            }
-        }
-        
-    case .Office:
-        if requestor is Worker {
-            let workerRequestor = requestor as! Worker
-            if let isPermitted = (workerRolesAccess[.Office]?.contains(workerRequestor.workerType)) {
-                permitted = isPermitted
-            }
-        }
-        
-    case .RideControl:
-        if requestor is Worker {
-            let workerRequestor = requestor as! Worker
-            if let isPermitted = (workerRolesAccess[.RideControl]?.contains(workerRequestor.workerType)) {
-                permitted = isPermitted
-            }
-        }
-    }
-    return permitted
- */
 }
 
 func discountAvailable(requestor: Entrant, product: ProductType) -> Int {

@@ -9,16 +9,7 @@
 import UIKit
 
 class ViewController: UIViewController, PassViewControllerDelegate {
-
-    // should these be vars in their respective classes, instead of vars in
-    // this class? and then accessed with class.var?
-    // var accessRules = [String:Any]()
-    var rides = [Ride]()
-    var vendors = [Vendor]()
-    var nonpublics = [NonPublic]()
-    var workers = [Worker]()
-    var guests = [AnyObject]()
-    var vendorFolks = [VendorStaff]()
+    
     var lastClicked = 0
     let dateFormatter = DateFormatter()
     var currentEntrant: Entrant?
@@ -92,6 +83,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     }
     
     func disableGeneratePassButton() {
+        /*
         generatePassButton.isEnabled = false
         generatePassButton.backgroundColor = UIColor(
             red: 230.0/255.0, green: 230.0/255.0,
@@ -99,15 +91,14 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         generatePassButton.setTitleColor(UIColor(
             red: 179.0/255.0, green: 179.0/255.0,
             blue: 179.0/255.0, alpha: 1.0),for: .normal)
+ */
     }
     
     func myVCDidFinish(controller:PassViewController,text:String) {
-        // so what clearing do I need to do when I return from PassViewController?
         deactivateFormFields(page: self)
         disablePopulateButton()
         disableGeneratePassButton()
         
-        // I need to reset the SubMenu, SHOULD do it based upon the (last) mainmenu..
         if (lastClicked <= 15) {
             activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
         } else {
@@ -117,7 +108,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+doAlert(alertMessage: "Does this show up?")
         dateFormatter.dateFormat = "MM/dd/yyyy"
 
         // disable form fields, gray labels until a submenu item is selected
@@ -162,7 +153,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
         
         do {
-            workers = try loadWorkers(inputFile: "Workers", fileType: "plist")
+            workers = try loadWorkers(inputFile: "Workers", fileType: "plist") // includes contractors
         } catch let error {
             print(error)
         }
@@ -218,8 +209,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             for nonpublic in nonpublics {
                 pass.printPaperPass(requestor: vendorStaff, gate: nonpublic)
             }
-
         }
+        
 //         end of testing stuff to move
         
     } // end of ViewDidLoad()
@@ -311,7 +302,10 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             
             case subMenuItem.VIP.rawValue:
-                // FIXME: create guest record to return
+                
+                if let vip = getEntrant(entrantType: GuestType.VIP) as! VIPGuest? {
+                    return vip as Entrant
+                }
                 break
             
             case subMenuItem.Season.rawValue:
@@ -497,85 +491,216 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
     
+    func doAlert(alertMessage: String) {
+        // create the alert
+        let alertController = UIAlertController(title: "Invalid", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        
+        // add an action (button)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+        
+        // show the alert
+        present(alertController, animated: true, completion: nil)
+    }
+    
     func isFormComplete() {
         var isComplete = false
+        var missingInvalid = "Missing/Invalid entries:\n"
         
         let dobValid = isDateValid(dateString: dateOfBirthField.text!)
         
         switch (lastClicked) {
 
             case subMenuItem.Child.rawValue:
-                if dobValid {
-                    isComplete = true
+                isComplete = true
+                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                    missingInvalid = missingInvalid + "Date of Birth\n"
+                    isComplete = false
                 }
-            
+                if isComplete == false {
+                    doAlert(alertMessage: missingInvalid)
+                } else {
+                    print("do the segue")
+                }
+
             case subMenuItem.Classic.rawValue:
                 isComplete = true
 
             case subMenuItem.Senior.rawValue:
-                 // firstName, lastName, dob
-                if dobValid
-                    && isSenior(birthdateString: dateOfBirthField.text!)
-                    && firstNameField.text != ""
-                    && lastNameField.text != ""
-                {
-                        isComplete = true
+                isComplete = true
+                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                    missingInvalid = missingInvalid + "Date of Birth\n"
+                    isComplete = false
                 }
-            
+                if firstNameField.text == "" {
+                    missingInvalid = missingInvalid + "First Name\n"
+                    isComplete = false
+                }
+                if lastNameField.text == "" {
+                    missingInvalid = missingInvalid + "Last Name\n"
+                    isComplete = false
+                }
+
+                if isComplete == false {
+                    doAlert(alertMessage: missingInvalid)
+                } else {
+                    print("do the segue")
+                    let controller = PassViewController()
+                    self.present(controller, animated: true, completion: nil)
+                }
+
             case subMenuItem.VIP.rawValue:
                 isComplete = true
 
             case subMenuItem.Season.rawValue:
-                if firstNameField.text != ""
-                    && lastNameField.text != ""
-                    && streetAddressField.text != ""
-                    && cityField.text != ""
-                    && stateField.text != ""
-                    && isZipCodeValid(zipCode: zipCodeField.text!)
-                    && isDateValid(dateString: dateOfBirthField.text!)
-
-                {
-                        isComplete = true
+                isComplete = true
+                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                    missingInvalid = missingInvalid + "Date of Birth\n"
+                    isComplete = false
                 }
-            
+                if firstNameField.text == "" {
+                    missingInvalid = missingInvalid + "First Name\n"
+                    isComplete = false
+                }
+                if lastNameField.text == "" {
+                    missingInvalid = missingInvalid + "Last Name\n"
+                    isComplete = false
+                }
+                if streetAddressField.text == "" {
+                    missingInvalid = missingInvalid + "Street Address\n"
+                    isComplete = false
+                }
+                if cityField.text == "" {
+                    missingInvalid = missingInvalid + "City\n"
+                    isComplete = false
+                }
+                if stateField.text == "" {
+                    missingInvalid = missingInvalid + "State\n"
+                    isComplete = false
+                }
+                if isZipCodeValid(zipCode: zipCodeField.text!) == false {
+                    missingInvalid = missingInvalid + "Zip Code\n"
+                    isComplete = false
+                }
+                if isComplete == false {
+                    doAlert(alertMessage: missingInvalid)
+                } else {
+                    print("do the segue")
+                }
+
             case subMenuItem.HourlyEmployeeFoodServices.rawValue,
              subMenuItem.HourlyEmployeeRideServices.rawValue,
              subMenuItem.HourlyEmployeeMaintenance.rawValue:
-                if dobValid
-                    && isSSNValid(socialSecurityNumber: ssnField.text!)
-                    && firstNameField.text != ""
-                    && lastNameField.text != ""
-                    && streetAddressField.text != ""
-                    && cityField.text != ""
-                    && stateField.text != ""
-                    && isZipCodeValid(zipCode: zipCodeField.text!)
-                {
-                    isComplete = true
+                isComplete = true
+                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                    missingInvalid = missingInvalid + "Date of Birth\n"
+                    isComplete = false
+                }
+                if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
+                    missingInvalid = missingInvalid + "Social Security Number\n"
+                    isComplete = false
+                }
+                if firstNameField.text == "" {
+                    missingInvalid = missingInvalid + "First Name\n"
+                    isComplete = false
+                }
+                if lastNameField.text == "" {
+                    missingInvalid = missingInvalid + "Last Name\n"
+                    isComplete = false
+                }
+                if streetAddressField.text == "" {
+                    missingInvalid = missingInvalid + "Street Address\n"
+                    isComplete = false
+                }
+                if cityField.text == "" {
+                    missingInvalid = missingInvalid + "City\n"
+                    isComplete = false
+                }
+                if stateField.text == "" {
+                    missingInvalid = missingInvalid + "State\n"
+                    isComplete = false
+                }
+                if isZipCodeValid(zipCode: zipCodeField.text!) == false {
+                    missingInvalid = missingInvalid + "Zip Code\n"
+                    isComplete = false
+                }
+                if MgmtTierField.text == "" {
+                    missingInvalid = missingInvalid + "Management Tier\n"
+                    isComplete = false
+                }
+                if isComplete == false {
+                    doAlert(alertMessage: missingInvalid)
+                } else {
+                    print("do the segue")
                 }
 
             case mainMenuItem.Manager.rawValue:
-                if dobValid
-                    && isSSNValid(socialSecurityNumber: ssnField.text!)
-                    && firstNameField.text != ""
-                    && lastNameField.text != ""
-                    && streetAddressField.text != ""
-                    && cityField.text != ""
-                    && stateField.text != ""
-                    && isZipCodeValid(zipCode: zipCodeField.text!)
-                    && MgmtTierField.text != ""
-                {
-                    isComplete = true
-                }
-            
-        case mainMenuItem.Vendor.rawValue:
-            if dobValid
-                && firstNameField.text != ""
-                && lastNameField.text != ""
-                && companyNameField.text != ""
-                && isDateValid(dateString: lastVisitField.text!)
-            {
                 isComplete = true
+                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                    missingInvalid = missingInvalid + "Date of Birth\n"
+                    isComplete = false
+                }
+                if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
+                    missingInvalid = missingInvalid + "Social Security Number\n"
+                    isComplete = false
+                }
+                if firstNameField.text == "" {
+                    missingInvalid = missingInvalid + "First Name\n"
+                    isComplete = false
+                }
+                if lastNameField.text == "" {
+                    missingInvalid = missingInvalid + "Last Name\n"
+                    isComplete = false
+                }
+                if streetAddressField.text == "" {
+                    missingInvalid = missingInvalid + "Street Address\n"
+                    isComplete = false
+                }
+                if cityField.text == "" {
+                    missingInvalid = missingInvalid + "City\n"
+                    isComplete = false
+                }
+                if stateField.text == "" {
+                    missingInvalid = missingInvalid + "State\n"
+                    isComplete = false
+                }
+                if isZipCodeValid(zipCode: zipCodeField.text!) == false {
+                    missingInvalid = missingInvalid + "Zip Code\n"
+                    isComplete = false
+                }
+                if MgmtTierField.text == "" {
+                    missingInvalid = missingInvalid + "Management Tier\n"
+                    isComplete = false
+                }
+                if isComplete == false {
+                    doAlert(alertMessage: missingInvalid)
+                } else {
+                    print("do the segue")
+                }
+
+        case mainMenuItem.Vendor.rawValue:
+            isComplete = true
+            if firstNameField.text == "" {
+                missingInvalid = missingInvalid + "First Name\n"
+                isComplete = false
             }
+            if lastNameField.text == "" {
+                missingInvalid = missingInvalid + "Last Name\n"
+                isComplete = false
+            }
+            if companyNameField.text == "" {
+                missingInvalid = missingInvalid + "Company Name\n"
+                isComplete = false
+            }
+            if isDateValid(dateString: lastVisitField.text!) == false {
+                missingInvalid = missingInvalid + "Date of Last Visit\n"
+                isComplete = false
+            }
+            if isComplete == false {
+                doAlert(alertMessage: missingInvalid)
+            } else {
+                print("do the segue")
+            }
+
 
             case subMenuItem.ContractEmployee.rawValue:
                 break
@@ -589,9 +714,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     } // isFormComplete()
 
-// (don't have time to add to .plist file dynamically... need to finish this usit.
+// (don't have time to add to .plist file dynamically... need to finish this unit.
 // if I did: https://stackoverflow.com/questions/41668166/save-data-to-plist-file-in-swift-3)
-   
+/*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "MainToPass") {
             let passViewController = (segue.destination as! PassViewController)
@@ -599,7 +724,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             passViewController.delegate = self
         }
     }
-    
+*/
     @IBAction func validateDoB(_ sender: Any) {
         if isDateValid(dateString: dateOfBirthField.text!) {
             isFormComplete()
@@ -621,6 +746,10 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         enableGeneratePassButton()
     }
     
+    @IBAction func generateThePass(_ sender: Any) {
+        isFormComplete()
+        print("whatever")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

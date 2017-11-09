@@ -12,6 +12,15 @@ let maxFreeChildAge = 5
 let minSeniorAge = 65
 let dateFormatter = DateFormatter()
 
+//  these only exist to for-loop through, generating passes for test purposes
+var vendors = [Vendor]()
+var nonpublics = [NonPublic]()
+var workers = [Worker]()
+var guests = [AnyObject]()
+var vendorFolks = [VendorStaff]()
+var contractorFolks = [Contract]()
+
+
 protocol Entrant {
     var entrantID: Int { get }
 }

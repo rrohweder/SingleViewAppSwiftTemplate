@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -273,7 +273,7 @@
                                     <color key="titleColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="wdc-bY-MjB" kind="show" identifier="MainToPass" id="xPm-Mk-bo0"/>
+                                    <action selector="generateThePass:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pV9-7f-mAZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xlx-Un-GFy">
@@ -587,6 +587,9 @@
                                         <state key="normal" title="Area Access">
                                             <color key="titleColor" red="0.27791341149999998" green="0.59107214210000003" blue="0.5651855469" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="AreaAccessCheck:" destination="wdc-bY-MjB" eventType="touchUpInside" id="i3s-vv-ifb"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjn-e3-Sue">
                                         <rect key="frame" x="115.5" y="0.0" width="89" height="25"/>
@@ -597,7 +600,7 @@
                                             <color key="titleColor" red="0.27791341149999998" green="0.59107214210000003" blue="0.5651855469" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="RideAccessAsExit:" destination="wdc-bY-MjB" eventType="touchUpInside" id="LfW-9F-6yc"/>
+                                            <action selector="RideAccessCheck:" destination="wdc-bY-MjB" eventType="touchUpInside" id="1kg-Ly-TZa"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AKK-Rr-qHw">
@@ -608,6 +611,9 @@
                                         <state key="normal" title="Discount Access">
                                             <color key="titleColor" red="0.27791341149999998" green="0.59107214210000003" blue="0.5651855469" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="DiscountAccessCheck:" destination="wdc-bY-MjB" eventType="touchUpInside" id="hGp-gb-e40"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -619,6 +625,9 @@
                                 <state key="normal" title="Create New Pass">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="CreateNewPass:" destination="wdc-bY-MjB" eventType="touchUpInside" id="NgZ-4T-oOJ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Access Testing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1aQ-hK-9at">
                                 <rect key="frame" x="130" y="396" width="115" height="20.5"/>
@@ -632,7 +641,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Results" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPa-LW-1oj">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Test Results" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPa-LW-1oj">
                                 <rect key="frame" x="16" y="482.5" width="343" height="14.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -736,6 +745,7 @@
                         <outlet property="EntrantPassType" destination="yGv-wM-FSk" id="PaC-3Q-NRN"/>
                         <outlet property="EntrantPicture" destination="Jiz-2y-41U" id="5kL-Ij-bRz"/>
                         <outlet property="PermissionsAndBenefits" destination="KYC-dy-bcK" id="MGL-gA-6Yi"/>
+                        <outlet property="TestResultsDisplay" destination="TPa-LW-1oj" id="jA9-is-Iy6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVe-p8-hW1" userLabel="First Responder" sceneMemberID="firstResponder"/>
