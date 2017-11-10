@@ -91,7 +91,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         generatePassButton.setTitleColor(UIColor(
             red: 179.0/255.0, green: 179.0/255.0,
             blue: 179.0/255.0, alpha: 1.0),for: .normal)
- */
+         */
     }
     
     func myVCDidFinish(controller:PassViewController,text:String) {
@@ -108,7 +108,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-doAlert(alertMessage: "Does this show up?")
         dateFormatter.dateFormat = "MM/dd/yyyy"
 
         // disable form fields, gray labels until a submenu item is selected
@@ -124,7 +123,7 @@ doAlert(alertMessage: "Does this show up?")
         
         // set submenu button labels for default main menu item (Guest)
         activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
-       
+        enableGeneratePassButton()
     // move this stuff to loadAllData() ?
         
         let rules = RulesImporter()
@@ -450,7 +449,7 @@ doAlert(alertMessage: "Does this show up?")
     
     @IBAction func genericFieldExit(_ sender: Any) {
         // on Editing Did End (not always...)
-        isFormComplete()
+        // isFormComplete() changed to only calling when GeneratePass button is clicked.
     }
     
     @IBAction func dobEntry(_ sender: Any) {
@@ -470,11 +469,11 @@ doAlert(alertMessage: "Does this show up?")
     // FIXME: should just use one action, dateDone(), for both
     @IBAction func dobDone(_ sender: Any) {
         // on Primary Action Triggered
-        isFormComplete()
+        // isFormComplete() changed to only calling when GeneratePass button is clicked.
     }    
     @IBAction func lastVisitDone(_ sender: Any) {
         // on Primary Action Triggered
-        isFormComplete()
+        // isFormComplete() changed to only calling when GeneratePass button is clicked.
     }
     
     @IBAction func ssnEntry(_ sender: Any) {
@@ -491,7 +490,7 @@ doAlert(alertMessage: "Does this show up?")
         }
     }
     
-    func doAlert(alertMessage: String) {
+    func showAlert(alertMessage: String) {
         // create the alert
         let alertController = UIAlertController(title: "Invalid", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         
@@ -517,9 +516,7 @@ doAlert(alertMessage: "Does this show up?")
                     isComplete = false
                 }
                 if isComplete == false {
-                    doAlert(alertMessage: missingInvalid)
-                } else {
-                    print("do the segue")
+                    showAlert(alertMessage: missingInvalid)
                 }
 
             case subMenuItem.Classic.rawValue:
@@ -541,13 +538,9 @@ doAlert(alertMessage: "Does this show up?")
                 }
 
                 if isComplete == false {
-                    doAlert(alertMessage: missingInvalid)
-                } else {
-                    print("do the segue")
-                    let controller = PassViewController()
-                    self.present(controller, animated: true, completion: nil)
+                    showAlert(alertMessage: missingInvalid)
                 }
-
+            
             case subMenuItem.VIP.rawValue:
                 isComplete = true
 
@@ -582,9 +575,7 @@ doAlert(alertMessage: "Does this show up?")
                     isComplete = false
                 }
                 if isComplete == false {
-                    doAlert(alertMessage: missingInvalid)
-                } else {
-                    print("do the segue")
+                    showAlert(alertMessage: missingInvalid)
                 }
 
             case subMenuItem.HourlyEmployeeFoodServices.rawValue,
@@ -628,9 +619,7 @@ doAlert(alertMessage: "Does this show up?")
                     isComplete = false
                 }
                 if isComplete == false {
-                    doAlert(alertMessage: missingInvalid)
-                } else {
-                    print("do the segue")
+                    showAlert(alertMessage: missingInvalid)
                 }
 
             case mainMenuItem.Manager.rawValue:
@@ -672,9 +661,7 @@ doAlert(alertMessage: "Does this show up?")
                     isComplete = false
                 }
                 if isComplete == false {
-                    doAlert(alertMessage: missingInvalid)
-                } else {
-                    print("do the segue")
+                    showAlert(alertMessage: missingInvalid)
                 }
 
         case mainMenuItem.Vendor.rawValue:
@@ -696,11 +683,8 @@ doAlert(alertMessage: "Does this show up?")
                 isComplete = false
             }
             if isComplete == false {
-                doAlert(alertMessage: missingInvalid)
-            } else {
-                print("do the segue")
+                showAlert(alertMessage: missingInvalid)
             }
-
 
             case subMenuItem.ContractEmployee.rawValue:
                 break
@@ -710,8 +694,10 @@ doAlert(alertMessage: "Does this show up?")
         
         if isComplete {
             currentEntrant = createEntrantFromFormData()
-            enableGeneratePassButton()
+            let controller = PassViewController()
+            self.present(controller, animated: true, completion: nil)
         }
+
     } // isFormComplete()
 
 // (don't have time to add to .plist file dynamically... need to finish this unit.
@@ -727,17 +713,18 @@ doAlert(alertMessage: "Does this show up?")
 */
     @IBAction func validateDoB(_ sender: Any) {
         if isDateValid(dateString: dateOfBirthField.text!) {
+/* changed to only calling when GeneratePass button is clicked.
             isFormComplete()
         } else {
+*/
             // FIXME: do an alert here
-            print("\(dateOfBirthField.text!) is an invalid SSN value - please correct")
+            showAlert(alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
         }
     }
     
     @IBAction func validateSSN(_ sender: Any) {
         if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
-            // FIXME: do an alert here
-            print("\(ssnField.text!) is an invalid SSN value - please correct")
+            showAlert(alertMessage: "\(ssnField.text!) is an invalid SSN value - please correct")
         }
     }
     
@@ -748,7 +735,6 @@ doAlert(alertMessage: "Does this show up?")
     
     @IBAction func generateThePass(_ sender: Any) {
         isFormComplete()
-        print("whatever")
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
