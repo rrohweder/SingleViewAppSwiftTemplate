@@ -27,7 +27,8 @@ class PassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let attributesDictionary = [NSFontAttributeName : PermissionsAndBenefits.font]
+        let attributesDictionary = [NSFontAttributeName : UIFont.systemFont(ofSize: 12.0)] // wouldn't this be the default (as set in the storyboard)?
+            // PermissionsAndBenefits.font]
         let fullAttributedString = NSMutableAttributedString(string: "", attributes: attributesDictionary as [String : Any])
         
         EntrantPicture.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor

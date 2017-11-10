@@ -113,7 +113,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         // disable form fields, gray labels until a submenu item is selected
         deactivateFormFields(page: self)
         disablePopulateButton()
-        disableGeneratePassButton()
+        // disableGeneratePassButton() 
 
         /* These don't change in this exercise, but one might set default main menu button labels. I went with generic ("mainMenu1") in the storyboard, and set them at launch. */
         self.MainMenuButton1.setTitle("Guest", for: .normal)
@@ -501,11 +501,12 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
-    func isFormComplete() {
+    func isFormComplete() -> Bool {
         var isComplete = false
         var missingInvalid = "Missing/Invalid entries:\n"
         
-        let dobValid = isDateValid(dateString: dateOfBirthField.text!)
+        // FIXME:  don't need this anymore?
+        //  let dobValid = isDateValid(dateString: dateOfBirthField.text!)
         
         switch (lastClicked) {
 
@@ -694,9 +695,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         
         if isComplete {
             currentEntrant = createEntrantFromFormData()
-            let controller = PassViewController()
-            self.present(controller, animated: true, completion: nil)
         }
+        return isComplete
 
     } // isFormComplete()
 
@@ -730,11 +730,17 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     
     @IBAction func populateData(_ sender: Any) {
         currentEntrant = populateFormWithRandomPerson(menuSelection: lastClicked)
-        enableGeneratePassButton()
     }
     
     @IBAction func generateThePass(_ sender: Any) {
-        isFormComplete()
+        if isFormComplete() {
+            let passViewController = PassViewController()
+            passViewController.entrant = currentEntrant
+            passViewController.delegate = self
+
+            self.present(passViewController, animated: true, completion: nil)
+        }
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
