@@ -83,7 +83,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     }
     
     func disableGeneratePassButton() {
-        /*
         generatePassButton.isEnabled = false
         generatePassButton.backgroundColor = UIColor(
             red: 230.0/255.0, green: 230.0/255.0,
@@ -91,7 +90,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         generatePassButton.setTitleColor(UIColor(
             red: 179.0/255.0, green: 179.0/255.0,
             blue: 179.0/255.0, alpha: 1.0),for: .normal)
-         */
     }
     
     func myVCDidFinish(controller:PassViewController,text:String) {
@@ -112,8 +110,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
         // disable form fields, gray labels until a submenu item is selected
         deactivateFormFields(page: self)
+        // disable these until user has selected a type of entrant (menu/submenu)
         disablePopulateButton()
-        // disableGeneratePassButton() 
+        disableGeneratePassButton()
 
         /* These don't change in this exercise, but one might set default main menu button labels. I went with generic ("mainMenu1") in the storyboard, and set them at launch. */
         self.MainMenuButton1.setTitle("Guest", for: .normal)
@@ -123,8 +122,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         
         // set submenu button labels for default main menu item (Guest)
         activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
-        enableGeneratePassButton()
-    // move this stuff to loadAllData() ?
+
+        // move this stuff to loadAllData() ?  or to appDelegate?
         
         let rules = RulesImporter()
         do {
@@ -220,6 +219,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         if (sender.tag == mainMenuItem.Guest.rawValue ||
             sender.tag == mainMenuItem.Employee.rawValue) {
             disablePopulateButton()
+        } else {
+            enablePopulateButton()
+            enableGeneratePassButton()
         }
         lastClicked = sender.tag
         menuLogic(buttonClicked: sender, page: self)
