@@ -41,7 +41,12 @@ class PassViewController: UIViewController {
         // FIXME: move these functions to their own file(s)
         func getMyPermissionsAndBenfits(requestor: Entrant) {
             if requestor is FreeChildGuest {
-                strings.append("Unlimited Rides")
+                let freeChild = requestor as! FreeChildGuest
+                if isFreeChild(birthdateString: dateFormatter.string(from: freeChild.dateOfBirth)) {
+                    strings.append("Unlimited Rides")
+                } else {
+                    print("\"child\" is too old for Unlimited Rides")
+                }
             }
             let foodDiscount = discountAvailable(requestor: requestor, product: .Food)
             if (foodDiscount > 0) {
@@ -103,14 +108,14 @@ class PassViewController: UIViewController {
                 setEntrantImage(entrantImageID: freeChildGuest.entrantID)
 
             case .Classic:
-                let classicGuest = guest as! ClassicGuest
+                let classicGuest = guest
                 EntrantName.text = "************"
                 EntrantPassType.text = "Classic Guest Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: classicGuest.entrantID)
 
             case .VIP:
-                let vipGuest = guest as! VIPGuest
+                let vipGuest = guest
                 EntrantName.text = "************"
                 EntrantPassType.text = "VIP Guest Pass"
                 getMyPermissionsAndBenfits(requestor: vipGuest)
@@ -138,9 +143,9 @@ class PassViewController: UIViewController {
             case .HourlyFoodServices, .HourlyMaintenance, .HourlyRideServices:
                 EntrantName.text = "\(worker.firstName) \(worker.lastName)"
                 switch (worker.workerType) {
-                case .HourlyFoodServices: EntrantPassType.text = "Food Services Worker Pass"
-                case .HourlyMaintenance: EntrantPassType.text = "Maintenance Worker Pass"
-                case .HourlyRideServices: EntrantPassType.text = "Ride Services Worker Pass"
+                case .HourlyFoodServices: EntrantPassType.text = "Food Services Pass"
+                case .HourlyMaintenance: EntrantPassType.text = "Maintenance Pass"
+                case .HourlyRideServices: EntrantPassType.text = "Ride Services Pass"
                 default: break
                 }
                 getMyPermissionsAndBenfits(requestor: worker)

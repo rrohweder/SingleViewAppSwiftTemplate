@@ -182,10 +182,10 @@
 			isa = PBXGroup;
 			children = (
 				3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */,
+				102CB9161F768CF10046AF92 /* PassViewController.swift */,
 				103473461FB6909400443E38 /* GetEntrantRec.swift */,
 				103473441FB68F7100443E38 /* RegressionTests.swift */,
 				103473421FB68ED600443E38 /* loadAllData.swift */,
-				102CB9161F768CF10046AF92 /* PassViewController.swift */,
 				10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */,
 				1038725E1E967D8800693DFC /* Entrant.swift */,
 				109D937E1E7B75DA0053DAED /* Guest.swift */,

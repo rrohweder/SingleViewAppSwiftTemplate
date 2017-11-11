@@ -12,7 +12,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     
     var lastClicked = 0
     let dateFormatter = DateFormatter()
-    var currentEntrant: Entrant?
+    var currentEntrant: Entrant? = nil
     
     @IBOutlet weak var MainMenuButton1: UIButton!
     @IBOutlet weak var MainMenuButton2: UIButton!
@@ -93,6 +93,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     }
     
     func myVCDidFinish(controller:PassViewController,text:String) {
+        currentEntrant = nil
         deactivateFormFields(page: self)
         disablePopulateButton()
         disableGeneratePassButton()
@@ -155,10 +156,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 }
             
             case subMenuItem.Classic.rawValue:
-                // FIXME: create guest record to return
-                // Nothing to display in the form, all they have is an ID
-                // but we do want to use the Entrant record for pass creation
-                break
+                if let classic = getEntrant(entrantType: GuestType.Classic) {
+                    return classic as Entrant
+                }
             
             case subMenuItem.Senior.rawValue:
                 if let senior = getEntrant(entrantType: GuestType.Senior) as! SeniorGuest? {
@@ -171,11 +171,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             
             case subMenuItem.VIP.rawValue:
-                
-                if let vip = getEntrant(entrantType: GuestType.VIP) as! VIPGuest? {
+                if let vip = getEntrant(entrantType: GuestType.VIP) {
                     return vip as Entrant
                 }
-                break
             
             case subMenuItem.Season.rawValue:
                 if let season = getEntrant(entrantType: GuestType.Season) as! SeasonPassGuest? {
@@ -361,9 +359,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
     
-    func showAlert(alertMessage: String) {
+    func showAlert(alertTitle: String, alertMessage: String) {
         // create the alert
-        let alertController = UIAlertController(title: "Invalid", message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)
         alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
@@ -376,8 +374,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         var isComplete = false
         var missingInvalid = "Missing/Invalid entries:\n"
         
-        // FIXME:  don't need this anymore?
-        //  let dobValid = isDateValid(dateString: dateOfBirthField.text!)
+        if currentEntrant != nil { // then populated by getEntrant
+            return true
+        }
         
         switch (lastClicked) {
 
@@ -388,7 +387,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     isComplete = false
                 }
                 if isComplete == false {
-                    showAlert(alertMessage: missingInvalid)
+                    showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
             case subMenuItem.Classic.rawValue:
@@ -410,7 +409,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 }
 
                 if isComplete == false {
-                    showAlert(alertMessage: missingInvalid)
+                    showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
             
             case subMenuItem.VIP.rawValue:
@@ -447,7 +446,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     isComplete = false
                 }
                 if isComplete == false {
-                    showAlert(alertMessage: missingInvalid)
+                    showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
             case subMenuItem.HourlyEmployeeFoodServices.rawValue,
@@ -487,7 +486,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     isComplete = false
                 }
                 if isComplete == false {
-                    showAlert(alertMessage: missingInvalid)
+                    showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
             case mainMenuItem.Manager.rawValue:
@@ -529,7 +528,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     isComplete = false
                 }
                 if isComplete == false {
-                    showAlert(alertMessage: missingInvalid)
+                    showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
         case mainMenuItem.Vendor.rawValue:
@@ -551,7 +550,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 isComplete = false
             }
             if isComplete == false {
-                showAlert(alertMessage: missingInvalid)
+                showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
             }
 
             case subMenuItem.ContractEmployee.rawValue:
@@ -559,7 +558,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             
             default: break
         } // switch (lastClicked) {
-        
+
         if isComplete {
             currentEntrant = createEntrantFromFormData()
         }
@@ -567,9 +566,13 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
     } // isFormComplete()
 
-// (don't have time to add to .plist file dynamically... need to finish this unit.
+// could add data entered in the form to .plist file (new record), but that is
+// not a requirement for this unit.
 // if I did: https://stackoverflow.com/questions/41668166/save-data-to-plist-file-in-swift-3)
-/*
+    
+/* I had linked the GeneratePass button to this seque, but needed to do other work before
+     the seque, so am (attempting?) the seque in code in generateThePass() (below) instead.
+     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "MainToPass") {
             let passViewController = (segue.destination as! PassViewController)
@@ -578,6 +581,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
 */
+    
     @IBAction func validateDoB(_ sender: Any) {
         if isDateValid(dateString: dateOfBirthField.text!) {
 /* changed to only calling when GeneratePass button is clicked.
@@ -585,35 +589,32 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         } else {
 */
             // FIXME: do an alert here
-            showAlert(alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
+            showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
         }
     }
     
     @IBAction func validateSSN(_ sender: Any) {
         if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
-            showAlert(alertMessage: "\(ssnField.text!) is an invalid SSN value - please correct")
+            showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(ssnField.text!) is an invalid SSN value - please correct")
         }
     }
     
     @IBAction func populateData(_ sender: Any) {
         currentEntrant = populateFormWithRandomPerson(menuSelection: lastClicked)
+        if currentEntrant == nil  {
+            showAlert(alertTitle: "Missing Data", alertMessage: "Could not find record for that entrant type")
+        }
     }
     
     @IBAction func generateThePass(_ sender: Any) {
         if isFormComplete() {
-
             let amusementPassViewController = self.storyboard?.instantiateViewController(withIdentifier: "AmusementPassView") as! PassViewController
-            
-            // self.navigationController?.pushViewController(secondViewController, animated: true)
-            
             amusementPassViewController.entrant = currentEntrant
             amusementPassViewController.delegate = self
-
             self.present(amusementPassViewController, animated: true, completion: nil)
-            
         }
-        
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

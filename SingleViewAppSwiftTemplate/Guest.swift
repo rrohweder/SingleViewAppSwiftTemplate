@@ -92,12 +92,5 @@ class VIPGuest: Guest {
     // exercise doesn't need properties specific to VIPGuest. One could
     // easily imagine having properties like 'birthday' (just month/day),
     // or some preference (vegetarian?) that would be unique to VIP guests.
-    // FIXME: "Overriding declaration requires an 'override' keyword" error on next line. 
-    // Why here and not in the cases above?
-    /*
-    init(entrantID: Int, guestType: GuestType) {
-        super.init(entrantID: entrantID, guestType: guestType)
-    }
-    */
 }
 
