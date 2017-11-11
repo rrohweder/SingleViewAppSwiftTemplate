@@ -122,7 +122,6 @@
                                         <connections>
                                             <action selector="lastVisitBeginEdit:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="nBu-uL-zhy"/>
                                             <action selector="lastVisitDone:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="dha-1a-Jfy"/>
-                                            <action selector="lastVisitEditBegin:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="7QW-xm-IPd"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -168,8 +167,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="dobDone:" destination="BYZ-38-t0r" eventType="primaryActionTriggered" id="S9h-0O-Fnc"/>
                                     <action selector="dobEntry:" destination="BYZ-38-t0r" eventType="editingDidBegin" id="TP0-U3-dJE"/>
+                                    <action selector="validateDoB:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="KNh-UT-wqO"/>
                                 </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8su-1c-ckr">

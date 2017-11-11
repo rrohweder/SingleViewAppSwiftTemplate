@@ -347,7 +347,6 @@ func setForm(page: ViewController, formType: Menus) {
 
         
     case mainMenuItem.Vendor:
-        // FIXME: handle Date of Visit
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -375,9 +374,8 @@ func setForm(page: ViewController, formType: Menus) {
         // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
 
-        
-// FIXME: error message? can one pass an invalid form type?
-    default: break
+    default:
+        print("Unexpected formType \(formType)")
     }
 }
 

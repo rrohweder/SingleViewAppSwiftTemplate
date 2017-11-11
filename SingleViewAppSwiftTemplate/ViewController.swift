@@ -144,8 +144,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         menuLogic(buttonClicked: sender, page: self)
     }
 
-    
-    // FIXME: move this to another file
     func populateFormWithRandomPerson(menuSelection: Int) -> Entrant {
         switch (menuSelection) {
             case subMenuItem.Child.rawValue:
@@ -199,7 +197,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
                     case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
 
-                    default: // FIXME: what to do here?
+                    default:
+                        print("Unexpected menu selection \(menuSelection)")
                         break
                 }
                 
@@ -298,8 +297,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
                     case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
                     case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
-                // FIXME: is there another way to deal with wt value than this?
-                    default: wt = WorkerType.HourlyFoodServices
+                    default: wt = WorkerType.HourlyFoodServices // since even though it can't get here, the compiler complains that it wasn't set on the next line...
                 }
                 entrant = Worker(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
             
@@ -338,24 +336,21 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     // FIXME: should just use one action, dateDone(), for both
     @IBAction func dobDone(_ sender: Any) {
         // on Primary Action Triggered
-        // isFormComplete() changed to only calling when GeneratePass button is clicked.
+        if isDateValid(dateString: dateOfBirthField.text!) == false {
+            showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
+        }
     }    
     @IBAction func lastVisitDone(_ sender: Any) {
         // on Primary Action Triggered
-        // isFormComplete() changed to only calling when GeneratePass button is clicked.
+        if isDateValid(dateString: lastVisitField.text!) == false {
+            showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(lastVisitField.text!) is an invalid Date value - please correct")
+        }
     }
     
     @IBAction func ssnEntry(_ sender: Any) {
         ssnField.textColor = .black
         if ssnField.text == "NNN-NN-NNNN" {
             ssnField.text = ""
-        }
-    }
-    
-    @IBAction func lastVisitEditBegin(_ sender: Any) {
-        lastVisitField.textColor = .black
-        if lastVisitField.text == "MM/DD/YYYY" {
-            lastVisitField.text = ""
         }
     }
     
@@ -583,12 +578,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 */
     
     @IBAction func validateDoB(_ sender: Any) {
-        if isDateValid(dateString: dateOfBirthField.text!) {
-/* changed to only calling when GeneratePass button is clicked.
-            isFormComplete()
-        } else {
-*/
-            // FIXME: do an alert here
+        if isDateValid(dateString: dateOfBirthField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
         }
     }

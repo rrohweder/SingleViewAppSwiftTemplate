@@ -38,7 +38,9 @@ class Worker: Entrant {
 
     init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateOfBirth: Date)
     {
-        // FIXME: test for required values, return nil if not complete. Alert?
+        // Arguments used to create an object (such a Worker) should be checked by the caller
+        // before calling the init()
+
         self.entrantID = entrantID
         self.workerType = workerType
         self.firstName = firstName
@@ -52,10 +54,6 @@ class Worker: Entrant {
     }
     
 }
-
-// Arguments used to create an object (such a Worker) should be checked 
-// before calling the object init()
-
 
 class Hourly: Worker {
     // properties needed for this exercise are handled in the Worker superclass.

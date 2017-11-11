@@ -38,7 +38,7 @@ class PassViewController: UIViewController {
         EntrantPicture.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor
         EntrantPicture.layer.borderWidth = 2
 
-        // FIXME: move these functions to their own file(s)
+        // could move this functions to its own file...
         func getMyPermissionsAndBenfits(requestor: Entrant) {
             if requestor is FreeChildGuest {
                 let freeChild = requestor as! FreeChildGuest
@@ -152,7 +152,7 @@ class PassViewController: UIViewController {
                 setEntrantImage(entrantImageID: worker.entrantID)
 
             case .Manager:
-                let manager = worker as! Manager // FIXME: cannot cast worker to mgr? why not?
+                let manager = worker as! Manager
                 EntrantName.text = "\(manager.firstName) \(manager.lastName)"
                 EntrantPassType.text = "Manager Guest Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)

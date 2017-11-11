@@ -64,9 +64,6 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
             throw EntrantImportError.missingRequiredField(fieldName: "Type, input record \(inputRecord)")
         }
         
-// FIXME: Why did I make dateOfBirth optional? If it is a required piece of 
-// data for that GuestType, I won't create and store the object, right?
-        
         switch (type) {
             case "Classic":
                 guestType = .Classic
