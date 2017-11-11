@@ -228,7 +228,7 @@ class PassViewController: UIViewController {
         var resultsText = "\n"
         let foodDiscount = discountAvailable(requestor: entrant!, product: .Food)
         if (foodDiscount > 0) {
-            resultsText = "\(foodDiscount)% Food Discount\n"
+            resultsText = resultsText + "\(foodDiscount)% Food Discount\n"
         } else {
             resultsText = "No Food Discount\n"
         }

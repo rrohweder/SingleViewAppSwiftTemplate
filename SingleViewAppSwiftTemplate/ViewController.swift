@@ -123,93 +123,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         // set submenu button labels for default main menu item (Guest)
         activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
 
-        // move this stuff to loadAllData() ?  or to appDelegate?
+        loadAllData()
         
-        let rules = RulesImporter()
-        do {
-            try rules.loadRules()
-        } catch let error {
-            print(error)
-        }
-
-        do {
-            rides = try loadRides(inputFile: "Rides", fileType: "plist") as! [Ride]
-        } catch let error {
-            print(error)
-        }
-
-        do {
-            vendors = try loadVendors(inputFile: "Vendors", fileType: "plist") as! [Vendor]
-        } catch let error {
-            print(error)
-        }
-        
-        do {
-            nonpublics = try loadNonPublics(inputFile: "NonPublics", fileType: "plist") as! [NonPublic]
-        } catch let error {
-            print(error)
-        }
-        
-        do {
-            workers = try loadWorkers(inputFile: "Workers", fileType: "plist") // includes contractors
-        } catch let error {
-            print(error)
-        }
-
-        do {
-            guests = try loadGuests(inputFile: "Guests", fileType: "plist")
-        } catch let error {
-            print(error)
-        }
-        
-        do {
-            vendorFolks = try loadVendorStaff(inputFile: "VendorStaff", fileType: "plist")
-        } catch let error {
-            print(error)
-        }
-        
-        let pass = Pass()
-
-// end of "move this stuff to loadAllData()"
-        
-        
-// move to regressionTest() (or some such)
-        for guest in guests {
-            for ride in rides {
-                pass.printPaperPass(requestor: guest as! Entrant, gate: ride)
-            }
-            for vendor in vendors {
-                pass.printPaperPass(requestor: guest as! Entrant, gate: vendor)
-            }
-            for nonpublic in nonpublics {
-                pass.printPaperPass(requestor: guest as! Entrant, gate: nonpublic)
-            }
-        }
-        for worker in workers {
-            for ride in rides {
-                pass.printPaperPass(requestor: worker, gate: ride)
-            }
-            for vendor in vendors {
-                pass.printPaperPass(requestor: worker, gate: vendor)
-            }
-            for nonpublic in nonpublics {
-                pass.printPaperPass(requestor: worker, gate: nonpublic)
-            }
-        }
-        
-        for vendorStaff in vendorFolks {
-            for ride in rides {
-                pass.printPaperPass(requestor: vendorStaff, gate: ride)
-            }
-            for vendor in vendors {
-                pass.printPaperPass(requestor: vendorStaff, gate: vendor)
-            }
-            for nonpublic in nonpublics {
-                pass.printPaperPass(requestor: vendorStaff, gate: nonpublic)
-            }
-        }
-        
-//         end of testing stuff to move
+        runRegressionTests()
         
     } // end of ViewDidLoad()
 
@@ -226,54 +142,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         lastClicked = sender.tag
         menuLogic(buttonClicked: sender, page: self)
     }
-
-    // use filter to get JUST the records I want
-    func getEntrant(entrantType: GuestType) -> Guest? {
-        var filteredArray = [AnyObject]()
-        
-        switch entrantType {
-        case GuestType.FreeChild:
-            filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.FreeChild }
-            break
-            
-        case GuestType.Classic:
-            filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.Classic }
-            break
-            
-        case GuestType.Season:
-            filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.Season }
-            break
-            
-        case GuestType.Senior:
-            filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.Senior }
-            break
-            
-        case GuestType.VIP:
-            filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.VIP }
-            break
-        } // end switch (entrantType)
-        
-        if filteredArray.count > 0 {
-            return (filteredArray[0] as! Guest)
-        }
-        return nil
-
-    } // end getEntrant(Guest)
-
-    func getEntrant(entrantType: WorkerType) -> Worker? {
-        let filteredArray = workers.filter() { $0.workerType == entrantType }
-        if filteredArray.count > 0 {
-            return filteredArray[0]
-        }
-        return nil
-    } // end getEntrant(worker)
-
-    func getVendorEntrant() -> VendorStaff? {
-        if vendorFolks.count > 0 {
-            return vendorFolks[0]
-        }
-        return nil
-    } // end getVendorEntrant()
 
     
     // FIXME: move this to another file
@@ -311,6 +179,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             
             case subMenuItem.Season.rawValue:
                 if let season = getEntrant(entrantType: GuestType.Season) as! SeasonPassGuest? {
+                    dateOfBirthField.textColor = .black
+                    dateOfBirthField.text = dateFormatter.string(from: season.dateOfBirth)
                     firstNameField.text = season.firstName
                     lastNameField.text = season.lastName
                     streetAddressField.text = season.streetAddress
@@ -402,7 +272,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         return currentEntrant!
     } // end of populateFormWithRandomPerson()
     
-        
     func createEntrantFromFormData() -> Entrant {
         var entrant: Entrant?
         var wt: WorkerType
@@ -617,10 +486,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     missingInvalid = missingInvalid + "Zip Code\n"
                     isComplete = false
                 }
-                if MgmtTierField.text == "" {
-                    missingInvalid = missingInvalid + "Management Tier\n"
-                    isComplete = false
-                }
                 if isComplete == false {
                     showAlert(alertMessage: missingInvalid)
                 }
@@ -736,11 +601,16 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     
     @IBAction func generateThePass(_ sender: Any) {
         if isFormComplete() {
-            let passViewController = PassViewController()
-            passViewController.entrant = currentEntrant
-            passViewController.delegate = self
 
-            self.present(passViewController, animated: true, completion: nil)
+            let amusementPassViewController = self.storyboard?.instantiateViewController(withIdentifier: "AmusementPassView") as! PassViewController
+            
+            // self.navigationController?.pushViewController(secondViewController, animated: true)
+            
+            amusementPassViewController.entrant = currentEntrant
+            amusementPassViewController.delegate = self
+
+            self.present(amusementPassViewController, animated: true, completion: nil)
+            
         }
         
     }

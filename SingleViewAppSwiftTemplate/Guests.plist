@@ -51,6 +51,8 @@
 		<string>NC</string>
 		<key>zipCode</key>
 		<string>27587</string>
+		<key>dateOfBirth</key>
+		<date>1948-11-11T01:34:26Z</date>
 	</dict>
 </array>
 </plist>

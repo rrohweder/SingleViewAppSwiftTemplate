@@ -563,10 +563,10 @@
             </objects>
             <point key="canvasLocation" x="-1807.2" y="-1061.0194902548726"/>
         </scene>
-        <!--Pass View Controller-->
+        <!--AmusementPassView-->
         <scene sceneID="V5a-AZ-hHJ">
             <objects>
-                <viewController id="wdc-bY-MjB" customClass="PassViewController" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AmusementPassView" title="AmusementPassView" id="wdc-bY-MjB" customClass="PassViewController" customModule="SingleViewAppSwiftTemplate" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FP1-2V-VSS"/>
                         <viewControllerLayoutGuide type="bottom" id="y19-oS-xu6"/>

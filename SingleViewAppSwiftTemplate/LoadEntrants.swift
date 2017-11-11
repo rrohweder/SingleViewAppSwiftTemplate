@@ -108,8 +108,13 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
                 aGuest = SeniorGuest(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!)
 
             
-            case "Season": guestType = .Season
-                
+            case "Season":
+                guestType = .Season
+                guard let dob = dict["dateOfBirth"] as! Date? else {
+                    throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
+                }
+                dateOfBirth = dob
+
                 guard let fn = dict["firstName"] as! String? else {
                     // I guess I can't tell whether it is missing or a conversion failure...
                     throw EntrantImportError.missingRequiredField(fieldName: "firstName, input record \(inputRecord)")
