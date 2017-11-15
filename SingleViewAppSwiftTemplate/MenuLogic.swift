@@ -12,22 +12,22 @@ import UIKit
 protocol Menus {}
 
 enum mainMenuItem: Int, Menus {
-    case Guest = 1
-    case Employee = 2
-    case Manager = 3
-    case Vendor = 4
+    case guest = 1
+    case employee = 2
+    case manager = 3
+    case vendor = 4
 }
 
 enum subMenuItem: Int, Menus {
-    case Child = 11
-    case Classic = 12
-    case Senior = 13
-    case VIP = 14
-    case Season = 15
-    case HourlyEmployeeFoodServices = 16
-    case HourlyEmployeeRideServices = 17
-    case HourlyEmployeeMaintenance = 18
-    case ContractEmployee = 19
+    case child = 11
+    case classic = 12
+    case senior = 13
+    case vIP = 14
+    case season = 15
+    case hourlyEmployeeFoodServices = 16
+    case hourlyEmployeeRideServices = 17
+    case hourlyEmployeeMaintenance = 18
+    case contractEmployee = 19
 }
 
 func fadeMainMenuLabels(page: ViewController) {
@@ -152,17 +152,17 @@ func setForm(page: ViewController, formType: Menus) {
     deactivateFormFields(page: page)
     switch(formType) {
         
-    case subMenuItem.Child:
+    case subMenuItem.child:
         page.DateOfBirthLabel.textColor = .black
         // leave dob field text color gray (template is in place)
         page.dateOfBirthField.backgroundColor = .white
         page.dateOfBirthField.isUserInteractionEnabled = true
         
-    case subMenuItem.Classic:
+    case subMenuItem.classic:
         // No personal information required.
         break
         
-    case subMenuItem.Senior:
+    case subMenuItem.senior:
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
         page.firstNameField.isUserInteractionEnabled = true
@@ -176,11 +176,11 @@ func setForm(page: ViewController, formType: Menus) {
         page.dateOfBirthField.backgroundColor = .white
         page.dateOfBirthField.isUserInteractionEnabled = true
         
-    case subMenuItem.VIP:
+    case subMenuItem.vIP:
         // No personal information required.
         break
         
-    case subMenuItem.Season:
+    case subMenuItem.season:
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -211,9 +211,9 @@ func setForm(page: ViewController, formType: Menus) {
         // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
         
-    case subMenuItem.HourlyEmployeeFoodServices,
-         subMenuItem.HourlyEmployeeRideServices,
-         subMenuItem.HourlyEmployeeMaintenance:
+    case subMenuItem.hourlyEmployeeFoodServices,
+         subMenuItem.hourlyEmployeeRideServices,
+         subMenuItem.hourlyEmployeeMaintenance:
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -250,7 +250,7 @@ func setForm(page: ViewController, formType: Menus) {
         page.dateOfBirthField.isUserInteractionEnabled = true
 
         
-    case mainMenuItem.Manager:
+    case mainMenuItem.manager:
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -294,7 +294,7 @@ func setForm(page: ViewController, formType: Menus) {
         // leave dob field text color gray (template is in place)
         page.dateOfBirthField.isUserInteractionEnabled = true
 
-    case subMenuItem.ContractEmployee:
+    case subMenuItem.contractEmployee:
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -346,7 +346,7 @@ func setForm(page: ViewController, formType: Menus) {
         
 
         
-    case mainMenuItem.Vendor:
+    case mainMenuItem.vendor:
         
         page.firstNameLabel.textColor = .black
         page.firstNameField.backgroundColor = .white
@@ -382,7 +382,7 @@ func setForm(page: ViewController, formType: Menus) {
 
 func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
     switch (mainMenu) {
-        case mainMenuItem.Guest:
+        case mainMenuItem.guest:
             
             if page.SubMenuStackView.isHidden == true {
                 page.SubMenuBackgroundLabel.isHidden = false
@@ -390,22 +390,22 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             }
             
             page.SubMenuButton1.setTitle("Free Child", for: .normal)
-            page.SubMenuButton1.tag = subMenuItem.Child.rawValue
+            page.SubMenuButton1.tag = subMenuItem.child.rawValue
             
             page.SubMenuButton2.setTitle("Classic", for: .normal)
-            page.SubMenuButton2.tag = subMenuItem.Classic.rawValue
+            page.SubMenuButton2.tag = subMenuItem.classic.rawValue
             
             page.SubMenuButton3.setTitle("Senior", for: .normal)
-            page.SubMenuButton3.tag = subMenuItem.Senior.rawValue
+            page.SubMenuButton3.tag = subMenuItem.senior.rawValue
             
             page.SubMenuButton4.setTitle("VIP", for: .normal)
-            page.SubMenuButton4.tag = subMenuItem.VIP.rawValue
+            page.SubMenuButton4.tag = subMenuItem.vIP.rawValue
             
             page.SubMenuButton5.isHidden = false
             page.SubMenuButton5.setTitle("Season Pass", for: .normal)
-            page.SubMenuButton5.tag = subMenuItem.Season.rawValue
+            page.SubMenuButton5.tag = subMenuItem.season.rawValue
         
-        case mainMenuItem.Employee:
+        case mainMenuItem.employee:
             // label and activate HourlyFoodServices, HourlyRideServices, HourlyMaintenance, Manager
             if page.SubMenuStackView.isHidden == true {
                 page.SubMenuBackgroundLabel.isHidden = false
@@ -413,16 +413,16 @@ func activateSubmenuItem(mainMenu: mainMenuItem, page: ViewController) {
             }
 
             page.SubMenuButton1.setTitle("Food Serv.", for: .normal)
-            page.SubMenuButton1.tag = subMenuItem.HourlyEmployeeFoodServices.rawValue
+            page.SubMenuButton1.tag = subMenuItem.hourlyEmployeeFoodServices.rawValue
 
             page.SubMenuButton2.setTitle("Ride Serv.", for: .normal)
-            page.SubMenuButton2.tag = subMenuItem.HourlyEmployeeRideServices.rawValue
+            page.SubMenuButton2.tag = subMenuItem.hourlyEmployeeRideServices.rawValue
             
             page.SubMenuButton3.setTitle("Maintenance", for: .normal)
-            page.SubMenuButton3.tag = subMenuItem.HourlyEmployeeMaintenance.rawValue
+            page.SubMenuButton3.tag = subMenuItem.hourlyEmployeeMaintenance.rawValue
 
             page.SubMenuButton4.setTitle("Contract", for: .normal)
-            page.SubMenuButton4.tag = subMenuItem.ContractEmployee.rawValue
+            page.SubMenuButton4.tag = subMenuItem.contractEmployee.rawValue
             
             page.SubMenuButton5.isHidden = true
 
@@ -448,63 +448,63 @@ func menuLogic(buttonClicked: UIButton, page: ViewController) {
     
     switch (buttonClicked.tag) {
         
-    case mainMenuItem.Guest.rawValue:
+    case mainMenuItem.guest.rawValue:
         page.MainMenuButton1.setTitleColor(.white, for: .normal)
-        activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: page )
+        activateSubmenuItem(mainMenu: mainMenuItem.guest, page: page )
         
-    case mainMenuItem.Employee.rawValue:
+    case mainMenuItem.employee.rawValue:
         page.MainMenuButton2.setTitleColor(.white, for: .normal)
-        activateSubmenuItem(mainMenu: mainMenuItem.Employee, page: page)
+        activateSubmenuItem(mainMenu: mainMenuItem.employee, page: page)
         
-    case mainMenuItem.Manager.rawValue:
+    case mainMenuItem.manager.rawValue:
         page.MainMenuButton3.setTitleColor(.white, for: .normal)
         page.SubMenuStackView.isHidden = true
         page.SubMenuBackgroundLabel.isHidden = true
-        setForm(page: page, formType: mainMenuItem.Manager)
+        setForm(page: page, formType: mainMenuItem.manager)
         page.enablePopulateButton()
         
-    case mainMenuItem.Vendor.rawValue:
+    case mainMenuItem.vendor.rawValue:
         page.MainMenuButton4.setTitleColor(.white, for: .normal)
         page.SubMenuStackView.isHidden = true
         page.SubMenuBackgroundLabel.isHidden = true
-        setForm(page: page, formType: mainMenuItem.Vendor)
+        setForm(page: page, formType: mainMenuItem.vendor)
         page.enablePopulateButton()
         
-    case subMenuItem.Child.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.Child.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.Child)
+    case subMenuItem.child.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.child.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.child)
         
-    case subMenuItem.Classic.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.Classic.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.Classic)
+    case subMenuItem.classic.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.classic.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.classic)
         
-    case subMenuItem.Senior.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.Senior.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.Senior)
+    case subMenuItem.senior.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.senior.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.senior)
         
-    case subMenuItem.VIP.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.VIP.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.VIP)
+    case subMenuItem.vIP.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.vIP.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.vIP)
         
-    case subMenuItem.Season.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.Season.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.Season)
+    case subMenuItem.season.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.season.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.season)
 
-    case subMenuItem.HourlyEmployeeFoodServices.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeFoodServices.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.HourlyEmployeeFoodServices)
+    case subMenuItem.hourlyEmployeeFoodServices.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.hourlyEmployeeFoodServices.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.hourlyEmployeeFoodServices)
     
-    case subMenuItem.HourlyEmployeeRideServices.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeRideServices.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.HourlyEmployeeRideServices)
+    case subMenuItem.hourlyEmployeeRideServices.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.hourlyEmployeeRideServices.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.hourlyEmployeeRideServices)
     
-    case subMenuItem.HourlyEmployeeMaintenance.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.HourlyEmployeeMaintenance.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.HourlyEmployeeMaintenance)
+    case subMenuItem.hourlyEmployeeMaintenance.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.hourlyEmployeeMaintenance.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.hourlyEmployeeMaintenance)
     
-    case subMenuItem.ContractEmployee.rawValue:
-        colorSubMenuText(whiteButton: subMenuItem.ContractEmployee.rawValue, page: page)
-        setForm(page: page, formType: subMenuItem.ContractEmployee)
+    case subMenuItem.contractEmployee.rawValue:
+        colorSubMenuText(whiteButton: subMenuItem.contractEmployee.rawValue, page: page)
+        setForm(page: page, formType: subMenuItem.contractEmployee)
     
     default:
         print("unknown button clicked. tag = \(buttonClicked.tag)")

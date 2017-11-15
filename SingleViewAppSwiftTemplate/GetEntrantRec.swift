@@ -9,39 +9,39 @@
 import Foundation
 
 // use filter to get JUST the records I want
-func getEntrant(entrantType: GuestType) -> Guest? {
+func getEntrant(entrantType: GuestType) -> Guests? {
     var filteredArray = [AnyObject]()
     
     switch entrantType {
-    case GuestType.FreeChild:
-        filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.FreeChild }
+    case GuestType.freeChild:
+        filteredArray = guests.filter() { ($0 as! Guests).guestType == GuestType.freeChild }
         break
         
-    case GuestType.Classic:
-        filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.Classic }
+    case GuestType.classic:
+        filteredArray = guests.filter() { ($0 as! Guests).guestType == GuestType.classic }
         break
         
-    case GuestType.Season:
-        filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.Season }
+    case GuestType.season:
+        filteredArray = guests.filter() { ($0 as! Guests).guestType == GuestType.season }
         break
         
-    case GuestType.Senior:
-        filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.Senior }
+    case GuestType.senior:
+        filteredArray = guests.filter() { ($0 as! Guests).guestType == GuestType.senior }
         break
         
-    case GuestType.VIP:
-        filteredArray = guests.filter() { ($0 as! Guest).guestType == GuestType.VIP }
+    case GuestType.vIP:
+        filteredArray = guests.filter() { ($0 as! Guests).guestType == GuestType.vIP }
         break
     } // end switch (entrantType)
     
     if filteredArray.count > 0 {
-        return (filteredArray[0] as! Guest)
+        return (filteredArray[0] as! Guests)
     }
     return nil
     
 } // end getEntrant(Guest)
 
-func getEntrant(entrantType: WorkerType) -> Worker? {
+func getEntrant(entrantType: WorkerType) -> Workers? {
     let filteredArray = workers.filter() { $0.workerType == entrantType }
     if filteredArray.count > 0 {
         return filteredArray[0]

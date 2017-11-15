@@ -9,12 +9,12 @@
 import Foundation
 
 enum WorkerType {
-    case HourlyFoodServices
-    case HourlyRideServices
-    case HourlyMaintenance
-    case Manager
-    case Contract
-    case VendorStaff // added 9/20/17
+    case hourlyFoodServices
+    case hourlyRideServices
+    case hourlyMaintenance
+    case manager
+    case contract
+    case vendorStaff // added 9/20/17
 }
 
 enum WorkerErrorType: Error {
@@ -24,15 +24,15 @@ enum WorkerErrorType: Error {
     
 }
 
-class Worker: Entrant {
+class Workers: Entrant {
     let entrantID: Int
-    var workerType: WorkerType
-    var firstName: String
-    var lastName: String
-    var streetAddress: String
-    var city: String
-    var state: String
-    var zipCode: String
+    let workerType: WorkerType
+    let firstName: String
+    let lastName: String
+    let streetAddress: String
+    let city: String
+    let state: String
+    let zipCode: String
     let socialSecurityNumber: String
     let dateOfBirth: Date
 
@@ -55,14 +55,14 @@ class Worker: Entrant {
     
 }
 
-class Hourly: Worker {
+class Hourlys: Workers {
     // properties needed for this exercise are handled in the Worker superclass.
     // one could picture how the swipe into an area might be used to 
     // record hours worked in an area, for instance, in which case
     // there could be other properties specific to this WorkerType.
 }
 
-class Manager: Worker {
+class Managers: Workers {
     let mgmtTier: String
     
     init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateOfBirth: Date, mgmtTier: String) {
@@ -73,7 +73,7 @@ class Manager: Worker {
     }
 }
 
-class Contract: Worker {
+class Contractors: Workers {
     let projectNumber: Int
     
     init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, streetAddress: String, city: String, state: String, zipCode: String, socialSecurityNumber: String, dateOfBirth: Date, projectNumber: Int) {
@@ -85,9 +85,9 @@ class Contract: Worker {
 }
 
  
-class VendorStaff: Worker {
-    var companyName: String
-    var dateOfLastVisit: Date
+class VendorStaff: Workers {
+    let companyName: String
+    let dateOfLastVisit: Date
     
     init(entrantID: Int, workerType: WorkerType, firstName: String, lastName: String, dateOfBirth: Date, companyName: String, dateOfLastVisit: Date) {
         

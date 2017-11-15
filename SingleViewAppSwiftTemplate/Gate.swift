@@ -26,19 +26,19 @@ import Foundation
  */
 
 enum GateType {
-    case RideRides
-    case Amusement
-    case FoodVendor
-    case MerchVendor
-    case Kitchen
-    case RideControl
-    case Maintenance
-    case Office
+    case rideRides
+    case amusement
+    case foodVendor
+    case merchVendor
+    case kitchen
+    case rideControl
+    case maintenance
+    case office
 }
 
 enum ProductType {
-    case Food
-    case Merchandise
+    case food
+    case merchandise
 }
 
 enum GateError: Error {
@@ -50,9 +50,9 @@ var rides = [Ride]()  // only exists to for-loop through, generating passes for 
 
 class Gate {
     
-    var gateID: Int
-    var gateType: GateType
-    var gateName: String
+    let gateID: Int
+    let gateType: GateType
+    let gateName: String
 
     init(gateID: Int, gateType: GateType, gateName: String) {
         self.gateID = gateID

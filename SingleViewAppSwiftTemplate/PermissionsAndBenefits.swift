@@ -9,103 +9,88 @@
 import Foundation
 
 let guestRolesDiscount:[ProductType:[GuestType:Int]] = [
-    .Food:
-        [.VIP:10, .Senior:10, .Season:10],
-    .Merchandise:
-        [.VIP:20, .Senior:10, .Season:20]
+    .food:
+        [.vIP:10, .senior:10, .season:10],
+    .merchandise:
+        [.vIP:20, .senior:10, .season:20]
 ]
 
 let guestRolesSkipPrivilege:[GateType:[GuestType]] = [
-    .RideRides:[.VIP]
+    .rideRides:[.vIP]
 ]
 
-/* replaced by AccessRules.plist
-let workerRolesAccess:[GateType: [WorkerType]] = [
-    .Amusement:[.HourlyFoodServices, .HourlyRideServices, .HourlyMaintenance, .Manager],
-    .FoodVendor:[.HourlyFoodServices, .HourlyRideServices, .HourlyMaintenance, .Manager],
-    .MerchVendor:[.HourlyFoodServices, .HourlyRideServices, .HourlyMaintenance, .Manager],
-    .Kitchen:[.HourlyFoodServices, .HourlyMaintenance, .Manager],
-    .RideControl:[.HourlyRideServices,.HourlyMaintenance,.Manager],
-    .Maintenance:[.HourlyMaintenance, .Manager],
-    .Office:[.Manager]
-]
-*/
 
 // sticking with "it's the location that knows the benefit", Food (vendor) and
 // Merchandice (vendor) are first decision, then the role.
 
 let workerRolesDiscount:[ProductType:[WorkerType:Int]] = [
-    .Food:[
-        .HourlyFoodServices:15,
-        .HourlyRideServices:15,
-        .HourlyMaintenance:15,
-        .Manager:25],
-    .Merchandise:[
-        .HourlyFoodServices:25,
-        .HourlyRideServices:25,
-        .HourlyMaintenance:25,
-        .Manager:25]
-]
-
-// not needed with intial input data
-let workerRolesSkipPrivilege:[GateType:[WorkerType]] = [
-    .Amusement:[]
+    .food:[
+        .hourlyFoodServices:15,
+        .hourlyRideServices:15,
+        .hourlyMaintenance:15,
+        .manager:25],
+    .merchandise:[
+        .hourlyFoodServices:25,
+        .hourlyRideServices:25,
+        .hourlyMaintenance:25,
+        .manager:25]
 ]
 
 func accessPermitted(requestor: Entrant, gate: Gate) -> Bool {
     var permitted = false
     
-     if requestor is Guest {
-        let guestRequestor = requestor as! Guest
+     if requestor is Guests {
+        let guestRequestor = requestor as! Guests
         permitted = canAccess(guestType: guestRequestor.guestType, gateType: gate.gateType)
         if gate is Ride {
             let ride = gate as! Ride
-            if guestRequestor.guestType == .FreeChild && ride.ageRestricted {
+            if guestRequestor.guestType == .freeChild && ride.ageRestricted {
                  permitted = false
             }
         }
-     } else if requestor is Contract {
-        let contractRequestor = requestor as! Contract
+     } else if requestor is Contractors {
+        let contractRequestor = requestor as! Contractors
         permitted = canAccess(projectNumber: String(contractRequestor.projectNumber), gateType: gate.gateType)
      } else if requestor is VendorStaff {
         let vendorRequestor = requestor as! VendorStaff
         permitted = canAccess(companyName: vendorRequestor.companyName, gateType: gate.gateType)
-     } else if requestor is Worker {
-         let workerRequestor = requestor as! Worker
+     } else if requestor is Workers {
+         let workerRequestor = requestor as! Workers
          permitted = canAccess(workerType: workerRequestor.workerType, gateType: gate.gateType)
      }
      return permitted
 }
 
+
 func discountAvailable(requestor: Entrant, product: ProductType) -> Int {
     
     switch (product) {
-    case .Food:
-        if (requestor is Guest) {
-            let guestRequestor = requestor as! Guest
-            if let discount = guestRolesDiscount[.Food]?[guestRequestor.guestType] {
+    case .food:
+        if (requestor is Guests) {
+            let guestRequestor = requestor as! Guests
+            if let discount = guestRolesDiscount[.food]?[guestRequestor.guestType] {
                 return discount
             }
-        } else if requestor is Worker {
-            let workerRequestor = requestor as! Worker
+        } else if requestor is Workers {
+            let workerRequestor = requestor as! Workers
             
-            if let discount = workerRolesDiscount[.Food]?[workerRequestor.workerType] {
+            if let discount = workerRolesDiscount[.food]?[workerRequestor.workerType] {
                 return discount
             }
         }
         
-    case .Merchandise:
-        if (requestor is Guest) {
-            let guestRequestor = requestor as! Guest
+    case .merchandise:
+        if (requestor is Guests) {
+            let guestRequestor = requestor as! Guests
             
-            if let discount = guestRolesDiscount[.Merchandise]?[guestRequestor.guestType] {
+            if let discount = guestRolesDiscount[.merchandise]?[guestRequestor.guestType] {
                 return discount
             }
             
-        } else if requestor is Worker {
-            let workerRequestor = requestor as! Worker
+        } else if requestor is Workers {
+            let workerRequestor = requestor as! Workers
             
-            if let discount = workerRolesDiscount[.Merchandise]?[workerRequestor.workerType] {
+            if let discount = workerRolesDiscount[.merchandise]?[workerRequestor.workerType] {
                 return discount
             }
         }
@@ -115,10 +100,47 @@ func discountAvailable(requestor: Entrant, product: ProductType) -> Int {
 
 func canSkipLine(requestor: Entrant, gateType: GateType) -> Bool {
     var permitted = false
-    if (requestor is Guest) {
-        let guestRequestor = requestor as! Guest
+    if (requestor is Guests) {
+        let guestRequestor = requestor as! Guests
         permitted = (guestRolesSkipPrivilege[gateType]!.contains(guestRequestor.guestType))
     }
     return permitted
+}
+
+
+func canAccess(guestType: GuestType, gateType: GateType) -> Bool {
+    if let access = guestRules[guestType]?[gateType] {
+        return access
+    } else {
+        print("no access rule for \(guestType) at \(gateType)")
+        return false
+    }
+}
+
+func canAccess(workerType: WorkerType, gateType: GateType) -> Bool {
+    if let access = workerRules[workerType]?[gateType] {
+        return access
+    } else {
+        print("no access rule for \(workerType) at \(gateType)")
+        return false
+    }
+}
+
+func canAccess(companyName: String, gateType: GateType) -> Bool {
+    if let access = vendorStaffRules[companyName]?[gateType] {
+        return access
+    } else {
+        print("no access rule for VendorStaff from \(companyName) at \(gateType)")
+        return false
+    }
+}
+
+func canAccess(projectNumber: String, gateType: GateType) -> Bool {
+    if let access = contractorRules[projectNumber]?[gateType] {
+        return access
+    } else {
+        print("no access rule for Contractors on Project # \(projectNumber) at \(gateType)")
+        return false
+    }
 }
 

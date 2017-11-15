@@ -52,7 +52,7 @@ func loadRides(inputFile: String, fileType: String) throws -> [AnyObject] {
     
     for dict in rideDataFromPlist {
         inputRecord += 1
-        gateType = GateType.RideRides
+        gateType = GateType.rideRides
         guard let id = dict["ID"] as! Int? else {
               throw GatesImportError.missingRequiredField(fieldName: "ID, input record \(inputRecord)")
         }
@@ -99,8 +99,8 @@ func loadVendors(inputFile: String, fileType: String) throws -> [AnyObject] {
         }
 
         switch type {
-            case "Food": gateType = .FoodVendor
-            case "Merchandise": gateType = .MerchVendor
+            case "Food": gateType = .foodVendor
+            case "Merchandise": gateType = .merchVendor
             default: throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
         aVendor = Vendor(gateID: id, gateType: gateType, gateName: name)
@@ -131,10 +131,10 @@ func loadNonPublics(inputFile: String, fileType: String) throws -> [AnyObject] {
             throw GatesImportError.missingRequiredField(fieldName: "Type, input record \(inputRecord)")
         }
         switch (type) {
-            case "Kitchen": gateType = GateType.Kitchen
-            case "Ride Control": gateType = GateType.RideControl
-            case "Maintenance": gateType = GateType.Maintenance
-            case "Office": gateType = GateType.Office
+            case "Kitchen": gateType = GateType.kitchen
+            case "Ride Control": gateType = GateType.rideControl
+            case "Maintenance": gateType = GateType.maintenance
+            case "Office": gateType = GateType.office
         default: throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
         guard let name = dict["Name"] as! String? else {

@@ -99,9 +99,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         disableGeneratePassButton()
         
         if (lastClicked <= 15) {
-            activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
+            activateSubmenuItem(mainMenu: mainMenuItem.guest, page: self)
         } else {
-            activateSubmenuItem(mainMenu: mainMenuItem.Employee, page: self)
+            activateSubmenuItem(mainMenu: mainMenuItem.employee, page: self)
         }
     }
 
@@ -122,10 +122,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         self.MainMenuButton4.setTitle("Vendor", for: .normal)
         
         // set submenu button labels for default main menu item (Guest)
-        activateSubmenuItem(mainMenu: mainMenuItem.Guest, page: self)
+        activateSubmenuItem(mainMenu: mainMenuItem.guest, page: self)
 
         loadAllData()
         
+        // a quick view entrants access in the Xcode console
         runRegressionTests()
         
     } // end of ViewDidLoad()
@@ -133,8 +134,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     
     @IBAction func menuHandler(_ sender: UIButton) {
         disableGeneratePassButton()
-        if (sender.tag == mainMenuItem.Guest.rawValue ||
-            sender.tag == mainMenuItem.Employee.rawValue) {
+        if (sender.tag == mainMenuItem.guest.rawValue ||
+            sender.tag == mainMenuItem.employee.rawValue) {
             disablePopulateButton()
         } else {
             enablePopulateButton()
@@ -146,20 +147,20 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
     func populateFormWithRandomPerson(menuSelection: Int) -> Entrant {
         switch (menuSelection) {
-            case subMenuItem.Child.rawValue:
-                if let freeChild = getEntrant(entrantType: GuestType.FreeChild) as! FreeChildGuest? {
+            case subMenuItem.child.rawValue:
+                if let freeChild = getEntrant(entrantType: GuestType.freeChild) as! FreeChildGuests? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: freeChild.dateOfBirth)
                     return freeChild as Entrant
                 }
             
-            case subMenuItem.Classic.rawValue:
-                if let classic = getEntrant(entrantType: GuestType.Classic) {
+            case subMenuItem.classic.rawValue:
+                if let classic = getEntrant(entrantType: GuestType.classic) {
                     return classic as Entrant
                 }
             
-            case subMenuItem.Senior.rawValue:
-                if let senior = getEntrant(entrantType: GuestType.Senior) as! SeniorGuest? {
+            case subMenuItem.senior.rawValue:
+                if let senior = getEntrant(entrantType: GuestType.senior) as! SeniorGuests? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: senior.dateOfBirth)
                     firstNameField.text = senior.firstName
@@ -168,13 +169,13 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 }
 
             
-            case subMenuItem.VIP.rawValue:
-                if let vip = getEntrant(entrantType: GuestType.VIP) {
+            case subMenuItem.vIP.rawValue:
+                if let vip = getEntrant(entrantType: GuestType.vIP) {
                     return vip as Entrant
                 }
             
-            case subMenuItem.Season.rawValue:
-                if let season = getEntrant(entrantType: GuestType.Season) as! SeasonPassGuest? {
+            case subMenuItem.season.rawValue:
+                if let season = getEntrant(entrantType: GuestType.season) as! SeasonPassGuests? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: season.dateOfBirth)
                     firstNameField.text = season.firstName
@@ -186,16 +187,16 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     return season as Entrant
                 }
 
-            case subMenuItem.HourlyEmployeeFoodServices.rawValue,
-                 subMenuItem.HourlyEmployeeRideServices.rawValue,
-                 subMenuItem.HourlyEmployeeMaintenance.rawValue:
+            case subMenuItem.hourlyEmployeeFoodServices.rawValue,
+                 subMenuItem.hourlyEmployeeRideServices.rawValue,
+                 subMenuItem.hourlyEmployeeMaintenance.rawValue:
             
-                var wt = WorkerType.HourlyFoodServices
+                var wt = WorkerType.hourlyFoodServices
                 
                 switch (menuSelection) {
-                    case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
-                    case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
-                    case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
+                    case subMenuItem.hourlyEmployeeFoodServices.rawValue: wt = WorkerType.hourlyFoodServices
+                    case subMenuItem.hourlyEmployeeRideServices.rawValue: wt = WorkerType.hourlyRideServices
+                    case subMenuItem.hourlyEmployeeMaintenance.rawValue: wt = WorkerType.hourlyMaintenance
 
                     default:
                         print("Unexpected menu selection \(menuSelection)")
@@ -216,9 +217,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     return employee as Entrant
                 }
 
-            case mainMenuItem.Manager.rawValue:
+            case mainMenuItem.manager.rawValue:
                 
-                if let mgr = getEntrant(entrantType: WorkerType.Manager) as! Manager? {
+                if let mgr = getEntrant(entrantType: WorkerType.manager) as! Managers? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: mgr.dateOfBirth)
                     ssnField.textColor = .black
@@ -233,9 +234,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     return mgr as Entrant
                 }
             
-            case subMenuItem.ContractEmployee.rawValue:
+            case subMenuItem.contractEmployee.rawValue:
                 
-                if let contractor = getEntrant(entrantType: WorkerType.Contract) as! Contract? {
+                if let contractor = getEntrant(entrantType: WorkerType.contract) as! Contractors? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: contractor.dateOfBirth)
                     ssnField.textColor = .black
@@ -250,7 +251,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     return contractor as Entrant
                 }
 
-            case mainMenuItem.Vendor.rawValue:
+            case mainMenuItem.vendor.rawValue:
 
                 if let vendorstaff = getVendorEntrant() {
                     dateOfBirthField.textColor = .black
@@ -275,50 +276,51 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         
         switch (lastClicked) {
 
-            case subMenuItem.Child.rawValue:
-                entrant = FreeChildGuest(entrantID: 1, guestType: .FreeChild, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            case subMenuItem.child.rawValue:
+                entrant = FreeChildGuests(entrantID: 1, guestType: .freeChild, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
             
-            case subMenuItem.Classic.rawValue:
-                entrant = Guest(entrantID: 2, guestType: .Classic)
+            case subMenuItem.classic.rawValue:
+                entrant = Guests(entrantID: 2, guestType: .classic)
             
-            case subMenuItem.Senior.rawValue:
-                entrant = SeniorGuest(entrantID: 3, guestType: .Senior, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+            case subMenuItem.senior.rawValue:
+                entrant = SeniorGuests(entrantID: 3, guestType: .senior, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
             
-            case subMenuItem.VIP.rawValue:
-                entrant = Guest(entrantID: 2, guestType: .VIP)
+            case subMenuItem.vIP.rawValue:
+                entrant = Guests(entrantID: 2, guestType: .vIP)
 
-            case subMenuItem.Season.rawValue:
-                entrant = SeasonPassGuest(entrantID: 5, guestType: .Season, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!)
+            case subMenuItem.season.rawValue:
+                entrant = SeasonPassGuests(entrantID: 5, guestType: .season, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!)
             
-            case subMenuItem.HourlyEmployeeFoodServices.rawValue,
-                 subMenuItem.HourlyEmployeeRideServices.rawValue,
-                 subMenuItem.HourlyEmployeeMaintenance.rawValue:
+            case subMenuItem.hourlyEmployeeFoodServices.rawValue,
+                 subMenuItem.hourlyEmployeeRideServices.rawValue,
+                 subMenuItem.hourlyEmployeeMaintenance.rawValue:
                 switch (lastClicked) {
-                    case subMenuItem.HourlyEmployeeFoodServices.rawValue: wt = WorkerType.HourlyFoodServices
-                    case subMenuItem.HourlyEmployeeRideServices.rawValue: wt = WorkerType.HourlyRideServices
-                    case subMenuItem.HourlyEmployeeMaintenance.rawValue: wt = WorkerType.HourlyMaintenance
-                    default: wt = WorkerType.HourlyFoodServices // since even though it can't get here, the compiler complains that it wasn't set on the next line...
+                    case subMenuItem.hourlyEmployeeFoodServices.rawValue: wt = WorkerType.hourlyFoodServices
+                    case subMenuItem.hourlyEmployeeRideServices.rawValue: wt = WorkerType.hourlyRideServices
+                    case subMenuItem.hourlyEmployeeMaintenance.rawValue: wt = WorkerType.hourlyMaintenance
+                    default: wt = WorkerType.hourlyFoodServices // since even though it can't get here, the compiler complains that it wasn't set on the next line...
                 }
-                entrant = Worker(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
+                entrant = Workers(entrantID: 6, workerType: wt, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!)
             
-            case mainMenuItem.Manager.rawValue:
-                entrant = Manager(entrantID: 6, workerType: .Manager, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, mgmtTier: MgmtTierField.text!)
+            case mainMenuItem.manager.rawValue:
+                entrant = Managers(entrantID: 6, workerType: .manager, firstName: firstNameField.text!, lastName: lastNameField.text!, streetAddress: streetAddressField.text!, city: cityField.text!, state: stateField.text!, zipCode: zipCodeField.text!, socialSecurityNumber: ssnField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, mgmtTier: MgmtTierField.text!)
             
-        case mainMenuItem.Vendor.rawValue:
-            entrant = VendorStaff(entrantID: 6, workerType: .VendorStaff, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, companyName: companyNameField.text!, dateOfLastVisit: dateFormatter.date(from: lastVisitField.text!)!)
+            case mainMenuItem.vendor.rawValue:
+                entrant = VendorStaff(entrantID: 6, workerType: .vendorStaff, firstName: firstNameField.text!, lastName: lastNameField.text!, dateOfBirth: dateFormatter.date(from: dateOfBirthField.text!)!, companyName: companyNameField.text!, dateOfLastVisit: dateFormatter.date(from: lastVisitField.text!)!)
 
-            default:
-                entrant = Guest(entrantID: 99, guestType: .Classic)
-        } // end of switch (lastClicked)
+                default:
+                    entrant = Guests(entrantID: 99, guestType: .classic)
+        }
         
         return entrant!
-    } // end of createEntrantFromFormData()
+    }
     
     @IBAction func genericFieldExit(_ sender: Any) {
         // on Editing Did End (not always...)
         // isFormComplete() changed to only calling when GeneratePass button is clicked.
     }
     
+    // clear the sample text
     @IBAction func dobEntry(_ sender: Any) {
         dateOfBirthField.textColor = .black
         if dateOfBirthField.text == "MM/DD/YYYY" {
@@ -326,6 +328,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
     
+    // clear the sample text
     @IBAction func lastVisitBeginEdit(_ sender: Any) {
         lastVisitField.textColor = .black
         if lastVisitField.text == "MM/DD/YYYY" {
@@ -333,13 +336,15 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
     
-    // FIXME: should just use one action, dateDone(), for both
+    // validate dateOfBithField when user exits
     @IBAction func dobDone(_ sender: Any) {
         // on Primary Action Triggered
         if isDateValid(dateString: dateOfBirthField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
         }
-    }    
+    }
+    
+    // validate lastVisit (date) when user exits
     @IBAction func lastVisitDone(_ sender: Any) {
         // on Primary Action Triggered
         if isDateValid(dateString: lastVisitField.text!) == false {
@@ -347,6 +352,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         }
     }
     
+    // clear the sample text
     @IBAction func ssnEntry(_ sender: Any) {
         ssnField.textColor = .black
         if ssnField.text == "NNN-NN-NNNN" {
@@ -375,7 +381,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         
         switch (lastClicked) {
 
-            case subMenuItem.Child.rawValue:
+            case subMenuItem.child.rawValue:
                 isComplete = true
                 if isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
@@ -385,10 +391,10 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
-            case subMenuItem.Classic.rawValue:
+            case subMenuItem.classic.rawValue:
                 isComplete = true
 
-            case subMenuItem.Senior.rawValue:
+            case subMenuItem.senior.rawValue:
                 isComplete = true
                 if isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
@@ -407,10 +413,10 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
             
-            case subMenuItem.VIP.rawValue:
+            case subMenuItem.vIP.rawValue:
                 isComplete = true
 
-            case subMenuItem.Season.rawValue:
+            case subMenuItem.season.rawValue:
                 isComplete = true
                 if isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
@@ -444,9 +450,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
-            case subMenuItem.HourlyEmployeeFoodServices.rawValue,
-             subMenuItem.HourlyEmployeeRideServices.rawValue,
-             subMenuItem.HourlyEmployeeMaintenance.rawValue:
+            case subMenuItem.hourlyEmployeeFoodServices.rawValue,
+             subMenuItem.hourlyEmployeeRideServices.rawValue,
+             subMenuItem.hourlyEmployeeMaintenance.rawValue:
                 isComplete = true
                 if isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
@@ -484,7 +490,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
-            case mainMenuItem.Manager.rawValue:
+            case mainMenuItem.manager.rawValue:
                 isComplete = true
                 if isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
@@ -526,7 +532,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
                 }
 
-        case mainMenuItem.Vendor.rawValue:
+        case mainMenuItem.vendor.rawValue:
             isComplete = true
             if firstNameField.text == "" {
                 missingInvalid = missingInvalid + "First Name\n"
@@ -548,7 +554,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 showAlert(alertTitle: "Missing/Invalid Data", alertMessage: missingInvalid)
             }
 
-            case subMenuItem.ContractEmployee.rawValue:
+            case subMenuItem.contractEmployee.rawValue:
                 break
             
             default: break

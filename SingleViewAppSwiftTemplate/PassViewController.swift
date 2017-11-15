@@ -40,19 +40,19 @@ class PassViewController: UIViewController {
 
         // could move this functions to its own file...
         func getMyPermissionsAndBenfits(requestor: Entrant) {
-            if requestor is FreeChildGuest {
-                let freeChild = requestor as! FreeChildGuest
+            if requestor is FreeChildGuests {
+                let freeChild = requestor as! FreeChildGuests
                 if isFreeChild(birthdateString: dateFormatter.string(from: freeChild.dateOfBirth)) {
                     strings.append("Unlimited Rides")
                 } else {
                     print("\"child\" is too old for Unlimited Rides")
                 }
             }
-            let foodDiscount = discountAvailable(requestor: requestor, product: .Food)
+            let foodDiscount = discountAvailable(requestor: requestor, product: .food)
             if (foodDiscount > 0) {
                 strings.append("\(foodDiscount)% Food Discount")
             }
-            let merchDiscount = discountAvailable(requestor: requestor, product: .Merchandise)
+            let merchDiscount = discountAvailable(requestor: requestor, product: .merchandise)
             if (merchDiscount > 0) {
                 strings.append("\(merchDiscount)% Merch Discount")
             }
@@ -97,39 +97,39 @@ class PassViewController: UIViewController {
     }
         
     if entrant != nil {
-        if  entrant is Guest {
-            let guest = entrant as! Guest
+        if  entrant is Guests {
+            let guest = entrant as! Guests
             switch (guest.guestType) {
-            case .FreeChild:
-                let freeChildGuest = guest as! FreeChildGuest
+            case .freeChild:
+                let freeChildGuest = guest as! FreeChildGuests
                 EntrantName.text = "************"
                 EntrantPassType.text = "Child Guest Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: freeChildGuest.entrantID)
 
-            case .Classic:
+            case .classic:
                 let classicGuest = guest
                 EntrantName.text = "************"
                 EntrantPassType.text = "Classic Guest Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: classicGuest.entrantID)
 
-            case .VIP:
+            case .vIP:
                 let vipGuest = guest
                 EntrantName.text = "************"
                 EntrantPassType.text = "VIP Guest Pass"
                 getMyPermissionsAndBenfits(requestor: vipGuest)
                 setEntrantImage(entrantImageID: vipGuest.entrantID)
                 
-            case .Season:
-                let seasonGuest = guest as! SeasonPassGuest
+            case .season:
+                let seasonGuest = guest as! SeasonPassGuests
                 EntrantName.text = "\(seasonGuest.firstName) \(seasonGuest.lastName)"
                 EntrantPassType.text = "Season Pass Guest Pass"
                 getMyPermissionsAndBenfits(requestor: seasonGuest)
                 setEntrantImage(entrantImageID: seasonGuest.entrantID)
                 
-            case .Senior:
-                let seniorGuest = guest as! SeniorGuest
+            case .senior:
+                let seniorGuest = guest as! SeniorGuests
                 EntrantName.text = "\(seniorGuest.firstName) \(seniorGuest.lastName)"
                 EntrantPassType.text = "Senior Guest Pass"
                 getMyPermissionsAndBenfits(requestor: seniorGuest)
@@ -137,35 +137,35 @@ class PassViewController: UIViewController {
                 
             }
             
-        } else if entrant is Worker {
-            let worker = entrant as! Worker
+        } else if entrant is Workers {
+            let worker = entrant as! Workers
             switch (worker.workerType) {
-            case .HourlyFoodServices, .HourlyMaintenance, .HourlyRideServices:
+            case .hourlyFoodServices, .hourlyMaintenance, .hourlyRideServices:
                 EntrantName.text = "\(worker.firstName) \(worker.lastName)"
                 switch (worker.workerType) {
-                case .HourlyFoodServices: EntrantPassType.text = "Food Services Pass"
-                case .HourlyMaintenance: EntrantPassType.text = "Maintenance Pass"
-                case .HourlyRideServices: EntrantPassType.text = "Ride Services Pass"
+                case .hourlyFoodServices: EntrantPassType.text = "Food Services Pass"
+                case .hourlyMaintenance: EntrantPassType.text = "Maintenance Pass"
+                case .hourlyRideServices: EntrantPassType.text = "Ride Services Pass"
                 default: break
                 }
                 getMyPermissionsAndBenfits(requestor: worker)
                 setEntrantImage(entrantImageID: worker.entrantID)
 
-            case .Manager:
-                let manager = worker as! Manager
+            case .manager:
+                let manager = worker as! Managers
                 EntrantName.text = "\(manager.firstName) \(manager.lastName)"
                 EntrantPassType.text = "Manager Guest Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: manager.entrantID)
                 
-            case .Contract:
-                let contractor = worker as! Contract
+            case .contract:
+                let contractor = worker as! Contractors
                 EntrantName.text = "\(contractor.firstName) \(contractor.lastName)"
                 EntrantPassType.text = "Contractor Guest Pass"
                 getMyPermissionsAndBenfits(requestor: entrant!)
                 setEntrantImage(entrantImageID: contractor.entrantID)
 
-            case .VendorStaff:
+            case .vendorStaff:
                 let vendorFolk = entrant as! VendorStaff
                 EntrantName.text = "\(vendorFolk.firstName) \(vendorFolk.lastName)"
                 EntrantPassType.text = "Vendor Staff Pass"
@@ -178,8 +178,7 @@ class PassViewController: UIViewController {
 }
     
     @IBAction func RideAccessCheck(_ sender: Any) {
-        let ride = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Rides", ageRestricted: false)
-        let restrictedRide = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Rides", ageRestricted: true)
+        let restrictedRide = Ride(gateID: 1, gateType: GateType.rideRides, gateName: "Rides", ageRestricted: true)
 
         var resultsText = "\nAccess to Rides "
         if accessPermitted(requestor: entrant!, gate: restrictedRide) {
@@ -193,14 +192,21 @@ class PassViewController: UIViewController {
     @IBAction func AreaAccessCheck(_ sender: Any) {
         var resultsText = "\n"
 
-        let rideControl = NonPublic(gateID: 1, gateType: .RideControl, gateName: "Ride Control Areas")
-        let amusementAreas = NonPublic(gateID: 1, gateType: .Amusement, gateName: "Amusement Areas")
-        let kitchen = NonPublic(gateID: 1, gateType: .Kitchen, gateName: "Kitchen Areas")
-        let maintenance = NonPublic(gateID: 1, gateType: .Maintenance, gateName: "Maintenance Areas")
-        let office = NonPublic(gateID: 1, gateType: .Office, gateName: "Office Areas")
+        let rideControl = NonPublic(gateID: 1, gateType: .rideControl, gateName: "Ride Control Areas")
+        let amusementAreas = NonPublic(gateID: 1, gateType: .amusement, gateName: "Amusement Areas")
+        let kitchen = NonPublic(gateID: 1, gateType: .kitchen, gateName: "Kitchen Areas")
+        let maintenance = NonPublic(gateID: 1, gateType: .maintenance, gateName: "Maintenance Areas")
+        let office = NonPublic(gateID: 1, gateType: .office, gateName: "Office Areas")
 
         resultsText = resultsText + "Access to Amusement Areas "
         if accessPermitted(requestor: entrant!, gate: amusementAreas) {
+            resultsText = resultsText + "permitted\n"
+        } else {
+            resultsText = resultsText + "not permitted\n"
+        }
+
+        resultsText = resultsText + "Access to Ride Control Areas "
+        if accessPermitted(requestor: entrant!, gate: rideControl) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
@@ -231,13 +237,13 @@ class PassViewController: UIViewController {
     
     @IBAction func DiscountAccessCheck(_ sender: Any) {
         var resultsText = "\n"
-        let foodDiscount = discountAvailable(requestor: entrant!, product: .Food)
+        let foodDiscount = discountAvailable(requestor: entrant!, product: .food)
         if (foodDiscount > 0) {
             resultsText = resultsText + "\(foodDiscount)% Food Discount\n"
         } else {
             resultsText = "No Food Discount\n"
         }
-        let merchDiscount = discountAvailable(requestor: entrant!, product: .Merchandise)
+        let merchDiscount = discountAvailable(requestor: entrant!, product: .merchandise)
         if (merchDiscount > 0) {
             resultsText = resultsText + "\(merchDiscount)% Merch Discount\n"
         } else {

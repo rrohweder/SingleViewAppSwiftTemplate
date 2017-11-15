@@ -15,10 +15,10 @@ let dateFormatter = DateFormatter()
 //  these only exist to for-loop through, generating passes for test purposes
 var vendors = [Vendor]()
 var nonpublics = [NonPublic]()
-var workers = [Worker]()
+var workers = [Workers]()
 var guests = [AnyObject]()
 var vendorFolks = [VendorStaff]()
-var contractorFolks = [Contract]()
+var contractorFolks = [Contractors]()
 
 
 protocol Entrant {
@@ -36,12 +36,12 @@ func isSSNValid(socialSecurityNumber: String) -> Bool {
     // ^(?!219099999|078051120)(?!666|000|9\d{2})\d{3}(?!00)\d{2}(?!0{4})\d{4}$    (without dashes)
     
     regexForSSN = try! NSRegularExpression(pattern: "^(?!219-09-9999|078-05-1120)(?!666|000|9\\d{2})\\d{3}-(?!00)\\d{2}-(?!0{4})\\d{4}$", options: [])
-    matches = regexForSSN.matches(in: socialSecurityNumber, options: [], range: NSRange(location: 0, length: socialSecurityNumber.characters.count))
+    matches = regexForSSN.matches(in: socialSecurityNumber, options: [], range: NSRange(location: 0, length: socialSecurityNumber.count))
     if matches.count == 1 {
         isValid = true
     } else {
         regexForSSN = try! NSRegularExpression(pattern: "^(?!219099999|078051120)(?!666|000|9\\d{2})\\d{3}(?!00)\\d{2}(?!0{4})\\d{4}$", options: [])
-        matches = regexForSSN.matches(in: socialSecurityNumber, options: [], range: NSRange(location: 0, length: socialSecurityNumber.characters.count))
+        matches = regexForSSN.matches(in: socialSecurityNumber, options: [], range: NSRange(location: 0, length: socialSecurityNumber.count))
         if matches.count == 1 {
             isValid = true
         }
@@ -55,12 +55,12 @@ func isZipCodeValid(zipCode: String) -> Bool {
     var matches = [NSTextCheckingResult]()
 
     regexForZip = try! NSRegularExpression(pattern: "^\\d{5}$", options: [])
-    matches = regexForZip.matches(in: zipCode, options: [], range: NSRange(location: 0, length: zipCode.characters.count))
+    matches = regexForZip.matches(in: zipCode, options: [], range: NSRange(location: 0, length: zipCode.count))
     if matches.count == 1 {
         isValid = true
     } else {
         regexForZip = try! NSRegularExpression(pattern: "^\\d{5}-\\d{4}$", options: [])
-        matches = regexForZip.matches(in: zipCode, options: [], range: NSRange(location: 0, length: zipCode.characters.count))
+        matches = regexForZip.matches(in: zipCode, options: [], range: NSRange(location: 0, length: zipCode.count))
         if matches.count == 1 {
             isValid = true
         }

@@ -10,7 +10,7 @@ import Foundation
 
 class Ride: Gate {
 
-    var ageRestricted: Bool
+    let ageRestricted: Bool
         
     init(gateID: Int, gateType: GateType, gateName: String, ageRestricted: Bool) {
             self.ageRestricted = ageRestricted

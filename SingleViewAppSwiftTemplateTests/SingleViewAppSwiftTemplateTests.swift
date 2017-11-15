@@ -24,15 +24,15 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         super.setUp()
         
         // create one of each needed object:
-        vendorGate = Vendor(gateID: 1, gateType: GateType.FoodVendor, gateName: "Nathan's Hot Dogs")
+        vendorGate = Vendors(gateID: 1, gateType: GateType.foodVendor, gateName: "Nathan's Hot Dogs")
         nonpublicGate = NonPublic(gateID: 1, gateType: .RideControl, gateName: "Whirlygig ride control")
         ride = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Whirlygig", ageRestricted: true)
-        restrictedRide = Ride(gateID: 1, gateType: GateType.RideRides, gateName: "Whirlygig", ageRestricted: true)
+        restrictedRide = Rides(gateID: 1, gateType: GateType.RideRides, gateName: "Whirlygig", ageRestricted: true)
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.date(from: "1953-12-18")!
-        anyWorker = Worker(entrantID: 1000, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateOfBirth: date)
+        anyWorker = Workers(entrantID: 1000, workerType: .HourlyFoodServices, firstName: "Roger", lastName: "Rohweder", streetAddress: "1205 Goldenview Ct", city: "Durham", state: "NC", zipCode: "27713", socialSecurityNumber: "329-50-6903", dateOfBirth: date)
         
         anyGuest = Guest(entrantID: 1, guestType: .Classic)
         
@@ -54,15 +54,15 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         // Test ride access with one worker (all workers can access rides):
         ride.gateType = .RideRides
         ride.gateName = "Whirlygig"
-        anyWorker.workerType = .HourlyFoodServices
+        anyWorker.workerType = .hourlyFoodServices
         XCTAssert(accessPermitted(requestor: anyWorker, gate: ride) == true)
         
         // Test NonPublic Area access with a worker who should have access and one who shouldn't (workers have different access rights):
-        anyWorker.workerType = .HourlyFoodServices
+        anyWorker.workerType = .hourlyFoodServices
         // using initial values of gateType: .RideControl, gateName: "Whirlygig ride control"
         XCTAssert(accessPermitted(requestor: anyWorker, gate: nonpublicGate) == false)
         
-        anyWorker.workerType = .HourlyRideServices
+        anyWorker.workerType = .hourlyRideServices
         XCTAssert(accessPermitted(requestor: anyWorker, gate: nonpublicGate) == true)
         
     }
@@ -70,11 +70,11 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
     func testGuestAccess () {
   
         // confirm that Guests have RideRides (ride) Area access (all guests can access all rides, with one exception (below)
-        XCTAssert(canAccess(guestType: .Classic, gateType: .RideRides) == true)  // it worked!!!
+        XCTAssert(canAccess(guestType: .classic, gateType: .rideRides) == true)  // it worked!!!
 
         // test the one exception: Child cannot ride on ageRestricted rides
-        anyGuest.guestType = .FreeChild
-        ride.gateType = .RideRides
+        anyGuest.guestType = .freeChild
+        ride.gateType = .rideRides
         ride.ageRestricted = true
         XCTAssert(accessPermitted(requestor: anyGuest, gate: ride) == false)
 
@@ -90,56 +90,56 @@ class SingleViewAppSwiftTemplateTests: XCTestCase {
         // it maybe makes sense for an entrant to get X% for ANY food, Y% for ANY merchandise.
         // so I can skip the gate layer...
 
-        anyGuest.guestType = .Classic
+        anyGuest.guestType = .classic
         XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 0)
         XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
         
-        anyGuest.guestType = .VIP
+        anyGuest.guestType = .vIP
         XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 10)
         XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 20)
         
-        anyGuest.guestType = .FreeChild
+        anyGuest.guestType = .freeChild
         XCTAssert(discountAvailable(requestor: anyGuest, product: .Food) == 0)
         XCTAssert(discountAvailable(requestor: anyGuest, product: .Merchandise) == 0)
 
-        anyWorker.workerType = .HourlyFoodServices
+        anyWorker.workerType = .hourlyFoodServices
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 15)
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
         
-        anyWorker.workerType = .HourlyRideServices
+        anyWorker.workerType = .hourlyRideServices
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 15)
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
         
-        anyWorker.workerType = .HourlyMaintenance
+        anyWorker.workerType = .hourlyMaintenance
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 15)
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
         
-        anyWorker.workerType = .Manager
+        anyWorker.workerType = .manager
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Food) == 25)
         XCTAssert(discountAvailable(requestor: anyWorker, product: .Merchandise) == 25)
 
     }
     
     func testSkipPrivilege() {
-        anyGuest.guestType = .Classic
+        anyGuest.guestType = .classic
         XCTAssert(canSkipLine(requestor: anyGuest, gateType: .RideRides) == false)
         
-        anyGuest.guestType = .VIP
+        anyGuest.guestType = .vIP
         XCTAssert(canSkipLine(requestor: anyGuest, gateType: .RideRides) == true)
         
-        anyGuest.guestType = .FreeChild
+        anyGuest.guestType = .freeChild
         XCTAssert(canSkipLine(requestor: anyGuest, gateType: .RideRides) == false)
 
-        anyWorker.workerType = .HourlyFoodServices
+        anyWorker.workerType = .hourlyFoodServices
         XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
-        anyWorker.workerType = .HourlyRideServices
+        anyWorker.workerType = .hourlyRideServices
         XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
-        anyWorker.workerType = .HourlyMaintenance
+        anyWorker.workerType = .hourlyMaintenance
         XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
-        anyWorker.workerType = .Manager
+        anyWorker.workerType = .manager
         XCTAssert(canSkipLine(requestor: anyWorker, gateType: .RideRides) == false)
         
     }

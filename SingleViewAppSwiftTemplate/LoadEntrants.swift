@@ -10,7 +10,7 @@ import Foundation
 
 var allGuests = [AnyObject]()
 var guestDataFromPlist = [[String:AnyObject]]()
-var allWorkers = [Worker]()
+var allWorkers = [Workers]()
 var workerDataFromPlist = [[String:AnyObject]]()
 var allVendorStaff = [VendorStaff]()
 var vendorStaffDataFromPlist = [[String:AnyObject]]()
@@ -44,13 +44,13 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
     var state: String
     var zip: String
     
-    var aGuest: Guest
+    var aGuest: Guests
     
     do {
         let guestArray = try EntrantsPlistImporter.importDictionaries(fromFile: inputFile, ofType: fileType)
         guestDataFromPlist = guestArray
     } catch let error {
-        fatalError("\(error)")
+        fatalError("Could not load guests: \(error)")
     }
     
     for dict in guestDataFromPlist {
@@ -66,25 +66,25 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
         
         switch (type) {
             case "Classic":
-                guestType = .Classic
-                aGuest = Guest(entrantID: id, guestType: guestType)
+                guestType = .classic
+                aGuest = Guests(entrantID: id, guestType: guestType)
            
             case "VIP":
-                guestType = .VIP
-                aGuest = Guest(entrantID: id, guestType: guestType)
+                guestType = .vIP
+                aGuest = Guests(entrantID: id, guestType: guestType)
 
             case "FreeChild":
-                guestType = .FreeChild
+                guestType = .freeChild
                 guard let dob = dict["dateOfBirth"] as! Date? else {
                     // I guess I can't tell whether it is missing or a conversion failure...
                     throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
                 }
                 dateOfBirth = dob
                 
-                aGuest = FreeChildGuest(entrantID: id, guestType: guestType, dateOfBirth: dateOfBirth!)
+                aGuest = FreeChildGuests(entrantID: id, guestType: guestType, dateOfBirth: dateOfBirth!)
             
             case "Senior":
-                guestType = .Senior
+                guestType = .senior
                 guard let dob = dict["dateOfBirth"] as! Date? else {
                     // I guess I can't tell whether it is missing or a conversion failure...
                     throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
@@ -102,11 +102,11 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
                 }
                 lastName = ln
                 
-                aGuest = SeniorGuest(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!)
+                aGuest = SeniorGuests(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!)
 
             
             case "Season":
-                guestType = .Season
+                guestType = .season
                 guard let dob = dict["dateOfBirth"] as! Date? else {
                     throw EntrantImportError.missingRequiredField(fieldName: "dateOfBirth, input record \(inputRecord)")
                 }
@@ -143,7 +143,7 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
                 }
                 zip = zc
 
-                aGuest = SeasonPassGuest(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!, streetAddress: streetAddress, city: city, state: state, zipCode: zip)
+                aGuest = SeasonPassGuests(entrantID: id, guestType: guestType, firstName: firstName, lastName: lastName, dateOfBirth: dateOfBirth!, streetAddress: streetAddress, city: city, state: state, zipCode: zip)
             
             default:
                 throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
@@ -155,10 +155,10 @@ func loadGuests(inputFile: String, fileType: String) throws -> [AnyObject] {
     
 }
 
-func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
+func loadWorkers(inputFile: String, fileType: String) throws -> [Workers] {
     var inputRecord = 0
     var workerType: WorkerType
-    var aWorker: Worker
+    var aWorker: Workers
     
     do {
         let workerArray = try EntrantsPlistImporter.importDictionaries(fromFile: inputFile, ofType: fileType)
@@ -178,11 +178,11 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
             throw EntrantImportError.missingRequiredField(fieldName: "workerType, input record \(inputRecord)")
         }
         switch type {
-            case "HourlyFoodServices": workerType = .HourlyFoodServices
-            case "HourlyRideServices": workerType = .HourlyRideServices
-            case "HourlyMaintenance": workerType = .HourlyMaintenance
-            case "Manager": workerType = .Manager
-            case "Contractor": workerType = .Contract
+            case "HourlyFoodServices": workerType = .hourlyFoodServices
+            case "HourlyRideServices": workerType = .hourlyRideServices
+            case "HourlyMaintenance": workerType = .hourlyMaintenance
+            case "Manager": workerType = .manager
+            case "Contractor": workerType = .contract
             default:throw EntrantImportError.conversionFailure(resourceName: "Unknown Type \"\(type)\", input record \(inputRecord)")
         }
 
@@ -220,24 +220,24 @@ func loadWorkers(inputFile: String, fileType: String) throws -> [Worker] {
         }
 
         switch (workerType) {
-            case .Manager:
+            case .manager:
                 guard let mgmtTier = dict["mgmtTier"] as! String? else {
                     throw EntrantImportError.missingRequiredField(fieldName: "mgmtTier, input record \(inputRecord)")
                 }
-                aWorker = Manager(entrantID: id, workerType: workerType, firstName: firstName,
+                aWorker = Managers(entrantID: id, workerType: workerType, firstName: firstName,
                            lastName: lastName, streetAddress: streetAddress, city: city,
                            state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth, mgmtTier: mgmtTier)
 
-            case .Contract:
+            case .contract:
                 guard let projectNumber = dict["projectNumber"] as! Int? else {
                     throw EntrantImportError.missingRequiredField(fieldName: "projectNumber, input record \(inputRecord)")
                 }
-                aWorker = Contract(entrantID: id, workerType: workerType, firstName: firstName,
+                aWorker = Contractors(entrantID: id, workerType: workerType, firstName: firstName,
                               lastName: lastName, streetAddress: streetAddress, city: city,
                               state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth, projectNumber: projectNumber)
 
             default:
-                aWorker = Worker(entrantID: id, workerType: workerType, firstName: firstName,
+                aWorker = Workers(entrantID: id, workerType: workerType, firstName: firstName,
                                      lastName: lastName, streetAddress: streetAddress, city: city,
                                      state: state, zipCode: zipCode, socialSecurityNumber: SSN, dateOfBirth: dateOfBirth)
         }
@@ -265,10 +265,12 @@ func loadVendorStaff(inputFile: String, fileType: String) throws -> [VendorStaff
         guard let id = dict["ID"] as! Int? else {
             throw EntrantImportError.missingRequiredField(fieldName: "ID, input record \(inputRecord)")
         }
-        
+
+        /* not needed... will only get type vendorStaff
         guard let type = dict["workerType"] as! String? else {
             throw EntrantImportError.missingRequiredField(fieldName: "workerType, input record \(inputRecord)")
         }
+        */
         
         guard let firstName = dict["firstName"] as! String? else {
             throw EntrantImportError.missingRequiredField(fieldName: "firstName, input record \(inputRecord)")
@@ -291,7 +293,7 @@ func loadVendorStaff(inputFile: String, fileType: String) throws -> [VendorStaff
             throw EntrantImportError.missingRequiredField(fieldName: "lastVisit, input record \(inputRecord)")
         }
         
-        aVendorStaff = VendorStaff(entrantID: id, workerType: .VendorStaff, firstName: firstName,
+        aVendorStaff = VendorStaff(entrantID: id, workerType: .vendorStaff, firstName: firstName,
                                   lastName: lastName, dateOfBirth: dateOfBirth, companyName: companyName, dateOfLastVisit: dateOfLastVisit)
             
         allVendorStaff.append(aVendorStaff)

@@ -9,11 +9,11 @@
 import Foundation
 
 enum GuestType {
-    case Classic
-    case VIP
-    case FreeChild
-    case Senior
-    case Season
+    case classic
+    case vIP
+    case freeChild
+    case senior
+    case season
 }
 
 enum GuestErrorType: Error {
@@ -21,9 +21,9 @@ enum GuestErrorType: Error {
     case missingRequiredData
 }
 
-class Guest: Entrant {
+class Guests: Entrant {
     let entrantID: Int
-    var guestType: GuestType
+    let guestType: GuestType
     
     init(entrantID: Int, guestType: GuestType) {
         self.entrantID = entrantID
@@ -31,8 +31,8 @@ class Guest: Entrant {
     }    
 }
 
-class FreeChildGuest: Guest {
-    var dateOfBirth: Date
+class FreeChildGuests: Guests {
+    let dateOfBirth: Date
     
     init(entrantID: Int, guestType: GuestType, dateOfBirth: Date) {
         self.dateOfBirth = dateOfBirth
@@ -40,10 +40,10 @@ class FreeChildGuest: Guest {
     }
 }
 
-class SeniorGuest: Guest {
-    var firstName: String
-    var lastName: String
-    var dateOfBirth: Date
+class SeniorGuests: Guests {
+    let firstName: String
+    let lastName: String
+    let dateOfBirth: Date
     
     init(entrantID: Int, guestType: GuestType, firstName: String, lastName: String, dateOfBirth: Date) {
         self.firstName = firstName
@@ -53,14 +53,14 @@ class SeniorGuest: Guest {
     }
 }
 
-class SeasonPassGuest: Guest {
-    var dateOfBirth: Date
-    var firstName: String
-    var lastName: String
-    var streetAddress: String
-    var city: String
-    var state: String
-    var zipCode: String
+class SeasonPassGuests: Guests {
+    let dateOfBirth: Date
+    let firstName: String
+    let lastName: String
+    let streetAddress: String
+    let city: String
+    let state: String
+    let zipCode: String
     
     init(entrantID: Int, guestType: GuestType, firstName: String, lastName: String, dateOfBirth: Date,
          streetAddress: String, city: String, state: String, zipCode: String) {
@@ -77,7 +77,7 @@ class SeasonPassGuest: Guest {
     
 }
 
-class ClassicGuest: Guest {
+class ClassicGuests: Guests {
     // needed?
     // using the Role-Based access/priveledge model, the work for this
     // exercise doesn't need properties specific to ClassicGuest, and I
@@ -86,7 +86,7 @@ class ClassicGuest: Guest {
     // included this (currently unused) class definition.
 }
 
-class VIPGuest: Guest {
+class VIPGuests: Guests {
     // Needed?
     // using the Role-Based access/priveledge model, the work for this
     // exercise doesn't need properties specific to VIPGuest. One could

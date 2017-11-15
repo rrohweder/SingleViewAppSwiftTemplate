@@ -27,8 +27,8 @@
 		1058D2951E9DD3DF0059C688 /* Workers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1058D2941E9DD3DF0059C688 /* Workers.plist */; };
 		107D64BD1F8A3D2C00FBDAA8 /* 6000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 107D64BC1F8A3D2C00FBDAA8 /* 6000.jpg */; };
 		10892FFF1FA2BBBA00107C5B /* AccessRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10892FFE1FA2BBBA00107C5B /* AccessRules.plist */; };
-		109D937F1E7B75DB0053DAED /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D937E1E7B75DA0053DAED /* Guest.swift */; };
-		109D93811E7B75EE0053DAED /* Worker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Worker.swift */; };
+		109D937F1E7B75DB0053DAED /* Guests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D937E1E7B75DA0053DAED /* Guests.swift */; };
+		109D93811E7B75EE0053DAED /* Workers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Workers.swift */; };
 		10B6012B1F0A89D300AE70F7 /* MenuLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */; };
 		10C72B6E1F77DFC9003EC042 /* 5004.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 10C72B6D1F77DFC9003EC042 /* 5004.jpg */; };
 		10C72B721F77E304003EC042 /* NoEntrantImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 10C72B711F77E304003EC042 /* NoEntrantImage.jpg */; };
@@ -95,8 +95,8 @@
 		1058D2941E9DD3DF0059C688 /* Workers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workers.plist; sourceTree = "<group>"; };
 		107D64BC1F8A3D2C00FBDAA8 /* 6000.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6000.jpg; sourceTree = "<group>"; };
 		10892FFE1FA2BBBA00107C5B /* AccessRules.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AccessRules.plist; sourceTree = "<group>"; };
-		109D937E1E7B75DA0053DAED /* Guest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
-		109D93801E7B75EE0053DAED /* Worker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Worker.swift; sourceTree = "<group>"; };
+		109D937E1E7B75DA0053DAED /* Guests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guests.swift; sourceTree = "<group>"; };
+		109D93801E7B75EE0053DAED /* Workers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workers.swift; sourceTree = "<group>"; };
 		10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuLogic.swift; sourceTree = "<group>"; };
 		10C72B6D1F77DFC9003EC042 /* 5004.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 5004.jpg; sourceTree = "<group>"; };
 		10C72B711F77E304003EC042 /* NoEntrantImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = NoEntrantImage.jpg; path = SingleViewAppSwiftTemplate/NoEntrantImage.jpg; sourceTree = "<group>"; };
@@ -188,8 +188,8 @@
 				103473421FB68ED600443E38 /* loadAllData.swift */,
 				10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */,
 				1038725E1E967D8800693DFC /* Entrant.swift */,
-				109D937E1E7B75DA0053DAED /* Guest.swift */,
-				109D93801E7B75EE0053DAED /* Worker.swift */,
+				109D937E1E7B75DA0053DAED /* Guests.swift */,
+				109D93801E7B75EE0053DAED /* Workers.swift */,
 				1058D2921E9DD0CC0059C688 /* LoadEntrants.swift */,
 				103E950A1EA13B9500706F21 /* LoadGates.swift */,
 				100CD4E91F92D9B7004E318B /* LoadAccessRules.swift */,
@@ -436,8 +436,8 @@
 				3A8AADCB1DF9B85E00A2B931 /* ViewController.swift in Sources */,
 				102CB9171F768CF10046AF92 /* PassViewController.swift in Sources */,
 				103473431FB68ED600443E38 /* loadAllData.swift in Sources */,
-				109D93811E7B75EE0053DAED /* Worker.swift in Sources */,
-				109D937F1E7B75DB0053DAED /* Guest.swift in Sources */,
+				109D93811E7B75EE0053DAED /* Workers.swift in Sources */,
+				109D937F1E7B75DB0053DAED /* Guests.swift in Sources */,
 				100393F01E9E513300578B9E /* Pass.swift in Sources */,
 				103473451FB68F7100443E38 /* RegressionTests.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
