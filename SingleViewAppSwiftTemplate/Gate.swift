@@ -25,6 +25,7 @@ import Foundation
  The location will 'know' which roles get what benefits.
  */
 
+
 enum GateType {
     case rideRides
     case amusement
@@ -48,8 +49,7 @@ enum GateError: Error {
 
 var rides = [Ride]()  // only exists to for-loop through, generating passes for test purposes
 
-class Gate {
-    
+ class Gate {
     let gateID: Int
     let gateType: GateType
     let gateName: String
@@ -59,5 +59,4 @@ class Gate {
         self.gateType = gateType
         self.gateName = gateName
     }
-    
 }

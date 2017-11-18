@@ -17,13 +17,15 @@ class Pass {
     var guestCanSkipLine = false
     var freeChild = false
     
+    let accessAndBenefits = PermissionsAndBenefits()
+    
     func generatePass(requestor: Entrant, gate: Gate) {
         
         if requestor is Guests || requestor is FreeChildGuests {
             
             let guestRequestor = requestor as! Guests
             accessingEntrantType = String(describing: guestRequestor.guestType) + " Guest"
-            entrantCanAccess = accessPermitted(requestor: guestRequestor, gate: gate)
+            entrantCanAccess = accessAndBenefits.accessPermitted(requestor: guestRequestor, gate: gate)
             
             if requestor is FreeChildGuests {
                 let childRequestor = requestor as! FreeChildGuests
@@ -33,25 +35,25 @@ class Pass {
         } else if requestor is Contractors {
             let contractorRequestor = requestor as! Contractors
             accessingEntrantType = "Project # " + String(describing: contractorRequestor.projectNumber)
-            entrantCanAccess = accessPermitted(requestor: contractorRequestor, gate: gate)
+            entrantCanAccess = accessAndBenefits.accessPermitted(requestor: contractorRequestor, gate: gate)
         } else if requestor is VendorStaff {
             let vendorRequestor = requestor as! VendorStaff
             accessingEntrantType = "Vendor: " + String(describing: vendorRequestor.companyName)
-            entrantCanAccess = accessPermitted(requestor: vendorRequestor, gate: gate)
+            entrantCanAccess = accessAndBenefits.accessPermitted(requestor: vendorRequestor, gate: gate)
         } else if requestor is Workers {
             let workerRequestor = requestor as! Workers
             accessingEntrantType = String(describing: workerRequestor.workerType)
-            entrantCanAccess = accessPermitted(requestor: workerRequestor, gate: gate)
+            entrantCanAccess = accessAndBenefits.accessPermitted(requestor: workerRequestor, gate: gate)
         }
         
         // all else is mute if they can't enter
         if entrantCanAccess == true {
             accessingGateType = String(describing: gate.gateType)
-            foodDiscount = discountAvailable(requestor: requestor, product: .food)
-            merchDiscount = discountAvailable(requestor: requestor, product: .merchandise)
+            foodDiscount = accessAndBenefits.discountAvailable(requestor: requestor, product: .food)
+            merchDiscount = accessAndBenefits.discountAvailable(requestor: requestor, product: .merchandise)
             if requestor is Guests {
                 if gate.gateType == .rideRides {
-                    guestCanSkipLine = canSkipLine(requestor: requestor, gateType: gate.gateType)
+                    guestCanSkipLine = accessAndBenefits.canSkipLine(requestor: requestor, gateType: gate.gateType)
                 }
             }
         }

@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/rrohweder/Documents/XcodeDev/SingleViewAppSwiftTemplate/SingleViewAppSwiftTemplate.xcodeproj">
+      location = "group:/Users/rrohweder/Documents/XcodeDev/SingleViewAppSwiftTemplate/UML.png">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

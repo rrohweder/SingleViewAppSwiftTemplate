@@ -16,12 +16,12 @@ class PassViewController: UIViewController {
 
     var entrant: Entrant? = nil
     var delegate:PassViewControllerDelegate? = nil
+    let pass = Pass()
     
     @IBOutlet weak var EntrantName: UILabel!
     @IBOutlet weak var EntrantPassType: UILabel!
     @IBOutlet weak var PermissionsAndBenefits: UILabel!
     @IBOutlet weak var EntrantPicture: UIImageView!
-    
     @IBOutlet weak var TestResultsDisplay: UILabel!
     
     override func viewDidLoad() {
@@ -48,11 +48,11 @@ class PassViewController: UIViewController {
                     print("\"child\" is too old for Unlimited Rides")
                 }
             }
-            let foodDiscount = discountAvailable(requestor: requestor, product: .food)
+            let foodDiscount = pass.accessAndBenefits.discountAvailable(requestor: requestor, product: .food)
             if (foodDiscount > 0) {
                 strings.append("\(foodDiscount)% Food Discount")
             }
-            let merchDiscount = discountAvailable(requestor: requestor, product: .merchandise)
+            let merchDiscount = pass.accessAndBenefits.discountAvailable(requestor: requestor, product: .merchandise)
             if (merchDiscount > 0) {
                 strings.append("\(merchDiscount)% Merch Discount")
             }
@@ -181,7 +181,7 @@ class PassViewController: UIViewController {
         let restrictedRide = Ride(gateID: 1, gateType: GateType.rideRides, gateName: "Rides", ageRestricted: true)
 
         var resultsText = "\nAccess to Rides "
-        if accessPermitted(requestor: entrant!, gate: restrictedRide) {
+        if pass.accessAndBenefits.accessPermitted(requestor: entrant!, gate: restrictedRide) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
@@ -199,35 +199,35 @@ class PassViewController: UIViewController {
         let office = NonPublic(gateID: 1, gateType: .office, gateName: "Office Areas")
 
         resultsText = resultsText + "Access to Amusement Areas "
-        if accessPermitted(requestor: entrant!, gate: amusementAreas) {
+        if pass.accessAndBenefits.accessPermitted(requestor: entrant!, gate: amusementAreas) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
         }
 
         resultsText = resultsText + "Access to Ride Control Areas "
-        if accessPermitted(requestor: entrant!, gate: rideControl) {
+        if pass.accessAndBenefits.accessPermitted(requestor: entrant!, gate: rideControl) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
         }
 
         resultsText = resultsText + "Access to Kitchen Areas "
-        if accessPermitted(requestor: entrant!, gate: kitchen) {
+        if pass.accessAndBenefits.accessPermitted(requestor: entrant!, gate: kitchen) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
         }
         
         resultsText = resultsText + "Access to Maintenance Areas "
-        if accessPermitted(requestor: entrant!, gate: maintenance) {
+        if pass.accessAndBenefits.accessPermitted(requestor: entrant!, gate: maintenance) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
         }
 
         resultsText = resultsText + "Access to Office Areas "
-        if accessPermitted(requestor: entrant!, gate: office) {
+        if pass.accessAndBenefits.accessPermitted(requestor: entrant!, gate: office) {
             resultsText = resultsText + "permitted\n"
         } else {
             resultsText = resultsText + "not permitted\n"
@@ -237,13 +237,13 @@ class PassViewController: UIViewController {
     
     @IBAction func DiscountAccessCheck(_ sender: Any) {
         var resultsText = "\n"
-        let foodDiscount = discountAvailable(requestor: entrant!, product: .food)
+        let foodDiscount = pass.accessAndBenefits.discountAvailable(requestor: entrant!, product: .food)
         if (foodDiscount > 0) {
             resultsText = resultsText + "\(foodDiscount)% Food Discount\n"
         } else {
             resultsText = "No Food Discount\n"
         }
-        let merchDiscount = discountAvailable(requestor: entrant!, product: .merchandise)
+        let merchDiscount = pass.accessAndBenefits.discountAvailable(requestor: entrant!, product: .merchandise)
         if (merchDiscount > 0) {
             resultsText = resultsText + "\(merchDiscount)% Merch Discount\n"
         } else {

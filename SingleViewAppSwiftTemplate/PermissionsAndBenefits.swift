@@ -8,6 +8,8 @@
 
 import Foundation
 
+class PermissionsAndBenefits {
+
 let guestRolesDiscount:[ProductType:[GuestType:Int]] = [
     .food:
         [.vIP:10, .senior:10, .season:10],
@@ -143,4 +145,5 @@ func canAccess(projectNumber: String, gateType: GateType) -> Bool {
         return false
     }
 }
-
+    
+}
