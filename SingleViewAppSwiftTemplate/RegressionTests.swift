@@ -8,6 +8,17 @@
 
 import Foundation
 
+// in addition to the Unit Tests, I wanted a to perform a pass that
+// displayed permissions and benefits for every entrant, at every area
+
+//  these only exist to for-loop through, generating passes for test purposes
+var vendors = [Vendor]()
+var nonpublics = [NonPublic]()
+var workers = [Workers]()
+var guests = [AnyObject]()
+var vendorFolks = [VendorStaff]()
+var contractorFolks = [Contractors]()
+
 func runRegressionTests() -> Void {
     
     let pass = Pass()

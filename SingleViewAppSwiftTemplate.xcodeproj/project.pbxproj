@@ -26,6 +26,7 @@
 		1058D2931E9DD0CC0059C688 /* LoadEntrants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1058D2921E9DD0CC0059C688 /* LoadEntrants.swift */; };
 		1058D2951E9DD3DF0059C688 /* Workers.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1058D2941E9DD3DF0059C688 /* Workers.plist */; };
 		107D64BD1F8A3D2C00FBDAA8 /* 6000.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 107D64BC1F8A3D2C00FBDAA8 /* 6000.jpg */; };
+		10873D881FC0B12900C06BB0 /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10873D871FC0B12900C06BB0 /* Validator.swift */; };
 		10892FFF1FA2BBBA00107C5B /* AccessRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10892FFE1FA2BBBA00107C5B /* AccessRules.plist */; };
 		109D937F1E7B75DB0053DAED /* Guests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D937E1E7B75DA0053DAED /* Guests.swift */; };
 		109D93811E7B75EE0053DAED /* Workers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 109D93801E7B75EE0053DAED /* Workers.swift */; };
@@ -95,6 +96,7 @@
 		1058D2921E9DD0CC0059C688 /* LoadEntrants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadEntrants.swift; sourceTree = "<group>"; };
 		1058D2941E9DD3DF0059C688 /* Workers.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Workers.plist; sourceTree = "<group>"; };
 		107D64BC1F8A3D2C00FBDAA8 /* 6000.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 6000.jpg; sourceTree = "<group>"; };
+		10873D871FC0B12900C06BB0 /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		10892FFE1FA2BBBA00107C5B /* AccessRules.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AccessRules.plist; sourceTree = "<group>"; };
 		109D937E1E7B75DA0053DAED /* Guests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Guests.swift; sourceTree = "<group>"; };
 		109D93801E7B75EE0053DAED /* Workers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workers.swift; sourceTree = "<group>"; };
@@ -184,22 +186,23 @@
 			children = (
 				3A8AADCA1DF9B85E00A2B931 /* ViewController.swift */,
 				102CB9161F768CF10046AF92 /* PassViewController.swift */,
-				103473461FB6909400443E38 /* GetEntrantRec.swift */,
-				103473441FB68F7100443E38 /* RegressionTests.swift */,
-				103473421FB68ED600443E38 /* loadAllData.swift */,
-				10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */,
 				1038725E1E967D8800693DFC /* Entrant.swift */,
+				100AC3691E7E116300FDD1E6 /* Gate.swift */,
+				103473461FB6909400443E38 /* GetEntrantRec.swift */,
 				109D937E1E7B75DA0053DAED /* Guests.swift */,
-				109D93801E7B75EE0053DAED /* Workers.swift */,
+				103473421FB68ED600443E38 /* loadAllData.swift */,
 				1058D2921E9DD0CC0059C688 /* LoadEntrants.swift */,
 				103E950A1EA13B9500706F21 /* LoadGates.swift */,
 				100CD4E91F92D9B7004E318B /* LoadAccessRules.swift */,
-				100AC3691E7E116300FDD1E6 /* Gate.swift */,
-				1047B2541E992E9B00B316D9 /* Ride.swift */,
-				1047B2521E992C1500B316D9 /* Vendor.swift */,
+				10B6012A1F0A89D300AE70F7 /* MenuLogic.swift */,
 				10D5B8BB1EA1904700C1D75B /* NonPublic.swift */,
-				1058D2901E9DCD960059C688 /* PermissionsAndBenefits.swift */,
 				100393EF1E9E513300578B9E /* Pass.swift */,
+				1058D2901E9DCD960059C688 /* PermissionsAndBenefits.swift */,
+				103473441FB68F7100443E38 /* RegressionTests.swift */,
+				1047B2541E992E9B00B316D9 /* Ride.swift */,
+				10873D871FC0B12900C06BB0 /* Validator.swift */,
+				1047B2521E992C1500B316D9 /* Vendor.swift */,
+				109D93801E7B75EE0053DAED /* Workers.swift */,
 				3A8AADD11DF9B85E00A2B931 /* LaunchScreen.storyboard */,
 				3A8AADCC1DF9B85E00A2B931 /* Main.storyboard */,
 				3A8AADCF1DF9B85E00A2B931 /* Assets.xcassets */,
@@ -444,6 +447,7 @@
 				103473451FB68F7100443E38 /* RegressionTests.swift in Sources */,
 				3A8AADC91DF9B85E00A2B931 /* AppDelegate.swift in Sources */,
 				103E950B1EA13B9500706F21 /* LoadGates.swift in Sources */,
+				10873D881FC0B12900C06BB0 /* Validator.swift in Sources */,
 				1038725F1E967D8800693DFC /* Entrant.swift in Sources */,
 				10B6012B1F0A89D300AE70F7 /* MenuLogic.swift in Sources */,
 				1047B2551E992E9B00B316D9 /* Ride.swift in Sources */,

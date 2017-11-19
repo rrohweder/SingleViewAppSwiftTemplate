@@ -8,6 +8,13 @@
 
 import Foundation
 
+class GetEntrant {
+
+    init() {
+        loadAllData()
+    }
+    
+// return an entrant object for the specified entrant-type
 // use filter to get JUST the records I want
 func getEntrant(entrantType: GuestType) -> Guests? {
     var filteredArray = [AnyObject]()
@@ -56,3 +63,4 @@ func getVendorEntrant() -> VendorStaff? {
     return nil
 } // end getVendorEntrant()
 
+}

@@ -18,6 +18,7 @@ class Pass {
     var freeChild = false
     
     let accessAndBenefits = PermissionsAndBenefits()
+    let validator = Validator()
     
     func generatePass(requestor: Entrant, gate: Gate) {
         
@@ -29,7 +30,7 @@ class Pass {
             
             if requestor is FreeChildGuests {
                 let childRequestor = requestor as! FreeChildGuests
-                freeChild = isFreeChild(birthdateString: dateFormatter.string(from: childRequestor.dateOfBirth))
+                freeChild = validator.isFreeChild(birthdate: childRequestor.dateOfBirth)
             }
             
         } else if requestor is Contractors {

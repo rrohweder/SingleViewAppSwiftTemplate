@@ -17,6 +17,7 @@ class PassViewController: UIViewController {
     var entrant: Entrant? = nil
     var delegate:PassViewControllerDelegate? = nil
     let pass = Pass()
+    lazy var validator = Validator()
     
     @IBOutlet weak var EntrantName: UILabel!
     @IBOutlet weak var EntrantPassType: UILabel!
@@ -38,11 +39,11 @@ class PassViewController: UIViewController {
         EntrantPicture.layer.borderColor = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0).cgColor
         EntrantPicture.layer.borderWidth = 2
 
-        // could move this functions to its own file...
+        // get permissions / benefits results for a given entrant
         func getMyPermissionsAndBenfits(requestor: Entrant) {
             if requestor is FreeChildGuests {
                 let freeChild = requestor as! FreeChildGuests
-                if isFreeChild(birthdateString: dateFormatter.string(from: freeChild.dateOfBirth)) {
+                if validator.isFreeChild(birthdate: freeChild.dateOfBirth) {
                     strings.append("Unlimited Rides")
                 } else {
                     print("\"child\" is too old for Unlimited Rides")
@@ -96,6 +97,7 @@ class PassViewController: UIViewController {
         }
     }
         
+    //
     if entrant != nil {
         if  entrant is Guests {
             let guest = entrant as! Guests
@@ -252,6 +254,7 @@ class PassViewController: UIViewController {
         TestResultsDisplay.text = resultsText
     }
     
+    // return to Form page
     @IBAction func CreateNewPass(_ sender: Any) {
         if (delegate != nil) {
             delegate!.myVCDidFinish(controller: self, text: "done")

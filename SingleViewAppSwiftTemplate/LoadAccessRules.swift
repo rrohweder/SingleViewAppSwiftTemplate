@@ -8,13 +8,12 @@
 
 import Foundation
 
-var guestRules = [GuestType:[GateType:Bool]]()
-var workerRules = [WorkerType:[GateType:Bool]]()
-var vendorStaffRules = [String:[GateType:Bool]]()
-var contractorRules = [String:[GateType:Bool]]()
-
 class RulesImporter {
     var textRules = [String:Any]()
+    var guestRules = [GuestType:[GateType:Bool]]()
+    var workerRules = [WorkerType:[GateType:Bool]]()
+    var vendorStaffRules = [String:[GateType:Bool]]()
+    var contractorRules = [String:[GateType:Bool]]()
     
     // this doesn't really need to return anything - it just needs to fill the rules structures or throw-up.
     func loadRules() throws -> Void { // a type method

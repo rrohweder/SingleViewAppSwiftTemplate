@@ -13,6 +13,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     var lastClicked = 0
     let dateFormatter = DateFormatter()
     var currentEntrant: Entrant? = nil
+    lazy var validator = Validator()
+    let getEntrantByType = GetEntrant()
     
     @IBOutlet weak var MainMenuButton1: UIButton!
     @IBOutlet weak var MainMenuButton2: UIButton!
@@ -55,7 +57,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     @IBOutlet weak var zipCodeField: UITextField!
     @IBOutlet weak var zipLabel: UILabel!
     
-    
+
+    // Since I disable the Populate button until the app user has indicated the type
+    // of entrant.
     func enablePopulateButton() {
         populateDataButton.isEnabled = true
         populateDataButton.backgroundColor = .white
@@ -73,7 +77,15 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             red: 179.0/255.0, green: 179.0/255.0,
             blue: 179.0/255.0, alpha: 1.0),for: .normal)
     }
-    
+ 
+/*
+     I had initially written the form implementation so that the Generate Pass button
+     would be disabled until isFormComplete() == true, but that didn't allow me to
+     demonstrate alerts for missing data in required fields, so I switched to having
+     the Generate Pass button active, and not checking for complete data until that
+     was pressed.
+*/
+
     func enableGeneratePassButton() {
         generatePassButton.isEnabled = true
         generatePassButton.backgroundColor = UIColor(
@@ -91,6 +103,8 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             red: 179.0/255.0, green: 179.0/255.0,
             blue: 179.0/255.0, alpha: 1.0),for: .normal)
     }
+    
+    // delegate for when the program returns from the PassView to this view.
     
     func myVCDidFinish(controller:PassViewController,text:String) {
         currentEntrant = nil
@@ -115,7 +129,9 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         disablePopulateButton()
         disableGeneratePassButton()
 
-        /* These don't change in this exercise, but one might set default main menu button labels. I went with generic ("mainMenu1") in the storyboard, and set them at launch. */
+        //  These don't change in this exercise, but one might set default main menu
+        // button labels.I went with generic ("mainMenu1") in the storyboard, and set
+        // them at launch.
         self.MainMenuButton1.setTitle("Guest", for: .normal)
         self.MainMenuButton2.setTitle("Employee", for: .normal)
         self.MainMenuButton3.setTitle("Manager", for: .normal)
@@ -124,8 +140,6 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         // set submenu button labels for default main menu item (Guest)
         activateSubmenuItem(mainMenu: mainMenuItem.guest, page: self)
 
-        loadAllData()
-        
         // a quick view entrants access in the Xcode console
         runRegressionTests()
         
@@ -145,22 +159,29 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         menuLogic(buttonClicked: sender, page: self)
     }
 
+/*
+    A requirement (and for ease of testing), this function pulls an top entrant
+    of the indicated entrant-type, and populates the form with their data.
+     
+    In a production version, one could picture an autocomplete search bar
+    to find a given entrant of any entrant type.
+*/
     func populateFormWithRandomPerson(menuSelection: Int) -> Entrant {
         switch (menuSelection) {
             case subMenuItem.child.rawValue:
-                if let freeChild = getEntrant(entrantType: GuestType.freeChild) as! FreeChildGuests? {
+                if let freeChild = getEntrantByType.getEntrant(entrantType: GuestType.freeChild) as! FreeChildGuests? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: freeChild.dateOfBirth)
                     return freeChild as Entrant
                 }
             
             case subMenuItem.classic.rawValue:
-                if let classic = getEntrant(entrantType: GuestType.classic) {
+                if let classic = getEntrantByType.getEntrant(entrantType: GuestType.classic) {
                     return classic as Entrant
                 }
             
             case subMenuItem.senior.rawValue:
-                if let senior = getEntrant(entrantType: GuestType.senior) as! SeniorGuests? {
+                if let senior = getEntrantByType.getEntrant(entrantType: GuestType.senior) as! SeniorGuests? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: senior.dateOfBirth)
                     firstNameField.text = senior.firstName
@@ -170,12 +191,12 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             
             case subMenuItem.vIP.rawValue:
-                if let vip = getEntrant(entrantType: GuestType.vIP) {
+                if let vip = getEntrantByType.getEntrant(entrantType: GuestType.vIP) {
                     return vip as Entrant
                 }
             
             case subMenuItem.season.rawValue:
-                if let season = getEntrant(entrantType: GuestType.season) as! SeasonPassGuests? {
+                if let season = getEntrantByType.getEntrant(entrantType: GuestType.season) as! SeasonPassGuests? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: season.dateOfBirth)
                     firstNameField.text = season.firstName
@@ -203,7 +224,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                         break
                 }
                 
-                if let employee = getEntrant(entrantType: wt) {
+                if let employee = getEntrantByType.getEntrant(entrantType: wt) {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: employee.dateOfBirth)
                     ssnField.textColor = .black
@@ -219,7 +240,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             case mainMenuItem.manager.rawValue:
                 
-                if let mgr = getEntrant(entrantType: WorkerType.manager) as! Managers? {
+                if let mgr = getEntrantByType.getEntrant(entrantType: WorkerType.manager) as! Managers? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: mgr.dateOfBirth)
                     ssnField.textColor = .black
@@ -236,7 +257,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
             
             case subMenuItem.contractEmployee.rawValue:
                 
-                if let contractor = getEntrant(entrantType: WorkerType.contract) as! Contractors? {
+                if let contractor = getEntrantByType.getEntrant(entrantType: WorkerType.contract) as! Contractors? {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: contractor.dateOfBirth)
                     ssnField.textColor = .black
@@ -253,7 +274,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             case mainMenuItem.vendor.rawValue:
 
-                if let vendorstaff = getVendorEntrant() {
+                if let vendorstaff = getEntrantByType.getVendorEntrant() {
                     dateOfBirthField.textColor = .black
                     dateOfBirthField.text = dateFormatter.string(from: vendorstaff.dateOfBirth)
                     firstNameField.text = vendorstaff.firstName
@@ -270,6 +291,12 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         return currentEntrant!
     } // end of populateFormWithRandomPerson()
     
+/*
+    The other method for having an entrant to work-with. The app creates an object of
+     the specificed entrant-type from the entered data.
+     
+    A production version would allow the data to be written to the DB as a new entrant.
+*/
     func createEntrantFromFormData() -> Entrant {
         var entrant: Entrant?
         var wt: WorkerType
@@ -315,12 +342,17 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         return entrant!
     }
     
+
+    // in addition to practice doing real-time validation of entered data, I also
+    // learned that Editing Did End is not very dependable...
+    
     @IBAction func genericFieldExit(_ sender: Any) {
         // on Editing Did End (not always...)
         // isFormComplete() changed to only calling when GeneratePass button is clicked.
     }
     
-    // clear the sample text
+    // clear the sample text (I read an interesting article on why sample text in the
+    // field was a bad idea...)
     @IBAction func dobEntry(_ sender: Any) {
         dateOfBirthField.textColor = .black
         if dateOfBirthField.text == "MM/DD/YYYY" {
@@ -339,7 +371,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     // validate dateOfBithField when user exits
     @IBAction func dobDone(_ sender: Any) {
         // on Primary Action Triggered
-        if isDateValid(dateString: dateOfBirthField.text!) == false {
+        if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
         }
     }
@@ -347,7 +379,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     // validate lastVisit (date) when user exits
     @IBAction func lastVisitDone(_ sender: Any) {
         // on Primary Action Triggered
-        if isDateValid(dateString: lastVisitField.text!) == false {
+        if validator.isDateValid(dateString: lastVisitField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(lastVisitField.text!) is an invalid Date value - please correct")
         }
     }
@@ -371,6 +403,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         present(alertController, animated: true, completion: nil)
     }
     
+    // is the form complete for the specific entrant-type
     func isFormComplete() -> Bool {
         var isComplete = false
         var missingInvalid = "Missing/Invalid entries:\n"
@@ -383,7 +416,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             case subMenuItem.child.rawValue:
                 isComplete = true
-                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
                     isComplete = false
                 }
@@ -396,7 +429,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             case subMenuItem.senior.rawValue:
                 isComplete = true
-                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
                     isComplete = false
                 }
@@ -418,7 +451,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             case subMenuItem.season.rawValue:
                 isComplete = true
-                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
                     isComplete = false
                 }
@@ -442,7 +475,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     missingInvalid = missingInvalid + "State\n"
                     isComplete = false
                 }
-                if isZipCodeValid(zipCode: zipCodeField.text!) == false {
+                if validator.isZipCodeValid(zipCode: zipCodeField.text!) == false {
                     missingInvalid = missingInvalid + "Zip Code\n"
                     isComplete = false
                 }
@@ -454,11 +487,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
              subMenuItem.hourlyEmployeeRideServices.rawValue,
              subMenuItem.hourlyEmployeeMaintenance.rawValue:
                 isComplete = true
-                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
                     isComplete = false
                 }
-                if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
+                if validator.isSSNValid(socialSecurityNumber: ssnField.text!) == false {
                     missingInvalid = missingInvalid + "Social Security Number\n"
                     isComplete = false
                 }
@@ -482,7 +515,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     missingInvalid = missingInvalid + "State\n"
                     isComplete = false
                 }
-                if isZipCodeValid(zipCode: zipCodeField.text!) == false {
+                if validator.isZipCodeValid(zipCode: zipCodeField.text!) == false {
                     missingInvalid = missingInvalid + "Zip Code\n"
                     isComplete = false
                 }
@@ -492,11 +525,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 
             case mainMenuItem.manager.rawValue:
                 isComplete = true
-                if isDateValid(dateString: dateOfBirthField.text!) == false {
+                if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
                     missingInvalid = missingInvalid + "Date of Birth\n"
                     isComplete = false
                 }
-                if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
+                if validator.isSSNValid(socialSecurityNumber: ssnField.text!) == false {
                     missingInvalid = missingInvalid + "Social Security Number\n"
                     isComplete = false
                 }
@@ -520,7 +553,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                     missingInvalid = missingInvalid + "State\n"
                     isComplete = false
                 }
-                if isZipCodeValid(zipCode: zipCodeField.text!) == false {
+                if validator.isZipCodeValid(zipCode: zipCodeField.text!) == false {
                     missingInvalid = missingInvalid + "Zip Code\n"
                     isComplete = false
                 }
@@ -546,7 +579,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
                 missingInvalid = missingInvalid + "Company Name\n"
                 isComplete = false
             }
-            if isDateValid(dateString: lastVisitField.text!) == false {
+            if validator.isDateValid(dateString: lastVisitField.text!) == false {
                 missingInvalid = missingInvalid + "Date of Last Visit\n"
                 isComplete = false
             }
@@ -571,10 +604,11 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 // not a requirement for this unit.
 // if I did: https://stackoverflow.com/questions/41668166/save-data-to-plist-file-in-swift-3)
     
-/* I had linked the GeneratePass button to this seque, but needed to do other work before
-     the seque, so am (attempting?) the seque in code in generateThePass() (below) instead.
+/*
+     I had linked the GeneratePass button to this seque, but needed to do other work before
+     the seque, so I change to executing the seque in code in generateThePass() (below) instead.
      
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == "MainToPass") {
             let passViewController = (segue.destination as! PassViewController)
             passViewController.entrant = currentEntrant
@@ -584,13 +618,13 @@ class ViewController: UIViewController, PassViewControllerDelegate {
 */
     
     @IBAction func validateDoB(_ sender: Any) {
-        if isDateValid(dateString: dateOfBirthField.text!) == false {
+        if validator.isDateValid(dateString: dateOfBirthField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(dateOfBirthField.text!) is an invalid Date value - please correct")
         }
     }
     
     @IBAction func validateSSN(_ sender: Any) {
-        if isSSNValid(socialSecurityNumber: ssnField.text!) == false {
+        if validator.isSSNValid(socialSecurityNumber: ssnField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(ssnField.text!) is an invalid SSN value - please correct")
         }
     }

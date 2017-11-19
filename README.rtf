@@ -1,11 +1,45 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf100
 {\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
+{\colortbl;\red255\green255\blue255;\red69\green80\blue83;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c34118\c38824\c40000;\cssrgb\c100000\c100000\c100000;}
 \margl1440\margr1440\vieww13680\viewh13960\viewkind0
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 
-\f0\b\fs24 \cf0 Unit 4 notes to reviewer / grader:
+\f0\b\fs24 \cf0 \
+Unit 5 notes to reviewer / grader:\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\b0 \cf0 \
+I loved the way the back-end requirements were expanded, which forced everyone to look at their initial implementation. Adding the Contractor access rules by company, for instance, complicated my access-by-role. I moved my access rules out of logic and into data (plist), which would certainly be how a commercial application would be written (using a DB).\
+\
+Once we have learned about DB access, I would not necessarily pre-load data the way I did with the rules and entrants - I would access directly from the DB unless performance requirements necessitated caching them in memory.\
+\
+For changing submenus, I thought about whether it would be better to create a view for each different submenu (4, with the current data), but it seemed to make more sense to just have a single stack view and dynamically change the label (and tag?) and hide buttons when fewer were needed. That lets the stack view handle the layout work for that view. (I love stacks.)\
+\
+There was no instruction on UI tests, right?  I look forward to learning how to do that in Xcode.\
+\
+This was submitted earlier, and I believe I have addressed the deficiencies. For your convenience:\
+\
+"
+\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
+Unfortunately I can't run your app on my machine. Some of the image files you added to your project are missing. Please make sure to add them and push them to Github. Also, while browsing your project I noticed that you don't really make use of Object-Oriented Programming, one of the requirements for passing the project. Simply creating a new Swift file and dumping constants and functions in there doesn't conform to OOP. Also your property names are very inconsistent. Some are uppercased, some not. Please make sure to use camel casing for property names and only uppercase the first letter of an object, like a class or an enum. It would also be very helpful to add some comments to your code."
+\fs24 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+\
+I assume that by "can't run your app" the reviewer meant "it does not include some images that I believe you intended to include" (since I wrote the app to handle missing images by showing a "no-image" image, so it should have run for the reviewer, but just not showing the appropriate image for most of the entrants).\
+\
+I wish the person who reviewed my first submission had given at least ONE example of the "doesn't make use of OOP" concern, but it was certainly true, and I believe I have addressed that in this version (at least to the level of a Unit 5 student). I have included a pseudo-UML diagram reflecting the significant classes in this set of project files (UML.png). I know I still have a ways to go regarding complete separation of concerns, and single responsibility. I will continue to work to transition from my procedural experience to the OOP needed for this future skill.\
+\
+I have corrected all of the property name inconsistencies.\
+\
+And I have added more comments.  In particular, see my comment at the top of LoadAllData.swift regarding (future?) use of appDelegate.swift\
+\
+\
+\
+-------------------------------------------------------------------------------------------\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\b \cf0 \
+Unit 4 notes to reviewer / grader:
 \b0 \
 \
 Excellent set of exercises (Unit 4 + Unit 5).  The experience for students of building the back-end, and proving it with unit tests, separately from the front-end will be valuable for your student.\
@@ -27,24 +61,9 @@ And one would probably change them from FreeChild to ClassicGuest on the first v
 \
 
 \b ------------------------------------------------------------------------------------------------------------------------------------------------------\
-Unit 5 notes to reviewer / grader:\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 
 \b0 \cf0 \
-I loved the way the back-end requirements were expanded, which forced everyone to look at their initial implementation. Adding the Contractor access rules by company, for instance, complicated my access-by-role. I moved my access rules out of logic and into data (plist), which would certainly be how a commercial application would be written (using a DB).\
-\
-For changing submenus, I thought about whether it would be better to create a view for each different submenu (4, with the current data), but it seemed to make more sense to just have a single stack view and dynamically change the label (and tag?) and hide buttons when fewer were needed. That lets the stack view handle the layout work for that view.\
-\
-I love stacks.\
-\
-There was no instruction on UItests, right?  I look forward to learning how to do that in Xcode.\
-\
-I am aware that I could continue to refactor, but my work and family circumstances changed right at the beginning of this unit, and so I had a hard time devoting regular time to working on it. As a result, this has been a 
-\i very
-\i0  expensive unit, and so I am going to move on rather than continuing to work it and doing the 'exceeds expectations' parts. \
-\
-\
-\
 \
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
 \cf0 \

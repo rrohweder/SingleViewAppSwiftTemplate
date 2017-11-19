@@ -8,15 +8,18 @@
 
 import Foundation
 
+/*
+    There has not been a unit that added functionality to the appDelegate yet,
+    but I am thinking that pre-loading data like I am doing below would be
+    done there.  I considered doing the load at the point of the first request
+    for an entrant record (a call to populateFormWithRandomPerson()) or, later
+    a call to canAccess(), but I would not design that way for a production app,
+    since any of the problems that might cause a fail to pull the data at all
+    should occur early.
+*/
+
 func loadAllData() -> Void {
-
-let rules = RulesImporter()
-do {
-    try rules.loadRules()
-} catch let error {
-    print(error)
-}
-
+    
 do {
     rides = try loadRides(inputFile: "Rides", fileType: "plist") as! [Ride]
 } catch let error {
