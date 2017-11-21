@@ -12,11 +12,12 @@ Unit 5 notes to reviewer / grader:\
 \b0 \cf0 \
 I loved the way the back-end requirements were expanded, which forced everyone to look at their initial implementation. Adding the Contractor access rules by company, for instance, complicated my access-by-role. I moved my access rules out of logic and into data (plist), which would certainly be how a commercial application would be written (using a DB).\
 \
-Once we have learned about DB access, I would not necessarily pre-load data the way I did with the rules and entrants - I would access directly from the DB unless performance requirements necessitated caching them in memory.\
+Once we have learned about DB access, I would not necessarily pre-load data the way I did with the rules and entrants - I would access directly from the DB unless performance requirements necessitated caching them in memory.  See my comment at the top of LoadAllData.swift regarding (future?) use of appDelegate.swift.\
+\
 \
 For changing submenus, I thought about whether it would be better to create a view for each different submenu (4, with the current data), but it seemed to make more sense to just have a single stack view and dynamically change the label (and tag?) and hide buttons when fewer were needed. That lets the stack view handle the layout work for that view. (I love stacks.)\
 \
-There was no instruction on UI tests, right?  I look forward to learning how to do that in Xcode.\
+I expanded Unit Tests to cover the new specifications. There was no instruction on UI tests, right?  I look forward to learning how to do that in Xcode.\
 \
 This was submitted earlier, and I believe I have addressed the deficiencies. For your convenience:\
 \
@@ -27,13 +28,11 @@ Unfortunately I can't run your app on my machine. Some of the image files you ad
 \
 I assume that by "can't run your app" the reviewer meant "it does not include some images that I believe you intended to include" (since I wrote the app to handle missing images by showing a "no-image" image, so it should have run for the reviewer, but just not showing the appropriate image for most of the entrants).\
 \
-I wish the person who reviewed my first submission had given at least ONE example of the "doesn't make use of OOP" concern, but it was certainly true, and I believe I have addressed that in this version (at least to the level of a Unit 5 student). I have included a pseudo-UML diagram reflecting the significant classes in this set of project files (UML.png). I know I still have a ways to go regarding complete separation of concerns, and single responsibility. I will continue to work to transition from my procedural experience to the OOP needed for this future skill.\
+I wish the person who reviewed my first submission had given at least ONE example of the "doesn't make use of OOP" concern, but it was certainly true, and I believe I have addressed that in this version (at least to the level of a Unit 5 student). I know I still have a ways to go regarding complete separation of concerns and single responsibility. I will continue to work to transition from my ancient procedural experience to the OOP needed for this future skill.\
 \
 I have corrected all of the property name inconsistencies.\
 \
-And I have added more comments.  In particular, see my comment at the top of LoadAllData.swift regarding (future?) use of appDelegate.swift\
-\
-\
+And I have added more comments. \
 \
 -------------------------------------------------------------------------------------------\
 \pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0

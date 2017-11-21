@@ -78,7 +78,6 @@
 		100393EF1E9E513300578B9E /* Pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pass.swift; sourceTree = "<group>"; };
 		100AC3691E7E116300FDD1E6 /* Gate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gate.swift; sourceTree = "<group>"; };
 		100CD4E91F92D9B7004E318B /* LoadAccessRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadAccessRules.swift; sourceTree = "<group>"; };
-		10184EC01FC08FD80056A4D2 /* UML.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = UML.png; path = /Users/rrohweder/Documents/XcodeDev/SingleViewAppSwiftTemplate/UML.png; sourceTree = "<absolute>"; };
 		101D23C31E8C76DE00B42605 /* SingleViewAppSwiftTemplateUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SingleViewAppSwiftTemplateUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		102CB9161F768CF10046AF92 /* PassViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassViewController.swift; sourceTree = "<group>"; };
 		1030BB9A1E9DDD4C0074D67B /* Guests.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Guests.plist; sourceTree = "<group>"; };
@@ -161,7 +160,6 @@
 		3A8AADBC1DF9B85E00A2B931 = {
 			isa = PBXGroup;
 			children = (
-				10184EC01FC08FD80056A4D2 /* UML.png */,
 				10DB302B1E8331D300B7F779 /* README.rtf */,
 				3A8AADC71DF9B85E00A2B931 /* SingleViewAppSwiftTemplate */,
 				3A8AADDC1DF9B85E00A2B931 /* SingleViewAppSwiftTemplateTests */,

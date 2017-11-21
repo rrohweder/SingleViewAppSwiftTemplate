@@ -149,9 +149,9 @@
 			<key>KitchenAreas</key>
 			<false/>
 			<key>Maintenance</key>
-			<true/>
+			<false/>
 			<key>OfficeAreas</key>
-			<true/>
+			<false/>
 			<key>RideRides</key>
 			<false/>
 			<key>FoodVendor</key>

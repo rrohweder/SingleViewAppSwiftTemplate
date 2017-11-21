@@ -261,6 +261,7 @@
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <action selector="genericFieldExit:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="qR1-0W-MaN"/>
+                                    <action selector="validateZip:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="1er-kA-4rW"/>
                                 </connections>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleAspectFit" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="t0H-Lj-38K">

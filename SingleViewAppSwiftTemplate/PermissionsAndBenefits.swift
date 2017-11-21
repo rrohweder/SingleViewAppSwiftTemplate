@@ -24,7 +24,7 @@ class PermissionsAndBenefits {
         ]
 
         self.guestRolesSkipPrivilege = [
-            .rideRides:[.vIP]
+            .rideRides:[.vIP, .senior, .season]
         ]
 
         self.workerRolesDiscount = [

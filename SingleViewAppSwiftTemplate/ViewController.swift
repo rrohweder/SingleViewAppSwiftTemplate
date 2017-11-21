@@ -141,7 +141,7 @@ class ViewController: UIViewController, PassViewControllerDelegate {
         activateSubmenuItem(mainMenu: mainMenuItem.guest, page: self)
 
         // a quick view entrants access in the Xcode console
-        runRegressionTests()
+        // runRegressionTests()
         
     } // end of ViewDidLoad()
 
@@ -626,6 +626,13 @@ class ViewController: UIViewController, PassViewControllerDelegate {
     @IBAction func validateSSN(_ sender: Any) {
         if validator.isSSNValid(socialSecurityNumber: ssnField.text!) == false {
             showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(ssnField.text!) is an invalid SSN value - please correct")
+        }
+    }
+    
+    @IBAction func validateZip(_ sender: Any) {
+        if validator.isZipCodeValid(zipCode: zipCodeField.text!) == false {
+            showAlert(alertTitle: "Missing/Invalid Data", alertMessage: "\(zipCodeField.text!) is an invalid Zip Code value - please correct")
+
         }
     }
     
